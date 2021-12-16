@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Viviane\\source\\repos\\vivi01\\tcc-puc-minas\\GISA\\GISA.EventBusRabbitMQ\\GISA.EventBusRabbitMQ.csproj": {}
+    "C:\\Users\\Viviane\\source\\repos\\vivi01\\tcc-puc-minas\\GISA\\src\\Common\\GISA.EventBusRabbitMQ\\GISA.EventBusRabbitMQ.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Viviane\\source\\repos\\vivi01\\tcc-puc-minas\\GISA\\GISA.EventBusRabbitMQ\\GISA.EventBusRabbitMQ.csproj": {
+    "C:\\Users\\Viviane\\source\\repos\\vivi01\\tcc-puc-minas\\GISA\\src\\Common\\GISA.EventBusRabbitMQ\\GISA.EventBusRabbitMQ.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Viviane\\source\\repos\\vivi01\\tcc-puc-minas\\GISA\\GISA.EventBusRabbitMQ\\GISA.EventBusRabbitMQ.csproj",
+        "projectUniqueName": "C:\\Users\\Viviane\\source\\repos\\vivi01\\tcc-puc-minas\\GISA\\src\\Common\\GISA.EventBusRabbitMQ\\GISA.EventBusRabbitMQ.csproj",
         "projectName": "GISA.EventBusRabbitMQ",
-        "projectPath": "C:\\Users\\Viviane\\source\\repos\\vivi01\\tcc-puc-minas\\GISA\\GISA.EventBusRabbitMQ\\GISA.EventBusRabbitMQ.csproj",
+        "projectPath": "C:\\Users\\Viviane\\source\\repos\\vivi01\\tcc-puc-minas\\GISA\\src\\Common\\GISA.EventBusRabbitMQ\\GISA.EventBusRabbitMQ.csproj",
         "packagesPath": "C:\\Users\\Viviane\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Viviane\\source\\repos\\vivi01\\tcc-puc-minas\\GISA\\GISA.EventBusRabbitMQ\\obj\\",
+        "outputPath": "C:\\Users\\Viviane\\source\\repos\\vivi01\\tcc-puc-minas\\GISA\\src\\Common\\GISA.EventBusRabbitMQ\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

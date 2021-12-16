@@ -33,7 +33,7 @@ namespace GISA.EventBusRabbitMQ.Producer
 
                 channel.BasicAcks += (sender, eventArgs) =>
                 {
-                    Console.WriteLine($"Sent RabbitMQ { queueName }");                    
+                    Console.WriteLine($"Sent RabbitMQ { queueName }");
                 };
 
                 channel.ConfirmSelect();

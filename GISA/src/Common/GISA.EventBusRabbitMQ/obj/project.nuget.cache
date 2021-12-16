@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6S0UHXbApCPxNBG1ZGu/liQOi3uz1GW8rePW+hkNb3snM8CjEW/hE379qBsi+jIf+DZhCfEcJbP81ChIcbaCqw==",
+  "dgSpecHash": "Ine3VB8z4Q6VQ0J3j20sMcB0eOYjAeok9i1eqbu43aeLv7DmKGF4Mndo4cnDqnzo8g/ATX+8n3pViTCk9mEZYw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Viviane\\source\\repos\\vivi01\\tcc-puc-minas\\GISA\\GISA.EventBusRabbitMQ\\GISA.EventBusRabbitMQ.csproj",
+  "projectFilePath": "C:\\Users\\Viviane\\source\\repos\\vivi01\\tcc-puc-minas\\GISA\\src\\Common\\GISA.EventBusRabbitMQ\\GISA.EventBusRabbitMQ.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Viviane\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\Viviane\\.nuget\\packages\\rabbitmq.client\\6.2.2\\rabbitmq.client.6.2.2.nupkg.sha512",

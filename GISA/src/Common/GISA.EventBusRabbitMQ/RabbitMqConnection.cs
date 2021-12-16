@@ -9,7 +9,7 @@ namespace GISA.EventBusRabbitMQ
     {
         private readonly IConnectionFactory _connectionFactory;
         private IConnection _connection;
-        private bool _disposed;
+        private readonly bool _disposed;
 
         public RabbitMqConnection(IConnectionFactory connectionFactory)
         {
