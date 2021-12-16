@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32002.261
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GISA.OcelotApiGateway", "src\ApiGateway\GISA.OcelotApiGateway\GISA.OcelotApiGateway.csproj", "{1BFC1FF0-45B4-47D9-BF3C-9F511535D788}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GISA.OcelotApiGateway", "src\ApiGateway\GISA.OcelotApiGateway\GISA.OcelotApiGateway.csproj", "{1BFC1FF0-45B4-47D9-BF3C-9F511535D788}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GISA.EventBusRabbitMQ", "GISA.EventBusRabbitMQ\GISA.EventBusRabbitMQ.csproj", "{8E7C350B-9D85-4F01-8054-7100E0401AA3}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{973E1EA9-AF5B-46B4-A022-403369274A32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{1BFC1FF0-45B4-47D9-BF3C-9F511535D788}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BFC1FF0-45B4-47D9-BF3C-9F511535D788}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BFC1FF0-45B4-47D9-BF3C-9F511535D788}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E7C350B-9D85-4F01-8054-7100E0401AA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E7C350B-9D85-4F01-8054-7100E0401AA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E7C350B-9D85-4F01-8054-7100E0401AA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E7C350B-9D85-4F01-8054-7100E0401AA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{973E1EA9-AF5B-46B4-A022-403369274A32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{973E1EA9-AF5B-46B4-A022-403369274A32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{973E1EA9-AF5B-46B4-A022-403369274A32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{973E1EA9-AF5B-46B4-A022-403369274A32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
