@@ -74,7 +74,6 @@ C:\Users\Viviane\OneDrive\Documentos\GitHub\tcc-puc-minas\GISA\src\ApiGateway\GI
 C:\Users\Viviane\OneDrive\Documentos\GitHub\tcc-puc-minas\GISA\src\ApiGateway\GISA.OcelotApiGateway\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Viviane\OneDrive\Documentos\GitHub\tcc-puc-minas\GISA\src\ApiGateway\GISA.OcelotApiGateway\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\Viviane\OneDrive\Documentos\GitHub\tcc-puc-minas\GISA\src\ApiGateway\GISA.OcelotApiGateway\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
-C:\Users\Viviane\OneDrive\Documentos\GitHub\tcc-puc-minas\GISA\src\ApiGateway\GISA.OcelotApiGateway\obj\Debug\net5.0\GISA.OcelotApiGateway.csproj.AssemblyReference.cache
 C:\Users\Viviane\OneDrive\Documentos\GitHub\tcc-puc-minas\GISA\src\ApiGateway\GISA.OcelotApiGateway\obj\Debug\net5.0\GISA.OcelotApiGateway.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Viviane\OneDrive\Documentos\GitHub\tcc-puc-minas\GISA\src\ApiGateway\GISA.OcelotApiGateway\obj\Debug\net5.0\GISA.OcelotApiGateway.AssemblyInfoInputs.cache
 C:\Users\Viviane\OneDrive\Documentos\GitHub\tcc-puc-minas\GISA\src\ApiGateway\GISA.OcelotApiGateway\obj\Debug\net5.0\GISA.OcelotApiGateway.AssemblyInfo.cs

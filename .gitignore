@@ -1,0 +1,10 @@
+
+GISA/.vs/GISA/v16/.suo
+GISA/.vs/GISA/v16/.suo
+GISA/.vs/GISA/v16/.suo
+GISA/obj/Debug/docker-compose.dcproj.AssemblyReference.cache
+*.cache
+GISA/obj/Docker/MergedDockerCompose1.cache
+GISA/src/ApiGateway/GISA.OcelotApiGateway/obj/Debug/net5.0/GISA.OcelotApiGateway.csproj.AssemblyReference.cache
+GISA/src/ApiGateway/GISA.OcelotApiGateway/obj/Debug/net5.0/GISA.OcelotApiGateway.csproj.FileListAbsolute.txt
+GISA/src/Common/GISA.EventBusRabbitMQ/obj/Debug/net5.0/GISA.EventBusRabbitMQ.csproj.AssemblyReference.cache
