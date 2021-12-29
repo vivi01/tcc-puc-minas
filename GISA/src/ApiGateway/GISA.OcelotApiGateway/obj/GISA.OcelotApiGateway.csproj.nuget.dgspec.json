@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Viviane\\source\\repos\\vivi01\\tcc-puc-minas\\GISA\\src\\ApiGateway\\GISA.OcelotApiGateway\\GISA.OcelotApiGateway.csproj": {}
+    "C:\\Users\\nando\\Source\\Repos\\tcc-puc-minas\\GISA\\src\\ApiGateway\\GISA.OcelotApiGateway\\GISA.OcelotApiGateway.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Viviane\\source\\repos\\vivi01\\tcc-puc-minas\\GISA\\src\\ApiGateway\\GISA.OcelotApiGateway\\GISA.OcelotApiGateway.csproj": {
+    "C:\\Users\\nando\\Source\\Repos\\tcc-puc-minas\\GISA\\src\\ApiGateway\\GISA.OcelotApiGateway\\GISA.OcelotApiGateway.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Viviane\\source\\repos\\vivi01\\tcc-puc-minas\\GISA\\src\\ApiGateway\\GISA.OcelotApiGateway\\GISA.OcelotApiGateway.csproj",
+        "projectUniqueName": "C:\\Users\\nando\\Source\\Repos\\tcc-puc-minas\\GISA\\src\\ApiGateway\\GISA.OcelotApiGateway\\GISA.OcelotApiGateway.csproj",
         "projectName": "GISA.OcelotApiGateway",
-        "projectPath": "C:\\Users\\Viviane\\source\\repos\\vivi01\\tcc-puc-minas\\GISA\\src\\ApiGateway\\GISA.OcelotApiGateway\\GISA.OcelotApiGateway.csproj",
-        "packagesPath": "C:\\Users\\Viviane\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Viviane\\source\\repos\\vivi01\\tcc-puc-minas\\GISA\\src\\ApiGateway\\GISA.OcelotApiGateway\\obj\\",
+        "projectPath": "C:\\Users\\nando\\Source\\Repos\\tcc-puc-minas\\GISA\\src\\ApiGateway\\GISA.OcelotApiGateway\\GISA.OcelotApiGateway.csproj",
+        "packagesPath": "C:\\Users\\nando\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\nando\\Source\\Repos\\tcc-puc-minas\\GISA\\src\\ApiGateway\\GISA.OcelotApiGateway\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Viviane\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nando\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
