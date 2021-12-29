@@ -14,7 +14,6 @@ C:\Users\Viviane\OneDrive\Documentos\GitHub\tcc-puc-minas\GISA\src\Common\GISA.E
 C:\Users\Viviane\OneDrive\Documentos\GitHub\tcc-puc-minas\GISA\src\Common\GISA.EventBusRabbitMQ\bin\Debug\net5.0\GISA.EventBusRabbitMQ.dll
 C:\Users\Viviane\OneDrive\Documentos\GitHub\tcc-puc-minas\GISA\src\Common\GISA.EventBusRabbitMQ\bin\Debug\net5.0\ref\GISA.EventBusRabbitMQ.dll
 C:\Users\Viviane\OneDrive\Documentos\GitHub\tcc-puc-minas\GISA\src\Common\GISA.EventBusRabbitMQ\bin\Debug\net5.0\GISA.EventBusRabbitMQ.pdb
-C:\Users\Viviane\OneDrive\Documentos\GitHub\tcc-puc-minas\GISA\src\Common\GISA.EventBusRabbitMQ\obj\Debug\net5.0\GISA.EventBusRabbitMQ.csproj.AssemblyReference.cache
 C:\Users\Viviane\OneDrive\Documentos\GitHub\tcc-puc-minas\GISA\src\Common\GISA.EventBusRabbitMQ\obj\Debug\net5.0\GISA.EventBusRabbitMQ.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Viviane\OneDrive\Documentos\GitHub\tcc-puc-minas\GISA\src\Common\GISA.EventBusRabbitMQ\obj\Debug\net5.0\GISA.EventBusRabbitMQ.AssemblyInfoInputs.cache
 C:\Users\Viviane\OneDrive\Documentos\GitHub\tcc-puc-minas\GISA\src\Common\GISA.EventBusRabbitMQ\obj\Debug\net5.0\GISA.EventBusRabbitMQ.AssemblyInfo.cs
