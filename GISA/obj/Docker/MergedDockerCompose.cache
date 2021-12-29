@@ -1,7 +1,7 @@
 services:
   gisa.ocelotapigateway:
     build:
-      context: C:\Users\Viviane\source\repos\vivi01\tcc-puc-minas\GISA
+      context: C:\Users\Viviane\OneDrive\Documentos\GitHub\tcc-puc-minas\GISA
       dockerfile: src/ApiGateway/GISA.OcelotApiGateway/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: Development

@@ -7,4 +7,4 @@ build_property.PublishSingleFile =
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
 build_property.RootNamespace = GISA.OcelotApiGateway
-build_property.ProjectDir = C:\Users\nando\Source\Repos\tcc-puc-minas\GISA\src\ApiGateway\GISA.OcelotApiGateway\
+build_property.ProjectDir = C:\Users\Viviane\OneDrive\Documentos\GitHub\tcc-puc-minas\GISA\src\ApiGateway\GISA.OcelotApiGateway\

@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "Dp4LOGp08easkYZ2qmFbVif3DxfYYkW+176jNLn2N75FiR1BG+tMe1Irt/c+vp3bTabwedX+aLDJVEkOU+lS9A==",
+  "dgSpecHash": "m7f8Mgu035XveLVp/Rz4ojJE7bah3Ht+iipIRkCY4j4LPRSzOQ9bvodMH0a8U0iJ39qebqeyiSRwJFromayDxg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\nando\\Source\\Repos\\tcc-puc-minas\\GISA\\src\\Common\\GISA.EventBusRabbitMQ\\GISA.EventBusRabbitMQ.csproj",
+  "projectFilePath": "C:\\Users\\Viviane\\OneDrive\\Documentos\\GitHub\\tcc-puc-minas\\GISA\\src\\Common\\GISA.EventBusRabbitMQ\\GISA.EventBusRabbitMQ.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\nando\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
-    "C:\\Users\\nando\\.nuget\\packages\\rabbitmq.client\\6.2.2\\rabbitmq.client.6.2.2.nupkg.sha512",
-    "C:\\Users\\nando\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
-    "C:\\Users\\nando\\.nuget\\packages\\system.threading.channels\\4.7.1\\system.threading.channels.4.7.1.nupkg.sha512"
+    "C:\\Users\\Viviane\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\Viviane\\.nuget\\packages\\rabbitmq.client\\6.2.2\\rabbitmq.client.6.2.2.nupkg.sha512",
+    "C:\\Users\\Viviane\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
+    "C:\\Users\\Viviane\\.nuget\\packages\\system.threading.channels\\4.7.1\\system.threading.channels.4.7.1.nupkg.sha512"
   ],
   "logs": []
 }

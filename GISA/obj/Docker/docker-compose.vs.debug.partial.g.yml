@@ -14,8 +14,8 @@ services:
       - ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS=true
       - NUGET_FALLBACK_PACKAGES=/root/.nuget/fallbackpackages
     volumes:
-      - C:\Users\Viviane\source\repos\vivi01\tcc-puc-minas\GISA\src\ApiGateway\GISA.OcelotApiGateway:/app
-      - C:\Users\Viviane\source\repos\vivi01\tcc-puc-minas\GISA:/src
+      - C:\Users\Viviane\OneDrive\Documentos\GitHub\tcc-puc-minas\GISA\src\ApiGateway\GISA.OcelotApiGateway:/app
+      - C:\Users\Viviane\OneDrive\Documentos\GitHub\tcc-puc-minas\GISA:/src
       - C:\Users\Viviane\vsdbg\vs2017u5:/remote_debugger:rw
       - C:\Users\Viviane\.nuget\packages\:/root/.nuget/packages:ro
       - C:\Program Files\dotnet\sdk\NuGetFallbackFolder:/root/.nuget/fallbackpackages:ro
