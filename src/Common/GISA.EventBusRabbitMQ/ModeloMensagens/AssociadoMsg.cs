@@ -2,7 +2,7 @@
 
 namespace GISA.EventBusRabbitMQ.ModeloMensagens
 {
-    public class SituacaoAssociadoMsg
+    public class AssociadoMsg
     {
         public Guid RequestId { get; set; }
 

@@ -2,6 +2,7 @@
 using GISA.EventBusRabbitMQ.Common;
 using GISA.EventBusRabbitMQ.Events;
 using GISA.EventBusRabbitMQ.Interfaces;
+using GISA.EventBusRabbitMQ.ModeloMensagens;
 
 namespace GISA.ComunicacaoLegado.Services
 {
@@ -12,7 +13,7 @@ namespace GISA.ComunicacaoLegado.Services
         public SgpsService(IBus busControl)
         {
             _busControl = busControl;
-        }
+        }     
 
         public void AutorizarExame(AutorizacaoExameMsg requestMessage)
         {
