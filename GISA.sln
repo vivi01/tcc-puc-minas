@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GISA.OcelotApiGateway", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GISA.Associado", "src\ModuloInformacaoCadastral\GISA.Associado\GISA.Associado.csproj", "{AA27C803-9999-40A2-AD3B-CC7B2FE7E0A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GISA.Conveniado", "src\ModuloInformacaoCadastral\GISA.Conveniado\GISA.Conveniado.csproj", "{5D99984B-507A-4568-84BB-3C14F8E2B107}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GISA.Prestador", "src\ModuloInformacaoCadastral\GISA.Prestador\GISA.Prestador.csproj", "{50C6E39B-C629-433D-8A1D-30C82DB3585C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{AA27C803-9999-40A2-AD3B-CC7B2FE7E0A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA27C803-9999-40A2-AD3B-CC7B2FE7E0A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA27C803-9999-40A2-AD3B-CC7B2FE7E0A4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5D99984B-507A-4568-84BB-3C14F8E2B107}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5D99984B-507A-4568-84BB-3C14F8E2B107}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5D99984B-507A-4568-84BB-3C14F8E2B107}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5D99984B-507A-4568-84BB-3C14F8E2B107}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50C6E39B-C629-433D-8A1D-30C82DB3585C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50C6E39B-C629-433D-8A1D-30C82DB3585C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50C6E39B-C629-433D-8A1D-30C82DB3585C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50C6E39B-C629-433D-8A1D-30C82DB3585C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
