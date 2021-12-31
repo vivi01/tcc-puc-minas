@@ -1,16 +1,16 @@
+using GISA.Associado.Extensions;
+using GISA.Associado.Repositorios;
+using GISA.Associado.Repositorios.Interfaces;
+using GISA.Associado.Servicos;
+using GISA.Associado.Servicos.Interfaces;
+using GISA.EventBusRabbitMQ;
+using GISA.EventBusRabbitMQ.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GISA.Associado
 {
@@ -26,12 +26,36 @@ namespace GISA.Associado
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GISA.Associado", Version = "v1" });
             });
+
+            services.AddTransient<IAssociadoService, AssociadoService>();
+            services.AddTransient<IAssociadoRepository, AssociadoRepository>();
+
+            #region RabbitMQ Dependencies
+
+            var hostName = Configuration["EventBus:HostName"];
+            var userName = string.Empty;
+            var password = string.Empty;
+
+            if (!string.IsNullOrEmpty(Configuration["EventBus:UserName"]))
+            {
+                userName = Configuration["EventBus:UserName"];
+            }
+
+            if (!string.IsNullOrEmpty(Configuration["EventBus:Password"]))
+            {
+               password = Configuration["EventBus:Password"];
+            }
+
+            services.AddSingleton(sp => RabbitHutch.CreateBus(hostName, userName, password));           
+
+            services.AddSingleton<IBus, RabbitBus>();          
+
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +78,8 @@ namespace GISA.Associado
             {
                 endpoints.MapControllers();
             });
+
+          //  app.UseRabbitListener();
         }
     }
 }

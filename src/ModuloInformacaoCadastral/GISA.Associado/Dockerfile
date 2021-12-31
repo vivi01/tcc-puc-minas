@@ -8,6 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["src/ModuloInformacaoCadastral/GISA.Associado/GISA.Associado.csproj", "src/ModuloInformacaoCadastral/GISA.Associado/"]
+COPY ["src/Common/GISA.EventBusRabbitMQ/GISA.EventBusRabbitMQ.csproj", "src/Common/GISA.EventBusRabbitMQ/"]
 RUN dotnet restore "src/ModuloInformacaoCadastral/GISA.Associado/GISA.Associado.csproj"
 COPY . .
 WORKDIR "/src/src/ModuloInformacaoCadastral/GISA.Associado"
