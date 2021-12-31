@@ -2,7 +2,9 @@
 {
     public class EventBusConstants
     {
-        //TODO criar as constantes de comunicação entre as APIS
-        public const string nomeDaQueue = "xxxxQueue";
+        public const string AutorizacaoExameQueue = "autorizacaoExameQueue";
+        public const string SituacaoAssociadoQueue = "situacaoAssociadoQueue";
+        public const string AssociadoExchange = "associado";
+        public const string ConveniadoExchange = "conveniado";
     }
 }

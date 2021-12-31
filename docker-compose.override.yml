@@ -1,13 +1,58 @@
 version: '3.4'
-
+networks:
+  gisa-pos:
+   name: gisa-pos
 services:
-  gisa.ocelotapigateway:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always  
     ports:
-      - "80"
-      - "443"
+      - "5672:5672"
+      - "15672:15672"
+
+  gisa.ocelotapigateway:
+    container_name: gisaoceloteapigateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development      
+    depends_on:
+      - gisa.associado
+      - gisa.conveniado         
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    networks:
+     - gisa-pos
+    ports:
+      - "7000:80"
+  
+  gisa.associado:
+    container_name: gisaassociado
+    restart: on-failure
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "EventBus:HostName=rabbitmq"
+    depends_on:
+    - rabbitmq
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    networks:
+     - gisa-pos
+    ports:
+      - 8001:80 
+  
+  gisa.conveniado:
+    container_name: gisaconveniado
+    restart: on-failure
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "EventBus:HostName=rabbitmq"
+    depends_on:
+    - rabbitmq
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    networks:
+     - gisa-pos
+    ports:
+      - "8002:80"  
