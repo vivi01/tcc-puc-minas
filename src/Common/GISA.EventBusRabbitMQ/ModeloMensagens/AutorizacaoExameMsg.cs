@@ -11,5 +11,7 @@ namespace GISA.EventBusRabbitMQ.Events
         public string Status { get; set; }
 
         public string Token { get; set; }
+
+        public string MensagensErro { get; set; }
     }
 }

@@ -5,6 +5,6 @@
         public const string AutorizacaoExameQueue = "autorizacaoExameQueue";
         public const string SituacaoAssociadoQueue = "situacaoAssociadoQueue";
         public const string AssociadoExchange = "associado";
-        public const string ConveniadoExchange = "conveniado";
+        public const string PrestadorExchange = "prestador";
     }
 }

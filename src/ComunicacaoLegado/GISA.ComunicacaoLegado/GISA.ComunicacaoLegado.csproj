@@ -2,17 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <UserSecretsId>6c981a07-4a1d-4825-b8c5-6a85c6f3b098</UserSecretsId>
+    <UserSecretsId>eeecd06c-6310-4034-9148-8eb7efb218fa</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Repositories\**" />
-    <Content Remove="Repositories\**" />
-    <EmbeddedResource Remove="Repositories\**" />
-    <None Remove="Repositories\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
@@ -20,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
   <ItemGroup>

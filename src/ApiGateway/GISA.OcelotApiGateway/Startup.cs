@@ -42,13 +42,25 @@ namespace GISA.OcelotApiGateway
                         ClockSkew = TimeSpan.Zero
                     };
 
-                }).AddJwtBearer("conveniados_auth_scheme", options =>
+                }).AddJwtBearer("prestador_auth_scheme", options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters()
                     {
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Settings.ConveniadoSecret)),
-                        ValidAudience = "conveniadosAudience",
-                        ValidIssuer = "conveniadosIssuer",
+                        ValidAudience = "prestadorAudience",
+                        ValidIssuer = "prestadorIssuer",
+                        ValidateIssuerSigningKey = true,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero
+                    };
+                })
+                .AddJwtBearer("comunicacaoLegado_auth_scheme", options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Settings.AcessoLegadoSecret)),
+                        ValidAudience = "comunicacaoLegadoAudience",
+                        ValidIssuer = "comunicacaoLegadoIssuer",
                         ValidateIssuerSigningKey = true,
                         ValidateLifetime = true,
                         ClockSkew = TimeSpan.Zero
@@ -71,7 +83,7 @@ namespace GISA.OcelotApiGateway
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GISA.OcelotApiGateway v1"));
             }
 
-            app.UseHttpsRedirection();           
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
@@ -81,7 +93,7 @@ namespace GISA.OcelotApiGateway
                  .AllowAnyHeader());
 
             app.UseAuthentication();
-            app.UseAuthorization();         
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

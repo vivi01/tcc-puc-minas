@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GISA.OcelotApiGateway.Models
+namespace GISA.OcelotApiGateway.Security
 {
     public class AuthUser
     {

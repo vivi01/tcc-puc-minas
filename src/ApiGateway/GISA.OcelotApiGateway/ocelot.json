@@ -14,10 +14,10 @@
         "AllowedScopes": []
       },
       "UpstreamPathTemplate": "/apigateway/associados",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get","Post" ]
     },
     {
-      "DownstreamPathTemplate": "/conveniados",
+      "DownstreamPathTemplate": "/prestadores",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -26,16 +26,32 @@
         }
       ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "conveniados_auth_scheme",
+        "AuthenticationProviderKey": "prestador_auth_scheme",
         "AllowedScopes": []
       },
-      "UpstreamPathTemplate": "/apigateway/conveniados",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamPathTemplate": "/apigateway/prestador",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/comunicacaoLegado",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "comunicacaoLegado_auth_scheme",
+        "AllowedScopes": []
+      },
+      "UpstreamPathTemplate": "/apigateway/comunicacaoLegado",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
     }
 
   ],
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:5000"
-
   }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GISA.OcelotApiGateway.Models
+namespace GISA.OcelotApiGateway.Security
 {
     public class AuthToken
     {

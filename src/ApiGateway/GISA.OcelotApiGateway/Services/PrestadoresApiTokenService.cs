@@ -1,4 +1,4 @@
-﻿using GISA.OcelotApiGateway.Models;
+﻿using GISA.OcelotApiGateway.Security;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -7,7 +7,7 @@ using System.Text;
 
 namespace GISA.OcelotApiGateway.Services
 {
-    public class ConveniadosApiTokenService
+    public class PrestadoresApiTokenService
     {
         public AuthToken GenerateToken(AuthUser user)
         {
@@ -21,8 +21,8 @@ namespace GISA.OcelotApiGateway.Services
                 new Claim(ClaimTypes.Role, user.Role.ToString())
             };
 
-            var token = new JwtSecurityToken(audience: "conveniadosAudience",
-                                              issuer: "conveniadosIssuer",
+            var token = new JwtSecurityToken(audience: "prestadorAudience",
+                                              issuer: "prestadorIssuer",
                                               claims: claims,
                                               expires: expirationDate,
                                               signingCredentials: credentials);
