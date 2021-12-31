@@ -1,8 +1,8 @@
 using GISA.Associado.Extensions;
-using GISA.Associado.Repositorios;
-using GISA.Associado.Repositorios.Interfaces;
-using GISA.Associado.Servicos;
-using GISA.Associado.Servicos.Interfaces;
+using GISA.Associado.Repositories;
+using GISA.Associado.Repositories.Interfaces;
+using GISA.Associado.Services;
+using GISA.Associado.Services.Interfaces;
 using GISA.EventBusRabbitMQ;
 using GISA.EventBusRabbitMQ.Interfaces;
 using Microsoft.AspNetCore.Builder;
