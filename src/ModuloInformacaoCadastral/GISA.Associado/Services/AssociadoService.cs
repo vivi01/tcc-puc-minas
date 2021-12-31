@@ -2,9 +2,7 @@
 using GISA.Associado.Enums;
 using GISA.Associado.Repositories.Interfaces;
 using GISA.Associado.Services.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GISA.Associado.Services
@@ -34,9 +32,9 @@ namespace GISA.Associado.Services
 
         //}
 
-        public async void AlterarPlano(Entities.Associado associado, string token)
+        public void AlterarPlano(Entities.Associado associado, string token)
         {
-             _associadoRepository.AlterarPlano(associado, token);
+            _associadoRepository.AlterarPlano(associado, token);
         }
 
         public async Task<List<Plano>> GetTodosPlanosDisponoveis()
