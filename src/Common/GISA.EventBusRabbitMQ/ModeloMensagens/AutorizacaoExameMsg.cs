@@ -9,6 +9,7 @@ namespace GISA.EventBusRabbitMQ.Events
         public int CodigoExame { get; set; }
 
         public int CodigoAssociado { get; set; }
+        public int CodigoPlano { get; set; }
 
         public string Status { get; set; }
 
