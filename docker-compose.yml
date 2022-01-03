@@ -15,10 +15,15 @@ services:
       context: .
       dockerfile: src/ModuloInformacaoCadastral/GISA.Associado/Dockerfile
 
-
-  gisa.conveniado:
-    image: ${DOCKER_REGISTRY-}gisaconveniado
+  gisa.comunicacaolegado:
+    image: ${DOCKER_REGISTRY-}gisacomunicacaolegado
     build:
       context: .
-      dockerfile: src/ModuloInformacaoCadastral/GISA.Conveniado/Dockerfile
+      dockerfile: src/ComunicacaoLegado/GISA.ComunicacaoLegado/Dockerfile
 
+
+  gisa.prestador:
+    image: ${DOCKER_REGISTRY-}gisaprestador
+    build:
+      context: .
+      dockerfile: src/ModuloInformacaoCadastral/GISA.Prestador/Dockerfile

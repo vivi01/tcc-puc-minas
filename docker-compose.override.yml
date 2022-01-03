@@ -16,7 +16,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development      
     depends_on:
       - gisa.associado
-      - gisa.conveniado         
+      - gisa.prestador         
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
@@ -39,14 +39,14 @@ services:
     networks:
      - gisa-pos
     ports:
-      - 8001:80 
+      - 8001:80   
   
-  gisa.conveniado:
-    container_name: gisaconveniado
+  gisa.comunicacaolegado:
+    container_name: gisacomunicacaolegado
     restart: on-failure
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "EventBus:HostName=rabbitmq"
+      - ASPNETCORE_URLS=https://+:443;http://+:80
     depends_on:
     - rabbitmq
     volumes:
@@ -55,4 +55,20 @@ services:
     networks:
      - gisa-pos
     ports:
-      - "8002:80"  
+      - 8002:80
+  
+  gisa.prestador:
+    container_name: gisaprestador
+    restart: on-failure
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    depends_on:
+    - rabbitmq
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    networks:
+     - gisa-pos
+    ports:
+      - 8003:80
