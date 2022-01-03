@@ -48,12 +48,10 @@ namespace GISA.Associado
 
             if (!string.IsNullOrEmpty(Configuration["EventBus:Password"]))
             {
-               password = Configuration["EventBus:Password"];
+                password = Configuration["EventBus:Password"];
             }
 
-            services.AddSingleton(sp => RabbitHutch.CreateBus(hostName, userName, password));           
-
-            services.AddSingleton<IBus, RabbitBus>();          
+            services.AddSingleton(sp => RabbitHutch.CreateBus(hostName, userName, password));
 
             #endregion
         }
@@ -79,7 +77,7 @@ namespace GISA.Associado
                 endpoints.MapControllers();
             });
 
-          //  app.UseRabbitListener();
+            //  app.UseRabbitListener();
         }
     }
 }

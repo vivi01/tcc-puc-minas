@@ -17,7 +17,7 @@ namespace GISA.Associado.Entities
         public string Formacao { get; set; }
         public Plano Plano { get; set; }
         public int CodigoAssociado { get; set; }
-        //public List<MarcacaoExame> MarcacaoExames { get; set; }
+        public List<MarcacaoExame> MarcacaoExames { get; set; }
         public Decimal ValorPlano { get; set; }
     }
 }

@@ -1,19 +1,18 @@
 ﻿using GISA.Associado.Entities;
 using GISA.Associado.Enums;
-using System;
+using GISA.EventBusRabbitMQ.Events;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GISA.Associado.Services.Interfaces
 {
-    interface IAssociadoService
+    public interface IAssociadoService
     {
         Task<ESituacaoAssociado> GetSituacaoAssociado(int codigoAssociado);
+        Task<Entities.Associado> GetAssociado(int codigoAssociado);
         Task<decimal> GetValorPlano();
-        //void SolicitarMarcacaoExame(MarcacaoConsulta marcacaoConsulta, string token)
-        void AlterarPlano(Entities.Associado associado, string token);
-        Task<List<Plano>> GetTodosPlanosDisponoveis();
-
+        Task<bool> AlterarPlano(Entities.Associado associado);
+        Task<List<Plano>> GetTodosPlanosDisponiveis();
+        Task<string> SolicitarMarcacaoExame(AutorizacaoExameMsg request);
     }
 }

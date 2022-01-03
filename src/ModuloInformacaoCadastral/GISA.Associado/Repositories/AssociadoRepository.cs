@@ -12,29 +12,33 @@ namespace GISA.Associado.Repositories
         public async Task<ESituacaoAssociado> GetSituacao(int codigoAssociado)
         {
             var situacao = ESituacaoAssociado.Ativo;
-            return JsonConvert.DeserializeObject<ESituacaoAssociado>(situacao.ToString());
-           
+            return JsonConvert.DeserializeObject<ESituacaoAssociado>(situacao.ToString());          
         }
 
         public async Task<decimal> GetValor()
         {
             return 0;
-        }
+        }        
 
-        //public async Task<string> SolicitarMarcacaoExame(MarcacaoConsulta marcacaoConsulta, string token)
-        //{
-
-        //}
-
-        public async void AlterarPlano(Entities.Associado associado, string token)
+        public async Task<bool> AlterarPlano(Entities.Associado associado)
         {
-
+            return true;
         }
 
-        public async Task<List<Plano>> Getplanosdisponoveis()
+        public async Task<List<Plano>> GetPlanosDisponiveis()
         {
             List<Plano> planos = new List<Plano>();
             return planos;
+        }
+
+        public Task<Entities.Associado> GetAssociado(int codigoAssociado)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SalvarMarcacaoExame(Entities.Associado associado)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
