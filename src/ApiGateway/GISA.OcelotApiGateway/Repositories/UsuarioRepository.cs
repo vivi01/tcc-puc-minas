@@ -1,6 +1,6 @@
 ﻿using GISA.OcelotApiGateway.Data.Interfaces;
 using GISA.OcelotApiGateway.Repositories.Interfaces;
-using GISA.OcelotApiGateway.Security;
+using GISA.OcelotApiGateway.SecurityModel;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;

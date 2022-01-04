@@ -13,8 +13,8 @@ namespace GISA.Associado.Services
 {
     public class AssociadoService : IAssociadoService
     {
-        public IAssociadoRepository _associadoRepository;
-        private IBus _busControl;
+        private readonly IAssociadoRepository _associadoRepository;
+        private readonly IBus _busControl;
 
         public AssociadoService(IAssociadoRepository associadoRepository, IBus busControl)
         {

@@ -18,7 +18,7 @@ namespace GISA.OcelotApiGateway
                 })
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
-                    config.AddJsonFile($"ocelot.json");
+                    config.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
                 });
     }
 }

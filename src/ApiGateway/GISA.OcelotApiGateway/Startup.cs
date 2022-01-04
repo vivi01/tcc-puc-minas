@@ -3,8 +3,11 @@ using GISA.OcelotApiGateway.Data.Interfaces;
 using GISA.OcelotApiGateway.Repositories;
 using GISA.OcelotApiGateway.Repositories.Interfaces;
 using GISA.OcelotApiGateway.Services;
+using GISA.OcelotApiGateway.Services.Interfaces;
 using GISA.OcelotApiGateway.Settings;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,6 +35,8 @@ namespace GISA.OcelotApiGateway
         {
             services.AddControllers();
 
+            services.AddDataProtection();            
+
             services.Configure<AuthDatabaseSettings>(Configuration.GetSection(nameof(AuthDatabaseSettings)));
 
             services.AddSingleton<IAuthDatabaseSettings>(sp =>
@@ -43,9 +48,7 @@ namespace GISA.OcelotApiGateway
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 
             //services
-            services.AddTransient<IApiTokenService, ApiTokenService>();
-
-            services.AddOcelot();
+            services.AddTransient<IApiTokenService, ApiTokenService>();            
 
             services.AddCors();
 
@@ -58,6 +61,8 @@ namespace GISA.OcelotApiGateway
                         ValidAudience = "associadosAudience",
                         ValidIssuer = "associadosIssuer",
                         ValidateIssuerSigningKey = true,
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
                         ValidateLifetime = true,
                         ClockSkew = TimeSpan.Zero
                     };
@@ -70,6 +75,8 @@ namespace GISA.OcelotApiGateway
                         ValidAudience = "prestadorAudience",
                         ValidIssuer = "prestadorIssuer",
                         ValidateIssuerSigningKey = true,
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
                         ValidateLifetime = true,
                         ClockSkew = TimeSpan.Zero
                     };
@@ -82,10 +89,14 @@ namespace GISA.OcelotApiGateway
                         ValidAudience = "comunicacaoLegadoAudience",
                         ValidIssuer = "comunicacaoLegadoIssuer",
                         ValidateIssuerSigningKey = true,
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
                         ValidateLifetime = true,
                         ClockSkew = TimeSpan.Zero
                     };
                 });
+
+            services.AddOcelot();
 
             services.AddSwaggerGen(c =>
             {

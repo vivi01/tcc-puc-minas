@@ -1,5 +1,6 @@
 ﻿using GISA.OcelotApiGateway.Repositories.Interfaces;
-using GISA.OcelotApiGateway.Security;
+using GISA.OcelotApiGateway.SecurityModel;
+using GISA.OcelotApiGateway.Services.Interfaces;
 using GISA.OcelotApiGateway.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -22,7 +23,7 @@ namespace GISA.OcelotApiGateway.Services
             _logger = logger;
         }
 
-        public async Task<AuthToken> GenerateToken(AuthUser user)
+        public async Task<AuthToken> GerarNovoToken(AuthUser user)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AuthSettings.PrestadorSecret));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
@@ -58,7 +59,7 @@ namespace GISA.OcelotApiGateway.Services
             {
                 _logger.LogInformation($"Token Expirado! Gerado novo token para o usuário {user.Username} ");
 
-                var newToken = await GenerateToken(user);
+                var newToken = await GerarNovoToken(user);
                 await _tokenRepository.Update(newToken);
                 return newToken;
             }

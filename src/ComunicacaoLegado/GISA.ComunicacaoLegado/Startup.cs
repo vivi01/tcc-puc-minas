@@ -1,5 +1,5 @@
+using GISA.ComunicacaoLegado.Services;
 using GISA.EventBusRabbitMQ;
-using GISA.EventBusRabbitMQ.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -46,7 +46,7 @@ namespace GISA.ComunicacaoLegado
 
             services.AddSingleton(sp => RabbitHutch.CreateBus(hostName, userName, password));
 
-            services.AddSingleton<IBus, RabbitBus>();
+            services.AddSingleton<ISgpsService, SgpsService>();
 
             #endregion
         }

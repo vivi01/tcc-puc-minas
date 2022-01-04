@@ -25,6 +25,15 @@
           "Port": 5001
         }
       ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [
+
+        ],
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "associados_auth_scheme",
         "AllowedScopes": []
@@ -41,6 +50,15 @@
           "Port": 5001
         }
       ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [
+
+        ],
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "associados_auth_scheme",
         "AllowedScopes": []
@@ -57,6 +75,15 @@
           "Port": 5001
         }
       ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [
+
+        ],
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "associados_auth_scheme",
         "AllowedScopes": []
@@ -82,7 +109,7 @@
     },
 
     {
-      "DownstreamPathTemplate": "/comunicacaoLegado",
+      "DownstreamPathTemplate": "/GetAuthentication",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -90,6 +117,15 @@
           "Port": 5002
         }
       ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [
+
+        ],
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "comunicacaoLegado_auth_scheme",
         "AllowedScopes": []

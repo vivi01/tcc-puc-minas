@@ -1,6 +1,7 @@
 ﻿using GISA.Associado.Entities;
 using GISA.Associado.Services.Interfaces;
 using GISA.EventBusRabbitMQ.Events;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Net;
@@ -12,7 +13,7 @@ namespace GISA.Associado.Controllers
     [ApiController]
     public class AssociadoController : ControllerBase
     {
-        private IAssociadoService _associadoService;
+        private readonly IAssociadoService _associadoService;
 
         public AssociadoController(IAssociadoService associadoService)
         {
@@ -20,6 +21,7 @@ namespace GISA.Associado.Controllers
         }
 
         [HttpGet("[action]/{codigoAssociado}")]
+        [Authorize]
         [ProducesResponseType(typeof(Entities.Associado), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Entities.Associado>> GetAssociado(int codigoAssociado)
         {

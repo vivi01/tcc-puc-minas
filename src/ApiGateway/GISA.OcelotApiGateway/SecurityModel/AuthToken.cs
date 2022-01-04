@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 
-namespace GISA.OcelotApiGateway.Security
+namespace GISA.OcelotApiGateway.SecurityModel
 {
     public class AuthToken
     {

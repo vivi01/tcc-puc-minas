@@ -1,4 +1,4 @@
-﻿using GISA.OcelotApiGateway.Security;
+﻿using GISA.OcelotApiGateway.SecurityModel;
 using MongoDB.Driver;
 
 namespace GISA.OcelotApiGateway.Data.Interfaces

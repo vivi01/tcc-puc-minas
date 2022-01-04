@@ -1,4 +1,4 @@
-﻿using GISA.OcelotApiGateway.Security;
+﻿using GISA.OcelotApiGateway.SecurityModel;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

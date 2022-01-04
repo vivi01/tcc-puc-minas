@@ -1,5 +1,5 @@
-﻿using GISA.OcelotApiGateway.Security;
-using GISA.OcelotApiGateway.Services;
+﻿using GISA.OcelotApiGateway.SecurityModel;
+using GISA.OcelotApiGateway.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -28,7 +28,7 @@ namespace GISA.OcelotApiGateway.Controllers
                 return await _tokenService.ValidarToken(user, token);
             }
 
-            return await _tokenService.GenerateToken(user);
+            return await _tokenService.GerarNovoToken(user);
         }
     }
 }

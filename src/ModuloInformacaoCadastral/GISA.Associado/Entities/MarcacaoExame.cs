@@ -6,7 +6,6 @@ namespace GISA.Associado.Entities
     {
         public int Id { get; set; }
         public DateTime DataExame { get; set; }
-        public int CodigoExame { get; set; }
-         
+        public int CodigoExame { get; set; }         
     }
 }

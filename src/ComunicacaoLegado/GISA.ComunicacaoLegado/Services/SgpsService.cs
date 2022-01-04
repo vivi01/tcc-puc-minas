@@ -2,7 +2,6 @@
 using GISA.EventBusRabbitMQ.Common;
 using GISA.EventBusRabbitMQ.Events;
 using GISA.EventBusRabbitMQ.Interfaces;
-using GISA.EventBusRabbitMQ.ModeloMensagens;
 
 namespace GISA.ComunicacaoLegado.Services
 {

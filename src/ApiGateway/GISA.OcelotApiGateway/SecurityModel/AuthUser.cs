@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations;
 
-namespace GISA.OcelotApiGateway.Security
+namespace GISA.OcelotApiGateway.SecurityModel
 {
     public class AuthUser
     {
@@ -12,7 +12,7 @@ namespace GISA.OcelotApiGateway.Security
 
         [Required]
         public string Username { get; set; }
-       
+
         [Required]
         public string Password { get; set; }
 

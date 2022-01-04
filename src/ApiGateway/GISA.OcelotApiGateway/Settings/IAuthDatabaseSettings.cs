@@ -9,5 +9,7 @@
         string UsuarioCollectionName { get; set; }
 
         string TokenCollectionName { get; set; }
+
+        string KeyDataProvider { get; set; }
     }
 }

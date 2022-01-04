@@ -1,11 +1,11 @@
-﻿using GISA.OcelotApiGateway.Security;
+﻿using GISA.OcelotApiGateway.SecurityModel;
 using System.Threading.Tasks;
 
-namespace GISA.OcelotApiGateway.Services
+namespace GISA.OcelotApiGateway.Services.Interfaces
 {
     public interface IApiTokenService
     {
-        Task<AuthToken> GenerateToken(AuthUser user);
+        Task<AuthToken> GerarNovoToken(AuthUser user);
 
         Task<AuthToken> ValidarToken(AuthUser user, AuthToken token);
 
