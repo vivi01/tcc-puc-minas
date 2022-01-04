@@ -81,6 +81,20 @@ namespace GISA.OcelotApiGateway
                         ClockSkew = TimeSpan.Zero
                     };
                 })
+                .AddJwtBearer("conveniado_auth_scheme", options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AuthSettings.ConveniadoSecret)),
+                        ValidAudience = "conveniadoAudience",
+                        ValidIssuer = "conveniadoIssuer",
+                        ValidateIssuerSigningKey = true,
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero
+                    };
+                })
                 .AddJwtBearer("comunicacaoLegado_auth_scheme", options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters()

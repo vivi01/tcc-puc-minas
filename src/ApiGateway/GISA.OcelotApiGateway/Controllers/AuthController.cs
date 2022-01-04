@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace GISA.OcelotApiGateway.Controllers
 {
     [ApiController]
-    [Route("api/v1/[controller]")]
+    [Route("[controller]")]
     public class AuthController : ControllerBase
     {
         private readonly IApiTokenService _tokenService;

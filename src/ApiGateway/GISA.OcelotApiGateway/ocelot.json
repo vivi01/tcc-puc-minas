@@ -1,12 +1,12 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/GetAuthentication",
-      "DownstreamScheme": "http",
+      "DownstreamPathTemplate": "/api/v1/associado/GetAssociado/{codigoAssociado}",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5001
+          "Port": 44302
         }
       ],
       "AuthenticationOptions": {
@@ -17,12 +17,12 @@
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
-      "DownstreamPathTemplate": "/GetAuthentication",
-      "DownstreamScheme": "http",
+      "DownstreamPathTemplate": "/api/v1/associado/GetTodosPlanosDisponiveis",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5001
+          "Port": 44302
         }
       ],
       "RateLimitOptions": {
@@ -42,12 +42,12 @@
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
-      "DownstreamPathTemplate": "/GetAuthentication",
+      "DownstreamPathTemplate": "/api/v1/associado/AlterarPlano",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5001
+          "Port": 44302
         }
       ],
       "RateLimitOptions": {
@@ -67,12 +67,12 @@
       "UpstreamHttpMethod": [ "Post" ]
     },
     {
-      "DownstreamPathTemplate": "/GetAuthentication",
+      "DownstreamPathTemplate": "/api/v1/associado/SolicitarMarcacaoExame",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5001
+          "Port": 44302
         }
       ],
       "RateLimitOptions": {
@@ -92,12 +92,12 @@
       "UpstreamHttpMethod": [ "Post" ]
     },
     {
-      "DownstreamPathTemplate": "/GetAuthentication",
+      "DownstreamPathTemplate": "/prestador",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5002
+          "Port": 5001
         }
       ],
       "AuthenticationOptions": {
@@ -109,12 +109,12 @@
     },
 
     {
-      "DownstreamPathTemplate": "/GetAuthentication",
+      "DownstreamPathTemplate": "/comunicacaoLegado",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5002
+          "Port": 5001
         }
       ],
       "RateLimitOptions": {

@@ -25,7 +25,7 @@ namespace GISA.OcelotApiGateway.Services
 
         public async Task<AuthToken> GerarNovoToken(AuthUser user)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AuthSettings.PrestadorSecret));
+            var key = GerarChaveDeAcordoComPerfil(user.Role);
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
             var expirationDate = DateTime.UtcNow.AddDays(7);
 
@@ -76,6 +76,17 @@ namespace GISA.OcelotApiGateway.Services
                 ExpirationDate = expirationDate,
                 UserName = user.Username
             };
+        }
+
+        private static SymmetricSecurityKey GerarChaveDeAcordoComPerfil(string role)
+        {
+            if (role == "associado")
+                return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AuthSettings.AssociadoSecret));
+
+            if (role == "conveniado")
+                return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AuthSettings.ConveniadoSecret));
+
+            return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AuthSettings.PrestadorSecret));
         }
     }
 }

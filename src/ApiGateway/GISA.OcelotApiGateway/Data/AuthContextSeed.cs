@@ -44,12 +44,6 @@ namespace GISA.OcelotApiGateway.Data
                     Username = "tccpuc",
                     Password = ProtegerSenha("xrt@1258"),
                     Role = "conveniado"
-                },                
-                new AuthUser
-                {
-                    Username = "jose",
-                    Password = ProtegerSenha("wyrt@1963"),
-                    Role = "conveniado"
                 }
             };
 
