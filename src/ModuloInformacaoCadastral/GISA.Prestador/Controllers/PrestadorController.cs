@@ -31,8 +31,5 @@ namespace GISA.Prestador.Controllers
 
             return Ok(planos ?? new List<Plano>());
         }
-
-
-
     }
 }

@@ -1,8 +1,15 @@
+using GISA.OcelotApiGateway.Data;
+using GISA.OcelotApiGateway.Data.Interfaces;
+using GISA.OcelotApiGateway.Repositories;
+using GISA.OcelotApiGateway.Repositories.Interfaces;
+using GISA.OcelotApiGateway.Services;
+using GISA.OcelotApiGateway.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Ocelot.DependencyInjection;
@@ -25,6 +32,19 @@ namespace GISA.OcelotApiGateway
         {
             services.AddControllers();
 
+            services.Configure<AuthDatabaseSettings>(Configuration.GetSection(nameof(AuthDatabaseSettings)));
+
+            services.AddSingleton<IAuthDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<AuthDatabaseSettings>>().Value);
+
+            //repositories
+            services.AddTransient<IAuthContext, AuthContext>();
+            services.AddTransient<ITokenRepository, TokenRepository>();
+            services.AddTransient<IUsuarioRepository, UsuarioRepository>();
+
+            //services
+            services.AddTransient<IApiTokenService, ApiTokenService>();
+
             services.AddOcelot();
 
             services.AddCors();
@@ -34,7 +54,7 @@ namespace GISA.OcelotApiGateway
                 {
                     options.TokenValidationParameters = new TokenValidationParameters()
                     {
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Settings.AssociadoSecret)),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AuthSettings.AssociadoSecret)),
                         ValidAudience = "associadosAudience",
                         ValidIssuer = "associadosIssuer",
                         ValidateIssuerSigningKey = true,
@@ -46,7 +66,7 @@ namespace GISA.OcelotApiGateway
                 {
                     options.TokenValidationParameters = new TokenValidationParameters()
                     {
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Settings.ConveniadoSecret)),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AuthSettings.PrestadorSecret)),
                         ValidAudience = "prestadorAudience",
                         ValidIssuer = "prestadorIssuer",
                         ValidateIssuerSigningKey = true,
@@ -58,7 +78,7 @@ namespace GISA.OcelotApiGateway
                 {
                     options.TokenValidationParameters = new TokenValidationParameters()
                     {
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Settings.AcessoLegadoSecret)),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AuthSettings.AcessoLegadoSecret)),
                         ValidAudience = "comunicacaoLegadoAudience",
                         ValidIssuer = "comunicacaoLegadoIssuer",
                         ValidateIssuerSigningKey = true,

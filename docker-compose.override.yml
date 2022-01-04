@@ -19,6 +19,14 @@ services:
       SA_PASSWORD: "!SwN12345678"
       ACCEPT_EULA: "Y"
 
+  securitydb:
+    container_name: securitydb
+    restart: always
+    volumes:
+      - ${WEBAPP_STORAGE_HOME}/site:/data/db
+    ports:
+      - "27017:27017"
+
   rabbitmq:
     container_name: rabbitmq
     restart: always  
@@ -29,10 +37,12 @@ services:
   gisa.ocelotapigateway:
     container_name: gisaoceloteapigateway
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development      
+      - ASPNETCORE_ENVIRONMENT=Development 
+      - "AuthDatabaseSettings:ConnectionString=mongodb://securitydb:27017"
     depends_on:
       - gisa.associado
-      - gisa.prestador         
+      - gisa.prestador
+      - securitydb
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

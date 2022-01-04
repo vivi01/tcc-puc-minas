@@ -2,50 +2,33 @@
 using GISA.OcelotApiGateway.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace GISA.OcelotApiGateway.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/v1/[controller]")]
     public class AuthController : ControllerBase
     {
-        [HttpPost]
-        [Route("associados")]
-        [AllowAnonymous]
-        public ActionResult<AuthToken> GetAssociadosAuthentication([FromBody] AuthUser user)
-        {
-            if (user.Role != "associado")
-            {
-                return Unauthorized(new { message = "Acesso não autorizado" });
-            }
+        private readonly IApiTokenService _tokenService;
 
-            return new AssociadosApiTokenService().GenerateToken(user);
+        public AuthController(IApiTokenService tokenService)
+        {
+            _tokenService = tokenService;
         }
 
-        [HttpPost]
-        [Route("prestadores")]
+        [HttpPost("[action]")]
         [AllowAnonymous]
-        public ActionResult<AuthToken> GetConveniadosAuthentication([FromBody] AuthUser user)
+        public async Task<ActionResult<AuthToken>> GetAuthentication([FromBody] AuthUser user)
         {
-            if (user.Role != "prestador")
+            var token = await _tokenService.GetTokenByUserName(user.Username);
+
+            if (token != null)
             {
-                return Unauthorized(new { message = "Acesso não autorizado" });
+                return await _tokenService.ValidarToken(user, token);
             }
 
-            return new PrestadoresApiTokenService().GenerateToken(user);
-        }
-
-        [HttpPost]
-        [Route("conveniados")]
-        [AllowAnonymous]
-        public ActionResult<AuthToken> GetComunicacaoAuthentication([FromBody] AuthUser user)
-        {
-            if (user.Role != "conveniado" || user.Role != "prestador")
-            {
-                return Unauthorized(new { message = "Acesso não autorizado" });
-            }
-
-            return new PrestadoresApiTokenService().GenerateToken(user);
+            return await _tokenService.GenerateToken(user);
         }
     }
 }
