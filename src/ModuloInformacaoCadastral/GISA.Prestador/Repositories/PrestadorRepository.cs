@@ -15,7 +15,7 @@ namespace GISA.Prestador.Repositories
             return "autorização";
         }
 
-        public async Task<bool> GetPlanosConveniados(int codigoPlano)
+        public async Task<bool> GetPlanoConveniado(int codigoPlano)
         {
             return true;
         }

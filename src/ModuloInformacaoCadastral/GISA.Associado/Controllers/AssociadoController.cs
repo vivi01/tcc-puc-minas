@@ -32,7 +32,7 @@ namespace GISA.Associado.Controllers
 
         [HttpGet("[action]")]
         [ProducesResponseType(typeof(List<Plano>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<Entities.Associado>> GetTodosPlanosDisponiveis()
+        public async Task<ActionResult<List<Plano>>> GetTodosPlanosDisponiveis()
         {
             var planos = await _associadoService.GetTodosPlanosDisponiveis();
 
@@ -40,7 +40,7 @@ namespace GISA.Associado.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<Entities.Associado>> AlterarPlano([FromBody] Entities.Associado associado)
+        public async Task<ActionResult<bool>> AlterarPlano([FromBody] Entities.Associado associado)
         {
             return Ok(await _associadoService.AlterarPlano(associado));
         }

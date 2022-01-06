@@ -15,7 +15,7 @@ namespace GISA.Associado.Repositories
             return JsonConvert.DeserializeObject<ESituacaoAssociado>(situacao.ToString());          
         }
 
-        public async Task<decimal> GetValor()
+        public async Task<decimal> GetValorPlano()
         {
             return 0;
         }        

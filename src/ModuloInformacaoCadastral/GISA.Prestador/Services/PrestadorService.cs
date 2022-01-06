@@ -35,7 +35,7 @@ namespace GISA.Prestador.Services
             if (message.Status != "Ativo")
                 return "Nao Autorizado";
 
-            var isConveniado = await GetPlanosConveniados(autorizacaoExameMsg.CodigoPlano);
+            var isConveniado = await GetPlanoConveniado(autorizacaoExameMsg.CodigoPlano);
 
             if (isConveniado != true)
             {
@@ -61,9 +61,9 @@ namespace GISA.Prestador.Services
             await _busControl.SendAsync<AutorizacaoExameMsg>(EventBusConstants.PrestadorExchange, requestMessage); ;
         }
 
-        public async Task<bool> GetPlanosConveniados(int codigoPlano)
+        public async Task<bool> GetPlanoConveniado(int codigoPlano)
         {
-            return await _prestadorRepository.GetPlanosConveniados(codigoPlano);
+            return await _prestadorRepository.GetPlanoConveniado(codigoPlano);
         }
 
         public async Task<List<Plano>> GetAllPlanosConveniados()

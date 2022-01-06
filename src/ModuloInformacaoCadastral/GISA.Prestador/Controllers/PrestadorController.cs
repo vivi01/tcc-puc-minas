@@ -11,7 +11,7 @@ namespace GISA.Prestador.Controllers
     [ApiController]
     public class PrestadorController : ControllerBase
     {
-        private IPrestadorService _prestadorService;
+        private readonly IPrestadorService _prestadorService;
 
         public PrestadorController(IPrestadorService prestadorService)
         {

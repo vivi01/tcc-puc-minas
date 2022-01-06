@@ -34,7 +34,7 @@ namespace GISA.Associado.Services
 
         public async Task<decimal> GetValorPlano()
         {
-            return await _associadoRepository.GetValor();
+            return await _associadoRepository.GetValorPlano();
         }
 
         public async Task<List<Plano>> GetTodosPlanosDisponiveis()
