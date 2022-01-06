@@ -1,3 +1,4 @@
+using GISA.Associado.Context;
 using GISA.Associado.Repositories;
 using GISA.Associado.Repositories.Interfaces;
 using GISA.Associado.Services;
@@ -5,6 +6,7 @@ using GISA.Associado.Services.Interfaces;
 using GISA.EventBusRabbitMQ;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -32,6 +34,7 @@ namespace GISA.Associado
 
             services.AddTransient<IAssociadoService, AssociadoService>();
             services.AddTransient<IAssociadoRepository, AssociadoRepository>();
+            services.AddDbContext<AssociadoContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             #region RabbitMQ Dependencies
 
