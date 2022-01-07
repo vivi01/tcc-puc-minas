@@ -48,7 +48,7 @@ namespace GISA.OcelotApiGateway
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 
             //services
-            services.AddTransient<IApiTokenService, ApiTokenService>();            
+            services.AddTransient<ITokenService, TokenService>();            
 
             services.AddCors();
 

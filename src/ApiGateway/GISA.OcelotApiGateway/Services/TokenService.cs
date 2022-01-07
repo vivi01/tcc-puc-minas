@@ -12,12 +12,12 @@ using System.Threading.Tasks;
 
 namespace GISA.OcelotApiGateway.Services
 {
-    public class ApiTokenService : IApiTokenService
+    public class TokenService : ITokenService
     {
         private readonly ITokenRepository _tokenRepository;
-        private readonly ILogger<ApiTokenService> _logger;
+        private readonly ILogger<TokenService> _logger;
 
-        public ApiTokenService(ITokenRepository tokenRepository, ILogger<ApiTokenService> logger)
+        public TokenService(ITokenRepository tokenRepository, ILogger<TokenService> logger)
         {
             _tokenRepository = tokenRepository;
             _logger = logger;

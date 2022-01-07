@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace GISA.OcelotApiGateway.Services.Interfaces
 {
-    public interface IApiTokenService
+    public interface ITokenService
     {
         Task<AuthToken> GerarNovoToken(AuthUser user);
 

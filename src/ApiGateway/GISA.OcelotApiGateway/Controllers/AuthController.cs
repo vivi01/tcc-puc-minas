@@ -10,17 +10,24 @@ namespace GISA.OcelotApiGateway.Controllers
     [Route("[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly IApiTokenService _tokenService;
+        private readonly ITokenService _tokenService;
+        private readonly IUsuarioService _usuarioService;
 
-        public AuthController(IApiTokenService tokenService)
+        public AuthController(ITokenService tokenService, IUsuarioService usuarioService)
         {
             _tokenService = tokenService;
+            _usuarioService = usuarioService;
         }
 
         [HttpPost("[action]")]
         [AllowAnonymous]
         public async Task<ActionResult<AuthToken>> GetAuthentication([FromBody] AuthUser user)
         {
+            if (!_usuarioService.ValidarUsuario(user))
+            {
+                return BadRequest(new { Message = "Email e/ou senha está(ão) inválido(s)." });
+            }
+
             var token = await _tokenService.GetTokenByUserName(user.Username);
 
             if (token != null)
