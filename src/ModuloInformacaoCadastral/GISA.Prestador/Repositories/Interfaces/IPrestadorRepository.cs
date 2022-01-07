@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GISA.Prestador.Repositories.Interfaces
 {
-    public interface IPrestadorRepository
+    public interface IPrestadorRepository : IRepository<Entities.Prestador>
     {
         Task<string> SolicitarAutorizacoExame(string token, AutorizacaoExameMsg autorizacaoExameMsg);
         Task<bool> GetPlanoConveniado(int codigoPlano);

@@ -31,8 +31,18 @@ namespace GISA.Prestador
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GISA.Prestador", Version = "v1" });
             });
+
+            //Registro Services
+            services.AddTransient<IEnderecoService, EnderecoService>();
+            services.AddTransient<IPlanoService, PlanoService>();
             services.AddTransient<IPrestadorService, PrestadorService>();
+
+            //Registro Repositories
+            services.AddTransient<IEnderecoRepository, EnderecoRepository>();
+            services.AddTransient<IPlanoRepository, PlanoRepository>();
             services.AddTransient<IPrestadorRepository, PrestadorRepository>();
+
+            //ConnectionStrings
             services.AddDbContext<PrestadorContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 

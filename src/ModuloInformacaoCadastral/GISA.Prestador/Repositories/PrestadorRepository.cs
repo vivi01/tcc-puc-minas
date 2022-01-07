@@ -1,4 +1,5 @@
 ﻿using GISA.EventBusRabbitMQ.Events;
+using GISA.Prestador.Context;
 using GISA.Prestador.Entities;
 using GISA.Prestador.Repositories.Interfaces;
 using System;
@@ -8,8 +9,12 @@ using System.Threading.Tasks;
 
 namespace GISA.Prestador.Repositories
 {
-    public class PrestadorRepository : IPrestadorRepository
+    public class PrestadorRepository : Repository<Entities.Prestador>, IPrestadorRepository
     {
+        public PrestadorRepository(PrestadorContext context) : base(context)
+        {
+
+        }
         public async Task<string> SolicitarAutorizacoExame(string token, AutorizacaoExameMsg autorizacaoExameMsg)
         {
             return "autorização";
