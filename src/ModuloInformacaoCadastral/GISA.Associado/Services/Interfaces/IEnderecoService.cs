@@ -1,7 +1,7 @@
-﻿using GISA.Prestador.Entities;
+﻿using GISA.Associado.Entities;
 using System.Collections.Generic;
 
-namespace GISA.Prestador.Services.Interfaces
+namespace GISA.Associado.Services.Interfaces
 {
     public interface IEnderecoService
     {
@@ -14,6 +14,5 @@ namespace GISA.Prestador.Services.Interfaces
         void Deletar(Endereco endereco);
 
         List<Endereco> ObterTodos();
-
     }
 }

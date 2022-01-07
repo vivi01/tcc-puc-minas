@@ -1,11 +1,11 @@
-﻿using GISA.EventBusRabbitMQ.Interfaces;
-using GISA.Prestador.Entities;
-using GISA.Prestador.Repositories.Interfaces;
-using GISA.Prestador.Services.Interfaces;
+﻿using GISA.Associado.Entities;
+using GISA.Associado.Repositories.Interfaces;
+using GISA.Associado.Services.Interfaces;
+using GISA.EventBusRabbitMQ.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GISA.Prestador.Services
+namespace GISA.Associado.Services
 {
     public class PlanoService : IPlanoService
     {

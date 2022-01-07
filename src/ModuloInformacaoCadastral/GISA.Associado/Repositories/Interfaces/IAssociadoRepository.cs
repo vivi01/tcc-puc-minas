@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GISA.Associado.Repositories.Interfaces
 {
-    public interface IAssociadoRepository
+    public interface IAssociadoRepository : IRepository<Entities.Associado>
     {
         Task<ESituacaoAssociado> GetSituacao(int codigoAssociado);
         Task<Entities.Associado> GetAssociado(int codigoAssociado);

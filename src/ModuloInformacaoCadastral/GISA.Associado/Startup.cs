@@ -32,8 +32,19 @@ namespace GISA.Associado
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GISA.Associado", Version = "v1" });
             });
 
+            //Registro Services
             services.AddTransient<IAssociadoService, AssociadoService>();
+            services.AddTransient<IEnderecoService, EnderecoService>();
+            services.AddTransient<IMarcacaoExameService, MarcacaoExameService>();
+            services.AddTransient<IPlanoService, PlanoService>();
+
+            //Registro Repositories
             services.AddTransient<IAssociadoRepository, AssociadoRepository>();
+            services.AddTransient<IEnderecoRepository, EnderecoRepository>();
+            services.AddTransient<IMarcacaoExameRepository, MarcacaoExameRepository>();
+            services.AddTransient<IPlanoRepository, PlanoRepository>();
+            
+            //ConnectionStrings
             services.AddDbContext<AssociadoContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             #region RabbitMQ Dependencies

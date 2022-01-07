@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GISA.Associado.Repositories
 {
-    public class AssociadoRepository : IAssociadoRepository
+    public class AssociadoRepository : Repository<Entities.Associado>, IAssociadoRepository
     {
         public async Task<ESituacaoAssociado> GetSituacao(int codigoAssociado)
         {

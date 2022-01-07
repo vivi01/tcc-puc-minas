@@ -1,7 +1,7 @@
-﻿using GISA.Prestador.Entities;
+﻿using GISA.Associado.Entities;
 using System.Collections.Generic;
 
-namespace GISA.Prestador.Services.Interfaces
+namespace GISA.Associado.Services.Interfaces
 {
     public interface IPlanoService
     {
