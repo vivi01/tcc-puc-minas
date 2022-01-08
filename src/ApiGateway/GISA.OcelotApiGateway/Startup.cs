@@ -6,8 +6,6 @@ using GISA.OcelotApiGateway.Services;
 using GISA.OcelotApiGateway.Services.Interfaces;
 using GISA.OcelotApiGateway.Settings;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -48,7 +46,8 @@ namespace GISA.OcelotApiGateway
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 
             //services
-            services.AddTransient<ITokenService, TokenService>();            
+            services.AddTransient<ITokenService, TokenService>();
+            services.AddTransient<IUsuarioService, UsuarioService>();
 
             services.AddCors();
 
