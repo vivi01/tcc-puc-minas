@@ -28,6 +28,8 @@ namespace GISA.ComunicacaoLegado
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GISA.ComunicacaoLegado", Version = "v1" });
             });
 
+            services.AddSingleton<ISgpsService, SgpsService>();
+
             #region RabbitMQ Dependencies
 
             var hostName = Configuration["EventBus:HostName"];
@@ -44,9 +46,7 @@ namespace GISA.ComunicacaoLegado
                 password = Configuration["EventBus:Password"];
             }
 
-            services.AddSingleton(sp => RabbitHutch.CreateBus(hostName, userName, password));
-
-            services.AddSingleton<ISgpsService, SgpsService>();
+            services.AddSingleton(sp => RabbitHutch.CreateBus(hostName, userName, password));         
 
             #endregion
         }
