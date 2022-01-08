@@ -1,4 +1,5 @@
-﻿using GISA.Associado.Entities;
+﻿using GISA.Associado.Context;
+using GISA.Associado.Entities;
 using GISA.Associado.Enums;
 using GISA.Associado.Repositories.Interfaces;
 using Newtonsoft.Json;
@@ -9,6 +10,10 @@ namespace GISA.Associado.Repositories
 {
     public class AssociadoRepository : Repository<Entities.Associado>, IAssociadoRepository
     {
+        public AssociadoRepository(AssociadoContext context) : base(context)
+        {
+
+        }
         public async Task<ESituacaoAssociado> GetSituacao(int codigoAssociado)
         {
             var situacao = ESituacaoAssociado.Ativo;
