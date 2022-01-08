@@ -30,7 +30,7 @@ namespace GISA.OcelotApiGateway.Data
                 new AuthUser
                 {
                     Username = "user1",
-                    Password = ProtegerSenha("cap@2025"),
+                    Password = ProtegerSenha("teste@2025"),
                     Role = "associado"
                 },
                 new AuthUser
