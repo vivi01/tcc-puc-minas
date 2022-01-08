@@ -29,19 +29,19 @@ namespace GISA.OcelotApiGateway.Data
             {
                 new AuthUser
                 {
-                    Username = "vivi",
+                    Username = "user1",
                     Password = ProtegerSenha("cap@2025"),
                     Role = "associado"
                 },
                 new AuthUser
                 {
-                    Username = "nando",
+                    Username = "user2",
                     Password = ProtegerSenha("test@105"),
                     Role = "prestador"
                 },
                 new AuthUser
                 {
-                    Username = "tccpuc",
+                    Username = "user3",
                     Password = ProtegerSenha("xrt@1258"),
                     Role = "conveniado"
                 }
