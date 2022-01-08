@@ -1,9 +1,11 @@
 using FluentAssertions;
 using GISA.Associado.Controllers;
+using GISA.Associado.Entities;
 using GISA.Associado.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GISA.Associado.UnitTests
@@ -26,7 +28,39 @@ namespace GISA.Associado.UnitTests
         {
             //Arrange
             var codigoAssociado = 3005;
-            var endereco = new Entities.Endereco
+            Entities.Associado associado = GetMockAssociado(codigoAssociado);
+
+            _associadoServiceMock.Setup(x => x.GetAssociado(codigoAssociado))
+                .ReturnsAsync(associado);
+
+            //Act
+            var actionResult = await associadoController.GetAssociado(codigoAssociado);
+
+            //Assert           
+            var result = actionResult.Result as OkObjectResult;
+            result.Should().NotBeNull();
+            result.Value.Should().Be(associado);
+        }
+
+        [Test]
+        public async Task GetGetTodosPlanosDisponiveisDeveRetornarAssociadoComSucesso()
+        {
+            //Arrange
+            _associadoServiceMock.Setup(x => x.GetTodosPlanosDisponiveis())
+                .ReturnsAsync(GetTodosPlanosMock());
+
+            //Act
+            var actionResult = await associadoController.GetTodosPlanosDisponiveis();
+
+            //Assert           
+            var result = actionResult.Result as OkObjectResult;
+            result.Should().NotBeNull();
+            result.Value.Should().Be(GetTodosPlanosMock());
+        }
+
+        private static Entities.Associado GetMockAssociado(int codigoAssociado)
+        {
+            var endereco = new Endereco
             {
                 Rua = "Rua X",
                 CEP = "42510698",
@@ -34,7 +68,7 @@ namespace GISA.Associado.UnitTests
                 Estado = "Rio de Janeiro"
             };
 
-            var plano = new Entities.Plano
+            var plano = new Plano
             {
                 CodigoPlano = 25,
                 ClassificacaoPlano = Enums.EClassificacaoPlano.Enfermaria,
@@ -53,19 +87,40 @@ namespace GISA.Associado.UnitTests
                 ValorPlano = 800,
                 Email = "joseMaria@teste.com",
                 PossuiPlanoOdontologico = false,
-                MarcacaoExames = new System.Collections.Generic.List<Entities.MarcacaoExame>()
+                MarcacaoExames = new List<MarcacaoExame>()
             };
+            return associado;
+        }
 
-            _associadoServiceMock.Setup(x => x.GetAssociado(codigoAssociado))
-                .ReturnsAsync(associado);
-
-            //Act
-            var actionResult = await associadoController.GetAssociado(codigoAssociado);
-
-            //Assert           
-            var result = actionResult.Result as OkObjectResult;
-            result.Should().NotBeNull();
-            result.Value.Should().Be(associado);
+        private static List<Plano> GetTodosPlanosMock()
+        {
+            return new List<Plano>
+            {
+               new Plano  {
+                   CodigoPlano = 25,
+                   ClassificacaoPlano = Enums.EClassificacaoPlano.Enfermaria,
+                   Descricao = "Plano básico",
+                   TipoPlano = Enums.ETipoPlano.Individual
+               },
+               new Plano  {
+                   CodigoPlano = 26,
+                   ClassificacaoPlano = Enums.EClassificacaoPlano.Apartamento,
+                   Descricao = "Plano básico",
+                   TipoPlano = Enums.ETipoPlano.Individual
+               },
+                new Plano  {
+                   CodigoPlano = 27,
+                   ClassificacaoPlano = Enums.EClassificacaoPlano.Vip,
+                   Descricao = "Plano Top",
+                   TipoPlano = Enums.ETipoPlano.Individual
+               },
+               new Plano  {
+                   CodigoPlano = 28,
+                   ClassificacaoPlano = Enums.EClassificacaoPlano.Apartamento,
+                   Descricao = "Plano intermediário",
+                   TipoPlano = Enums.ETipoPlano.Empresarial
+               }
+            };
         }
     }
 }
