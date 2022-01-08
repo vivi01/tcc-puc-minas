@@ -15,5 +15,6 @@ namespace GISA.Prestador.Entities
         public int CodigoPrestador { get; set; }
         public List<Plano> Planos { get; set; }
         public ECategoria Categoria { get; set; }
+        public string Email { get; set; }
     }
 }

@@ -15,5 +15,7 @@ namespace GISA.Associado.Entities
         public int CodigoAssociado { get; set; }
         public List<MarcacaoExame> MarcacaoExames { get; set; }
         public decimal ValorPlano { get; set; }
+        public string Email { get; set; }
+        public bool PossuiPlanoOdontologico { get; set; }
     }
 }
