@@ -10,5 +10,7 @@ namespace GISA.OcelotApiGateway.Services.Interfaces
         Task<AuthToken> ValidarToken(AuthUser user, AuthToken token);
 
         Task<AuthToken> GetTokenByUserName(string userName);
+
+        Task<AuthToken> GetTokenByToken(string token);
     }
 }

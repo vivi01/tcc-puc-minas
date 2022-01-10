@@ -88,5 +88,10 @@ namespace GISA.OcelotApiGateway.Services
 
             return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AuthSettings.PrestadorSecret));
         }
+
+        public Task<AuthToken> GetTokenByToken(string token)
+        {
+            return _tokenRepository.GetTokenByTokenValue(token);
+        }
     }
 }

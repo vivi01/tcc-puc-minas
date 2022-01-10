@@ -14,20 +14,19 @@ namespace GISA.Associado.Repositories
         {
 
         }
-        public async Task<ESituacaoAssociado> GetSituacao(int codigoAssociado)
-        {
-            var situacao = ESituacaoAssociado.Ativo;
-            return JsonConvert.DeserializeObject<ESituacaoAssociado>(situacao.ToString());          
-        }
-
-        public async Task<decimal> GetValorPlano()
-        {
-            return 0;
-        }        
-
         public async Task<bool> AlterarPlano(Entities.Associado associado)
         {
             return true;
+        }
+
+        public async Task<Entities.Associado> GetAssociado(int codigoAssociado)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<Entities.Associado> GetAssociadoByUserName(string userName)
+        {
+            throw new System.NotImplementedException();
         }
 
         public async Task<List<Plano>> GetPlanosDisponiveis()
@@ -36,12 +35,18 @@ namespace GISA.Associado.Repositories
             return planos;
         }
 
-        public Task<Entities.Associado> GetAssociado(int codigoAssociado)
+        public async Task<ESituacaoAssociado> GetSituacao(int codigoAssociado)
         {
-            throw new System.NotImplementedException();
+            var situacao = ESituacaoAssociado.Ativo;
+            return JsonConvert.DeserializeObject<ESituacaoAssociado>(situacao.ToString());
         }
 
-        public void SalvarMarcacaoExame(Entities.Associado associado)
+        public async Task<decimal> GetValorPlano()
+        {
+            return 0;
+        }
+
+        public Task SalvarMarcacaoExame(Entities.Associado associado)
         {
             throw new System.NotImplementedException();
         }

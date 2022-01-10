@@ -23,22 +23,29 @@ namespace GISA.Associado.Repositories
             return _context.Set<T>().Find(id);
         }
 
-        public void Add(T entity)
+        public bool Add(T entity)
         {
             _context.Set<T>().Add(entity);
-            _context.SaveChanges();
+            var result = _context.SaveChanges();
+
+            return result > 0;
         }
 
-        public void Update(T entity)
+        public bool Update(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
+
+            var result = _context.SaveChanges();
+
+            return result > 0;
         }
 
-        public void Delete(T entity)
+        public bool Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
-            _context.SaveChanges();
+            var result = _context.SaveChanges();
+            return result > 0;
         }
 
         public void Dispose()

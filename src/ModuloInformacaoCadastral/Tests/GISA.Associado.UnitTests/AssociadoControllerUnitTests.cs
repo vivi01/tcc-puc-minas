@@ -2,6 +2,7 @@ using FluentAssertions;
 using GISA.Associado.Controllers;
 using GISA.Associado.Entities;
 using GISA.Associado.Services.Interfaces;
+using GISA.EventBusRabbitMQ.Events;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -30,7 +31,7 @@ namespace GISA.Associado.UnitTests
             var codigoAssociado = 3005;
             Entities.Associado associado = GetMockAssociado(codigoAssociado);
 
-            _associadoServiceMock.Setup(x => x.GetAssociado(codigoAssociado))
+            _associadoServiceMock.Setup(x => x.GetAssociadoByCodigo(codigoAssociado))
                 .ReturnsAsync(associado);
 
             //Act
@@ -46,8 +47,11 @@ namespace GISA.Associado.UnitTests
         public async Task GetGetTodosPlanosDisponiveisDeveRetornarAssociadoComSucesso()
         {
             //Arrange
+
+            var planos = GetTodosPlanosMock();
+
             _associadoServiceMock.Setup(x => x.GetTodosPlanosDisponiveis())
-                .ReturnsAsync(GetTodosPlanosMock());
+                .ReturnsAsync(planos);
 
             //Act
             var actionResult = await associadoController.GetTodosPlanosDisponiveis();
@@ -55,7 +59,56 @@ namespace GISA.Associado.UnitTests
             //Assert           
             var result = actionResult.Result as OkObjectResult;
             result.Should().NotBeNull();
-            result.Value.Should().Be(GetTodosPlanosMock());
+            result.Value.Should().Be(planos);
+        }
+
+        [Test]
+        public async Task AlterarPlanoRetornarAssociadoComSucesso()
+        {
+            //Arrange
+
+            var token = "x14589909mlpq09875cv12";
+            var codigoNovoPlano = 27;
+            var planoOdonlogico = false;
+
+            _associadoServiceMock.Setup(x => x.AlterarPlano(token, codigoNovoPlano, planoOdonlogico))
+                .ReturnsAsync(true);
+
+            //Act
+            var actionResult = await associadoController.AlterarPlano(token, codigoNovoPlano, planoOdonlogico);
+
+            //Assert           
+            var result = actionResult.Result as OkObjectResult;
+            result.Should().NotBeNull();
+            result.Value.Should().Be(true);
+        }
+
+        [Test]
+        public async Task SolicitarMarcacaoExameComSucesso()
+        {
+            //Arrange
+            var autorizacaoExame = new AutorizacaoExameMsg
+            {
+                RequestId = new System.Guid(),
+                CodigoAssociado = 1258,
+                CodigoExame = 254,
+                CodigoPlano = 27,
+                DataExame = new System.DateTime(2022, 02, 10),
+                MensagensErro = "",
+                Status = "Autorizado",
+                Token = "x14589909mlpq09875cv12"
+            };
+
+            _associadoServiceMock.Setup(x => x.SolicitarMarcacaoExame(autorizacaoExame))
+                .ReturnsAsync("Autorizado");
+
+            //Act
+            var actionResult = await associadoController.SolicitarMarcacaoExame(autorizacaoExame);
+
+            //Assert           
+            var result = actionResult.Result as OkObjectResult;
+            result.Should().NotBeNull();
+            result.Value.Should().Be("Autorizado");
         }
 
         private static Entities.Associado GetMockAssociado(int codigoAssociado)

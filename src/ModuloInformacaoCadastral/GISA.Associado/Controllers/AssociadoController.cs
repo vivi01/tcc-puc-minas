@@ -25,7 +25,7 @@ namespace GISA.Associado.Controllers
         [ProducesResponseType(typeof(Entities.Associado), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Entities.Associado>> GetAssociado(int codigoAssociado)
         {
-            var associado = await _associadoService.GetAssociado(codigoAssociado);
+            var associado = await _associadoService.GetAssociadoByCodigo(codigoAssociado);
 
             return Ok(associado ?? new Entities.Associado());
         }
@@ -40,13 +40,13 @@ namespace GISA.Associado.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<bool>> AlterarPlano([FromBody] Entities.Associado associado)
+        public async Task<ActionResult<bool>> AlterarPlano(string token, int codigoNovoPlano, bool planoOdontologico)
         {
-            return Ok(await _associadoService.AlterarPlano(associado));
+            return Ok(await _associadoService.AlterarPlano(token, codigoNovoPlano, planoOdontologico));
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> SolicitarMarcacaoExame([FromBody] AutorizacaoExameMsg autorizacaoExameMsg)
+        public async Task<ActionResult<string>> SolicitarMarcacaoExame([FromBody] AutorizacaoExameMsg autorizacaoExameMsg)
         {
             return Ok(await _associadoService.SolicitarMarcacaoExame(autorizacaoExameMsg));
         }

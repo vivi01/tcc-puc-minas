@@ -1,18 +1,19 @@
 ﻿using GISA.Associado.Entities;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GISA.Associado.Services.Interfaces
 {
     public interface IPlanoService
     {
-        void Adicionar(Plano plano);
+        bool Adicionar(Plano plano);
 
-        void Editar(Plano plano);
+        bool Editar(Plano plano);
 
-        Plano ObterPorId(int id);
+        Plano ObterPlanoPorCodigo(int codigo);
 
-        void Deletar(Plano plano);
+        bool Deletar(Plano plano);
 
-        List<Plano> ObterTodos();
+        Task<List<Plano>> ObterTodos();
     }
 }

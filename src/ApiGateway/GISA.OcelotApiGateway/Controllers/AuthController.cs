@@ -37,5 +37,12 @@ namespace GISA.OcelotApiGateway.Controllers
 
             return await _tokenService.GerarNovoToken(user);
         }
+
+        [HttpPost("[action]")]
+        [AllowAnonymous]
+        public async Task<ActionResult<AuthToken>> GetUsuario(string token)
+        {
+            return await _tokenService.GetTokenByToken(token);
+        }
     }
 }

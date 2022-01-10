@@ -5,13 +5,13 @@ namespace GISA.Associado.Services.Interfaces
 {
     public interface IEnderecoService
     {
-        void Adicionar(Endereco endereco);
+        bool Adicionar(Endereco endereco);
 
-        void Editar(Endereco endereco);
+        bool Editar(Endereco endereco);
 
         Endereco ObterPorId(int id);
 
-        void Deletar(Endereco endereco);
+        bool Deletar(Endereco endereco);
 
         List<Endereco> ObterTodos();
     }

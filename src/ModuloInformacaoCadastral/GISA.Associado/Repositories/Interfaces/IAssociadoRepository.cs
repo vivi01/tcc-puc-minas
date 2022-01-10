@@ -9,9 +9,10 @@ namespace GISA.Associado.Repositories.Interfaces
     {
         Task<ESituacaoAssociado> GetSituacao(int codigoAssociado);
         Task<Entities.Associado> GetAssociado(int codigoAssociado);
+        Task<Entities.Associado> GetAssociadoByUserName(string userName);
         Task<decimal> GetValorPlano();
         Task<bool> AlterarPlano(Entities.Associado associado);
         Task<List<Plano>> GetPlanosDisponiveis();
-        void SalvarMarcacaoExame(Entities.Associado associado);
+        Task SalvarMarcacaoExame(Entities.Associado associado);
     }
 }

@@ -10,5 +10,7 @@ namespace GISA.OcelotApiGateway.Repositories.Interfaces
         Task Create(AuthToken token);
 
         Task<bool> Update(AuthToken token);
+
+        Task<AuthToken> GetTokenByTokenValue(string token);
     }
 }

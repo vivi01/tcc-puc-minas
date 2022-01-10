@@ -29,6 +29,15 @@ namespace GISA.OcelotApiGateway.Repositories
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<AuthToken> GetTokenByTokenValue(string token)
+        {
+            var filter = Builders<AuthToken>.Filter.Eq(p => p.Token, token);
+
+            return await _context.Tokens
+                .Find(filter)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<bool> Update(AuthToken token)
         {
             var updateResult = await _context

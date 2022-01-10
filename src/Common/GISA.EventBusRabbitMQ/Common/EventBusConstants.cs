@@ -6,5 +6,6 @@
         public const string SituacaoAssociadoQueue = "situacaoAssociadoQueue";
         public const string AssociadoExchange = "associado";
         public const string PrestadorExchange = "prestador";
+        public const string AutenticacaoExchange = "autenticacao";
     }
 }
