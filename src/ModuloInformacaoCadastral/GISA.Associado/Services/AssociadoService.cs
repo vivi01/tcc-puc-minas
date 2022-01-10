@@ -25,29 +25,29 @@ namespace GISA.Associado.Services
             _planoService = planoService;
         }
 
-        public async Task<ESituacaoAssociado> GetSituacaoAssociado(int codigoAssociado)
+        public Task<ESituacaoAssociado> GetSituacaoAssociado(int codigoAssociado)
         {
-            return await _associadoRepository.GetSituacao(codigoAssociado);
+            return _associadoRepository.GetSituacao(codigoAssociado);
         }
 
-        public async Task<Entities.Associado> GetAssociadoByCodigo(int codigoAssociado)
+        public Task<Entities.Associado> GetAssociadoByCodigo(int codigoAssociado)
         {
-            return await _associadoRepository.GetAssociado(codigoAssociado);
+            return _associadoRepository.GetAssociado(codigoAssociado);
         }
 
-        public async Task<Entities.Associado> GetAssociadoByUserName(string userName)
+        public Task<Entities.Associado> GetAssociadoByUserName(string userName)
         {
-            return await _associadoRepository.GetAssociadoByUserName(userName);
+            return _associadoRepository.GetAssociadoByUserName(userName);
         }
 
-        public async Task<decimal> GetValorPlano()
+        public Task<decimal> GetValorPlano()
         {
-            return await _associadoRepository.GetValorPlano();
+            return _associadoRepository.GetValorPlano();
         }
 
-        public async Task<List<Plano>> GetTodosPlanosDisponiveis()
+        public Task<List<Plano>> GetTodosPlanosDisponiveis()
         {
-            return await _associadoRepository.GetPlanosDisponiveis();
+            return _associadoRepository.GetPlanosDisponiveis();
         }
 
         public async Task<string> SolicitarMarcacaoExame(AutorizacaoExameMsg request)
@@ -76,7 +76,7 @@ namespace GISA.Associado.Services
         public async Task<bool> AlterarPlano(string token, int codigoNovoPlano, bool planoOdontologico)
         {
             var request = new AuthTokenMsg(token);
-           
+
             await _busControl.SendAsync<AuthTokenMsg>(EventBusConstants.AutenticacaoExchange, request);
 
             if (string.IsNullOrWhiteSpace(request.UserName))
@@ -84,12 +84,18 @@ namespace GISA.Associado.Services
 
             var usuario = await GetAssociadoByUserName(request.UserName);
 
-            var plano = _planoService.ObterPlanoPorCodigo(codigoNovoPlano);
+            var plano = await _planoService.ObterPlanoPorCodigo(codigoNovoPlano);
 
             usuario.Plano = plano;
             usuario.PossuiPlanoOdontologico = planoOdontologico;
+            usuario.ValorPlano = CalcularValorNovoPlano(usuario.DataNascimento, plano.TipoPlano);
 
-            return _associadoRepository.Update(usuario);
+            return await _associadoRepository.Update(usuario);
+        }
+
+        private static decimal CalcularValorNovoPlano(DateTime dataNascimento, ETipoPlano tipoPlano)
+        {
+            return 0;
         }
     }
 }

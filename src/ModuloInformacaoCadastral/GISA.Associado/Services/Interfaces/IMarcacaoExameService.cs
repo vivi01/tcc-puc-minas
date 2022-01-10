@@ -1,21 +1,19 @@
 ﻿using GISA.Associado.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GISA.Associado.Services.Interfaces
 {
     public interface IMarcacaoExameService
     {
-        void Adicionar(MarcacaoExame marcacao);
+        Task<bool> Adicionar(MarcacaoExame marcacao);
 
-        void Editar(MarcacaoExame marcacao);
+        Task<bool> Editar(MarcacaoExame marcacao);
 
-        MarcacaoExame ObterPorId(int id);
+        Task<MarcacaoExame> ObterPorId(int id);
 
-        void Deletar(MarcacaoExame marcacao);
+        Task<bool> Deletar(MarcacaoExame marcacao);
 
-        List<MarcacaoExame> ObterTodos();
+        Task<List<MarcacaoExame>> ObterTodos();
     }
 }

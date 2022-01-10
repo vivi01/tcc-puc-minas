@@ -6,13 +6,13 @@ namespace GISA.Associado.Services.Interfaces
 {
     public interface IPlanoService
     {
-        bool Adicionar(Plano plano);
+        Task<bool> Adicionar(Plano plano);
 
-        bool Editar(Plano plano);
+        Task<bool> Editar(Plano plano);
 
-        Plano ObterPlanoPorCodigo(int codigo);
+        Task<Plano> ObterPlanoPorCodigo(int codigo);
 
-        bool Deletar(Plano plano);
+        Task<bool> Deletar(Plano plano);
 
         Task<List<Plano>> ObterTodos();
     }

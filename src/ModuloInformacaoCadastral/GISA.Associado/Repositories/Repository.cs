@@ -1,7 +1,9 @@
 ﻿using GISA.Associado.Context;
 using GISA.Associado.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GISA.Associado.Repositories
 {
@@ -13,38 +15,40 @@ namespace GISA.Associado.Repositories
             _context = context;
         }
 
-        public IQueryable<T> Get()
+        public async Task<List<T>> Get()
         {
-            return _context.Set<T>();
+            return await _context.Set<T>().ToListAsync();
         }
 
-        public T GetById(int id)
+        public async Task<T> GetById(int id)
         {
-            return _context.Set<T>().Find(id);
+            return await _context.Set<T>().FindAsync(id);
         }
 
-        public bool Add(T entity)
+        public async Task<bool> Add(T entity)
         {
-            _context.Set<T>().Add(entity);
-            var result = _context.SaveChanges();
+            await _context.Set<T>().AddAsync(entity);
+
+            var result = await _context.SaveChangesAsync();
 
             return result > 0;
         }
 
-        public bool Update(T entity)
+        public async Task<bool> Update(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            _context.SaveChanges();
 
-            var result = _context.SaveChanges();
+            var result = await _context.SaveChangesAsync();
 
             return result > 0;
         }
 
-        public bool Delete(T entity)
+        public async Task<bool> Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
-            var result = _context.SaveChanges();
+
+            var result = await _context.SaveChangesAsync();
+
             return result > 0;
         }
 

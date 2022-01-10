@@ -1,13 +1,14 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GISA.Associado.Repositories.Interfaces
 {
     public interface IRepository<T>
     {
-        IQueryable<T> Get();
-        T GetById(int id);
-        bool Add(T entity);
-        bool Update(T entity);
-        bool Delete(T entity);
+        Task<List<T>> Get();
+        Task<T> GetById(int id);
+        Task<bool> Add(T entity);
+        Task<bool> Update(T entity);
+        Task<bool> Delete(T entity);
     }
 }

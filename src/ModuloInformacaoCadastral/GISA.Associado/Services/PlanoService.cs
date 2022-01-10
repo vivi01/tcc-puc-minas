@@ -2,7 +2,6 @@
 using GISA.Associado.Repositories.Interfaces;
 using GISA.Associado.Services.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GISA.Associado.Services
@@ -16,29 +15,29 @@ namespace GISA.Associado.Services
             _planoRepository = planoRepository;
         }
 
-        public bool Adicionar(Plano plano)
+        public Task<bool> Adicionar(Plano plano)
         {
             return _planoRepository.Add(plano);
         }
 
-        public bool Editar(Plano plano)
+        public Task<bool> Editar(Plano plano)
         {
             return _planoRepository.Update(plano);
         }
 
-        public Plano ObterPlanoPorCodigo(int codigo)
+        public Task<Plano> ObterPlanoPorCodigo(int codigo)
         {
             return _planoRepository.GetById(codigo);
         }
 
-        public bool Deletar(Plano plano)
+        public Task<bool> Deletar(Plano plano)
         {
             return _planoRepository.Delete(plano);
         }
 
-        public async Task<List<Plano>> ObterTodos()
+        public Task<List<Plano>> ObterTodos()
         {
-            return _planoRepository.Get().ToList();
+            return _planoRepository.Get();
         }
     }
 }

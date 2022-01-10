@@ -1,42 +1,43 @@
 ﻿using GISA.Associado.Entities;
 using GISA.Associado.Repositories.Interfaces;
 using GISA.Associado.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace GISA.Associado.Services
 {
     public class EnderecoService : IEnderecoService
     {
-        public IEnderecoRepository _enderecoRepository;       
+        public IEnderecoRepository _enderecoRepository;
         public EnderecoService(IEnderecoRepository enderecoRepository)
         {
-            _enderecoRepository = enderecoRepository;            
+            _enderecoRepository = enderecoRepository;
         }
 
-        public bool Adicionar(Endereco endereco)
+        public Task<bool> Adicionar(Endereco endereco)
         {
-           return _enderecoRepository.Add(endereco);
+            return _enderecoRepository.Add(endereco);
         }
 
-        public bool Editar(Endereco endereco)
+        public Task<bool> Editar(Endereco endereco)
         {
             return _enderecoRepository.Update(endereco);
         }
 
-        public Endereco ObterPorId(int id)
+        public Task<Endereco> ObterPorId(int id)
         {
             return _enderecoRepository.GetById(id);
         }
 
-        public bool Deletar(Endereco endereco)
+        public Task<bool> Deletar(Endereco endereco)
         {
             return _enderecoRepository.Delete(endereco);
         }
 
-        public List<Endereco> ObterTodos()
+        public Task<List<Endereco>> ObterTodos()
         {
-            return _enderecoRepository.Get().ToList();
+            return _enderecoRepository.Get();
         }
     }
 }

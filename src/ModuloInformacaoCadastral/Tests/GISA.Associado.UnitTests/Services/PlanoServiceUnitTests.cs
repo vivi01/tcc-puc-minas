@@ -7,6 +7,7 @@ using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GISA.Associado.UnitTests.Services
 {
@@ -23,81 +24,81 @@ namespace GISA.Associado.UnitTests.Services
         }
 
         [Test]
-        public void AdicionarDeveSerExecutadoComSucesso()
+        public async Task AdicionarDeveSerExecutadoComSucesso()
         {
             //Arrange
-            var endereco = GetPlanoMock();
-            _planoRepositoryMock.Setup(x => x.Add(endereco))
-                .Returns(true);
+            var plano = GetPlanoMock();
+            _planoRepositoryMock.Setup(x => x.Add(plano))
+                .ReturnsAsync(true);
 
             //Act
-            var result = planoService.Adicionar(endereco);
+            var result = await planoService.Adicionar(plano);
 
             //Assert
             result.Should().BeTrue();
         }
 
         [Test]
-        public void EditarDeveSerExecutadoComSucesso()
+        public async Task EditarDeveSerExecutadoComSucesso()
         {
             //Arrange
             var endereco = GetPlanoMock();
             _planoRepositoryMock.Setup(x => x.Update(endereco))
-                .Returns(true);
+                .ReturnsAsync(true);
 
             //Act
-            var result = planoService.Editar(endereco);
+            var result = await planoService.Editar(endereco);
 
             //Assert
             result.Should().BeTrue();
         }
 
         [Test]
-        public void ObterPorIdDeveSerExecutadoComSucesso()
+        public async Task ObterPorIdDeveSerExecutadoComSucesso()
         {
             //Arrange
             var planoId = 25;
             var plano = GetPlanoMock();
 
             _planoRepositoryMock.Setup(x => x.GetById(planoId))
-                .Returns(plano);
+                .ReturnsAsync(plano);
 
             //Act
-            var result = planoService.ObterPlanoPorCodigo(planoId);
+            var result = await planoService.ObterPlanoPorCodigo(planoId);
 
             //Assert
             result.Should().Be(plano);
         }
 
         [Test]
-        public void DeletarDeveSerExecutadoComSucesso()
+        public async Task DeletarDeveSerExecutadoComSucesso()
         {
             //Arrange
             var endereco = GetPlanoMock();
             _planoRepositoryMock.Setup(x => x.Delete(endereco))
-                .Returns(true);
+                .ReturnsAsync(true);
 
             //Act
-            var result = planoService.Deletar(endereco);
+            var result = await planoService.Deletar(endereco);
 
             //Assert
             result.Should().BeTrue();
         }
 
         [Test]
-        public void ObterTodosDeveSerExecutadoComSucesso()
+        public async Task ObterTodosDeveSerExecutadoComSucesso()
         {
             //Arrange
-            var planos = GetEnderecosMock().AsQueryable();
+            var planos = GetPlanosMock();
 
             _planoRepositoryMock.Setup(x => x.Get())
-                .Returns(planos);
+                .ReturnsAsync(planos);
 
             //Act
-            var result = planoService.ObterTodos();
+            var result = await planoService.ObterTodos();
 
             //Assert
-            result.Result.Should().Equal(planos.ToList());
+            result.Should().Equal(planos);
         }
 
         private static Plano GetPlanoMock()
@@ -111,7 +112,7 @@ namespace GISA.Associado.UnitTests.Services
             };
         }
 
-        private static List<Plano> GetEnderecosMock()
+        private static List<Plano> GetPlanosMock()
         {
             return new List<Plano> {
                new Plano  {

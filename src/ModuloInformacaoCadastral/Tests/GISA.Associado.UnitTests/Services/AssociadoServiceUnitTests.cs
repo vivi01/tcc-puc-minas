@@ -162,10 +162,10 @@ namespace GISA.Associado.UnitTests.Services
                .ReturnsAsync(associado);
 
             _associadoRepositoryMock.Setup(x => x.Update(associado))
-               .Returns(resultado);
+               .ReturnsAsync(resultado);
 
             _planoServiceMock.Setup(x => x.ObterPlanoPorCodigo(codigoNovoPlano))
-                 .Returns(plano);
+                 .ReturnsAsync(plano);
 
             //Act
             var result = await associadoService.AlterarPlano(token, codigoNovoPlano, true);

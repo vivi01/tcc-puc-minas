@@ -1,48 +1,44 @@
 ﻿using GISA.Associado.Entities;
 using GISA.Associado.Repositories.Interfaces;
 using GISA.Associado.Services.Interfaces;
-using GISA.EventBusRabbitMQ.Interfaces;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GISA.Associado.Services
 {
     public class MarcacaoExameService : IMarcacaoExameService
     {
-        public IMarcacaoExameRepository _marcacaoExameRepository;
-        private IBus _busControl;
+        public IMarcacaoExameRepository _marcacaoExameRepository;       
 
-        public MarcacaoExameService(IMarcacaoExameRepository marcacaoExameRepository, IBus busControl)
+        public MarcacaoExameService(IMarcacaoExameRepository marcacaoExameRepository)
         {
-            _marcacaoExameRepository = marcacaoExameRepository;
-            _busControl = busControl;
+            _marcacaoExameRepository = marcacaoExameRepository;            
         }
 
-        public void Adicionar(MarcacaoExame marcacaoExame)
+        public Task<bool> Adicionar(MarcacaoExame marcacaoExame)
         {
-            _marcacaoExameRepository.Add(marcacaoExame);
+            return _marcacaoExameRepository.Add(marcacaoExame);
         }
 
-        public void Editar(MarcacaoExame marcacaoExame)
+        public Task<bool> Editar(MarcacaoExame marcacaoExame)
         {
-            _marcacaoExameRepository.Update(marcacaoExame);
+            return _marcacaoExameRepository.Update(marcacaoExame);
         }
 
-        public MarcacaoExame ObterPorId(int id)
+        public Task<MarcacaoExame> ObterPorId(int id)
         {
             return _marcacaoExameRepository.GetById(id);
         }
 
-        public void Deletar(MarcacaoExame marcacaoExame)
+        public Task<bool> Deletar(MarcacaoExame marcacaoExame)
         {
-            _marcacaoExameRepository.Delete(marcacaoExame);
+            return _marcacaoExameRepository.Delete(marcacaoExame);
         }
 
-        public List<MarcacaoExame> ObterTodos()
+        public Task<List<MarcacaoExame>> ObterTodos()
         {
-            return _marcacaoExameRepository.Get().ToList();
+            return _marcacaoExameRepository.Get();
         }
     }
 }

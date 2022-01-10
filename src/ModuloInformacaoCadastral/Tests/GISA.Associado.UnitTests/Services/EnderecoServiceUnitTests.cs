@@ -6,6 +6,7 @@ using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GISA.Associado.UnitTests.Services
 {
@@ -22,78 +23,72 @@ namespace GISA.Associado.UnitTests.Services
         }
 
         [Test]
-        public void AdicionarDeveSerExecutadoComSucesso()
+        public async Task AdicionarDeveSerExecutadoComSucesso()
         {
             //Arrange
             var endereco = GetEnderecoMock();
             _enderecoRepositoryMock.Setup(x => x.Add(endereco))
-                .Returns(true);
+                .ReturnsAsync(true);
 
             //Act
-            var result = enderecoService.Adicionar(endereco);
+            var result = await enderecoService.Adicionar(endereco);
 
             //Assert
             result.Should().BeTrue();
         }
 
         [Test]
-        public void EditarDeveSerExecutadoComSucesso()
+        public async Task EditarDeveSerExecutadoComSucesso()
         {
             //Arrange
             var endereco = GetEnderecoMock();
             _enderecoRepositoryMock.Setup(x => x.Update(endereco))
-                .Returns(true);
+                .ReturnsAsync(true);
 
             //Act
-            var result = enderecoService.Editar(endereco);
+            var result = await enderecoService.Editar(endereco);
 
             //Assert
             result.Should().BeTrue();
         }
 
         [Test]
-        public void ObterPorIdDeveSerExecutadoComSucesso()
+        public async Task ObterPorIdDeveSerExecutadoComSucesso()
         {
             //Arrange
             var enderecoId = 7;
             var endereco = GetEnderecoMock();
 
             _enderecoRepositoryMock.Setup(x => x.GetById(enderecoId))
-                .Returns(endereco);
+                .ReturnsAsync(endereco);
 
             //Act
-            var result = enderecoService.ObterPorId(enderecoId);
+            var result = await enderecoService.ObterPorId(enderecoId);
 
             //Assert
             result.Should().Be(endereco);
         }
 
         [Test]
-        public void DeletarDeveSerExecutadoComSucesso()
+        public async Task DeletarDeveSerExecutadoComSucesso()
         {
-            //Arrange
             var endereco = GetEnderecoMock();
-            _enderecoRepositoryMock.Setup(x => x.Delete(endereco))
-                .Returns(true);
-
-            //Act
-            var result = enderecoService.Deletar(endereco);
-
-            //Assert
+            _enderecoRepositoryMock.Setup(x => x.Delete(endereco)).ReturnsAsync(true);
+            var result = await enderecoService.Deletar(endereco);
             result.Should().BeTrue();
         }
 
         [Test]
-        public void ObterTodosDeveSerExecutadoComSucesso()
+        public async Task ObterTodosDeveSerExecutadoComSucesso()
         {
             //Arrange
-            var enderecos = GetEnderecosMock().AsQueryable();
+            var enderecos = GetEnderecosMock();
 
             _enderecoRepositoryMock.Setup(x => x.Get())
-                .Returns(enderecos);
+                .ReturnsAsync(enderecos);
 
             //Act
-            var result = enderecoService.ObterTodos();
+            var result = await enderecoService.ObterTodos();
 
             //Assert
             result.Should().Equal(enderecos.ToList());
