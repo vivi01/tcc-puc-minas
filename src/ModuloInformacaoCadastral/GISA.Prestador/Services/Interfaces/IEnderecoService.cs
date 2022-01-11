@@ -1,19 +1,20 @@
 ﻿using GISA.Prestador.Entities;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GISA.Prestador.Services.Interfaces
 {
     public interface IEnderecoService
     {
-        void Adicionar(Endereco endereco);
+        Task<bool> Adicionar(Endereco endereco);
 
-        void Editar(Endereco endereco);
+        Task<bool> Editar(Endereco endereco);
 
-        Endereco ObterPorId(int id);
+        Task<Endereco> ObterPorId(int id);
 
-        void Deletar(Endereco endereco);
+        Task<bool> Deletar(Endereco endereco);
 
-        List<Endereco> ObterTodos();
+        Task<List<Endereco>> ObterTodos();
 
     }
 }

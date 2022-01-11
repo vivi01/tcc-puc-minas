@@ -4,43 +4,41 @@ using GISA.Prestador.Repositories.Interfaces;
 using GISA.Prestador.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GISA.Prestador.Services
 {
     public class EnderecoService : IEnderecoService
     {
         public IEnderecoRepository _enderecoRepository;
-        private IBus _busControl;
-
-        public EnderecoService(IEnderecoRepository enderecoRepository, IBus busControl)
+        public EnderecoService(IEnderecoRepository enderecoRepository)
         {
             _enderecoRepository = enderecoRepository;
-            _busControl = busControl;
         }
 
-        public void Adicionar(Endereco endereco)
+        public Task<bool> Adicionar(Endereco endereco)
         {
-            _enderecoRepository.Add(endereco);
+            return _enderecoRepository.Add(endereco);
         }
 
-        public void Editar(Endereco endereco)
+        public Task<bool> Editar(Endereco endereco)
         {
-            _enderecoRepository.Update(endereco);
+            return _enderecoRepository.Update(endereco);
         }
 
-        public Endereco ObterPorId(int id)
+        public Task<Endereco> ObterPorId(int id)
         {
             return _enderecoRepository.GetById(id);
         }
 
-        public void Deletar(Endereco endereco)
+        public Task<bool> Deletar(Endereco endereco)
         {
-            _enderecoRepository.Delete(endereco);
+            return _enderecoRepository.Delete(endereco);
         }
 
-        public List<Endereco> ObterTodos()
+        public Task<List<Endereco>> ObterTodos()
         {
-            return _enderecoRepository.Get().ToList();
+            return _enderecoRepository.Get();
         }
     }
 }

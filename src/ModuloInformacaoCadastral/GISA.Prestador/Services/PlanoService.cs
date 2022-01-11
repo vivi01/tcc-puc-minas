@@ -1,46 +1,43 @@
-﻿using GISA.EventBusRabbitMQ.Interfaces;
-using GISA.Prestador.Entities;
+﻿using GISA.Prestador.Entities;
 using GISA.Prestador.Repositories.Interfaces;
 using GISA.Prestador.Services.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace GISA.Prestador.Services
 {
     public class PlanoService : IPlanoService
     {
         public IPlanoRepository _planoRepository;
-        private IBus _busControl;
 
-        public PlanoService(IPlanoRepository planoRepository, IBus busControl)
+        public PlanoService(IPlanoRepository planoRepository)
         {
             _planoRepository = planoRepository;
-            _busControl = busControl;
         }
 
-        public void Adicionar(Plano plano)
+        public Task<bool> Adicionar(Plano plano)
         {
-            _planoRepository.Add(plano);
+            return _planoRepository.Add(plano);
         }
 
-        public void Editar(Plano plano)
+        public Task<bool> Editar(Plano plano)
         {
-            _planoRepository.Update(plano);
+            return _planoRepository.Update(plano);
         }
 
-        public Plano ObterPorId(int id)
+        public Task<Plano> ObterPlanoPorCodigo(int codigo)
         {
-            return _planoRepository.GetById(id);
+            return _planoRepository.GetById(codigo);
         }
 
-        public void Deletar(Plano plano)
+        public Task<bool> Deletar(Plano plano)
         {
-            _planoRepository.Delete(plano);
+            return _planoRepository.Delete(plano);
         }
 
-        public List<Plano> ObterTodos()
+        public Task<List<Plano>> ObterTodos()
         {
-            return _planoRepository.Get().ToList();
+            return _planoRepository.Get();
         }
     }
 }
