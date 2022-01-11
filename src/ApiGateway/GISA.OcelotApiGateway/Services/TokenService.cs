@@ -15,9 +15,9 @@ namespace GISA.OcelotApiGateway.Services
     public class TokenService : ITokenService
     {
         private readonly ITokenRepository _tokenRepository;
-        private readonly ILogger<TokenService> _logger;
+        private readonly ILogger<ITokenService> _logger;
 
-        public TokenService(ITokenRepository tokenRepository, ILogger<TokenService> logger)
+        public TokenService(ITokenRepository tokenRepository, ILogger<ITokenService> logger)
         {
             _tokenRepository = tokenRepository;
             _logger = logger;
