@@ -2,6 +2,7 @@
 using GISA.OcelotApiGateway.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace GISA.OcelotApiGateway.Controllers
@@ -21,6 +22,8 @@ namespace GISA.OcelotApiGateway.Controllers
 
         [HttpPost("[action]")]
         [AllowAnonymous]
+        [ProducesResponseType(typeof(AuthToken), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(AuthToken), (int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult<AuthToken>> GetAuthentication([FromBody] AuthUser user)
         {
             if (!_usuarioService.ValidarUsuario(user))
@@ -32,17 +35,18 @@ namespace GISA.OcelotApiGateway.Controllers
 
             if (token != null)
             {
-                return await _tokenService.ValidarToken(user, token);
+                return Ok(await _tokenService.ValidarToken(user, token));
             }
 
-            return await _tokenService.GerarNovoToken(user);
+            return Ok(await _tokenService.GerarNovoToken(user));
         }
 
         [HttpPost("[action]")]
         [AllowAnonymous]
+        [ProducesResponseType(typeof(AuthToken), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<AuthToken>> GetUsuario(string token)
         {
-            return await _tokenService.GetTokenByToken(token);
+            return Ok( await _tokenService.GetTokenByToken(token));
         }
     }
 }

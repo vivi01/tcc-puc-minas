@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GISA.Prestador", "src\Modul
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GISA.ComunicacaoLegado", "src\ComunicacaoLegado\GISA.ComunicacaoLegado\GISA.ComunicacaoLegado.csproj", "{1BF7B438-DEF2-4F7C-B652-8AA1C19FC414}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GISA.Associado.UnitTests", "src\ModuloInformacaoCadastral\Tests\GISA.Associado.UnitTests\GISA.Associado.UnitTests.csproj", "{FB8CCA46-097D-405F-AF1E-6B05283BA7AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GISA.Associado.UnitTests", "src\ModuloInformacaoCadastral\Tests\GISA.Associado.UnitTests\GISA.Associado.UnitTests.csproj", "{FB8CCA46-097D-405F-AF1E-6B05283BA7AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GISA.OcelotApiGateway.UnitTests", "src\ApiGateway\Tests\GISA.OcelotApiGateway.UnitTests\GISA.OcelotApiGateway.UnitTests.csproj", "{D15C4075-5EE5-434A-B3ED-E95B987477EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{FB8CCA46-097D-405F-AF1E-6B05283BA7AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB8CCA46-097D-405F-AF1E-6B05283BA7AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB8CCA46-097D-405F-AF1E-6B05283BA7AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D15C4075-5EE5-434A-B3ED-E95B987477EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D15C4075-5EE5-434A-B3ED-E95B987477EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D15C4075-5EE5-434A-B3ED-E95B987477EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D15C4075-5EE5-434A-B3ED-E95B987477EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

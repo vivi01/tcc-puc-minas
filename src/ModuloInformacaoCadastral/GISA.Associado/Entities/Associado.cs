@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GISA.Associado.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace GISA.Associado.Entities
@@ -17,5 +18,7 @@ namespace GISA.Associado.Entities
         public decimal ValorPlano { get; set; }
         public string Email { get; set; }
         public bool PossuiPlanoOdontologico { get; set; }
+        public ESituacaoAssociado SituacaoAssociado { get; set; }
+        public string UserName { get; set; }
     }
 }

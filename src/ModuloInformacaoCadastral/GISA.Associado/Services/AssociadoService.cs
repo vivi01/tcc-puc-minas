@@ -34,20 +34,15 @@ namespace GISA.Associado.Services
         {
             return _associadoRepository.GetAssociado(codigoAssociado);
         }
-
-        public Task<Entities.Associado> GetAssociadoByUserName(string userName)
-        {
-            return _associadoRepository.GetAssociadoByUserName(userName);
-        }
-
+        
         public Task<decimal> GetValorPlano()
         {
             return _associadoRepository.GetValorPlano();
         }
 
-        public Task<List<Plano>> GetTodosPlanosDisponiveis()
+        public Task<Entities.Associado> GetAssociadoByUserName(string userName)
         {
-            return _associadoRepository.GetPlanosDisponiveis();
+            return _associadoRepository.GetAssociadoByUserName(userName);
         }
 
         public async Task<string> SolicitarMarcacaoExame(AutorizacaoExameMsg request)

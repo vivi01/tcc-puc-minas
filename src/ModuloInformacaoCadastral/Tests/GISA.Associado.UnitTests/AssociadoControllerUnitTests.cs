@@ -15,13 +15,15 @@ namespace GISA.Associado.UnitTests
     {
         AssociadoController associadoController;
         private Mock<IAssociadoService> _associadoServiceMock;
+        private Mock<IPlanoService> _planoServiceMock;
 
         [SetUp]
         public void Setup()
         {
             _associadoServiceMock = new Mock<IAssociadoService>();
+            _planoServiceMock = new Mock<IPlanoService>();
 
-            associadoController = new AssociadoController(_associadoServiceMock.Object);
+            associadoController = new AssociadoController(_associadoServiceMock.Object, _planoServiceMock.Object);
         }
 
         [Test]
@@ -50,7 +52,7 @@ namespace GISA.Associado.UnitTests
 
             var planos = GetTodosPlanosMock();
 
-            _associadoServiceMock.Setup(x => x.GetTodosPlanosDisponiveis())
+            _planoServiceMock.Setup(x => x.ObterTodos())
                 .ReturnsAsync(planos);
 
             //Act

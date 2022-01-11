@@ -1,9 +1,8 @@
 ﻿using GISA.Associado.Context;
-using GISA.Associado.Entities;
 using GISA.Associado.Enums;
 using GISA.Associado.Repositories.Interfaces;
-using Newtonsoft.Json;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GISA.Associado.Repositories
@@ -14,31 +13,25 @@ namespace GISA.Associado.Repositories
         {
 
         }
-        public async Task<bool> AlterarPlano(Entities.Associado associado)
-        {
-            return true;
-        }
 
-        public async Task<Entities.Associado> GetAssociado(int codigoAssociado)
+        public Task<Entities.Associado> GetAssociado(int codigoAssociado)
         {
-            throw new System.NotImplementedException();
-        }
+            return
+                _context.Associados.Where(b => b.CodigoAssociado.Equals(codigoAssociado)).FirstOrDefaultAsync();
 
-        public async Task<Entities.Associado> GetAssociadoByUserName(string userName)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task<List<Plano>> GetPlanosDisponiveis()
-        {
-            List<Plano> planos = new List<Plano>();
-            return planos;
         }
 
         public async Task<ESituacaoAssociado> GetSituacao(int codigoAssociado)
         {
-            var situacao = ESituacaoAssociado.Ativo;
-            return JsonConvert.DeserializeObject<ESituacaoAssociado>(situacao.ToString());
+            var associado = await
+                _context.Associados.Where(b => b.CodigoAssociado.Equals(codigoAssociado)).FirstOrDefaultAsync();
+            return associado.SituacaoAssociado;
+        }
+
+        public Task<Entities.Associado> GetAssociadoByUserName(string userName)
+        {
+            return
+               _context.Associados.Where(b => b.UserName.Equals(userName)).FirstOrDefaultAsync();
         }
 
         public async Task<decimal> GetValorPlano()
