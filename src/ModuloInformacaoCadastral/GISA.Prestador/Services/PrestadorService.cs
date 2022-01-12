@@ -12,12 +12,11 @@ namespace GISA.Prestador.Services
 {
     public class PrestadorService : IPrestadorService
     {
-        private IPrestadorRepository _prestadorRepository;
-        private IPlanoService _planoService;
+        public readonly IPrestadorRepository _prestadorRepository;
+        private readonly IPlanoService _planoService;
         private readonly IBus _busControl;
 
-        public PrestadorService(IPrestadorRepository prestadorRepository, IBus busControl,
-            IPlanoService planoService)
+        public PrestadorService(IPrestadorRepository prestadorRepository, IBus busControl, IPlanoService planoService)
         {
             _prestadorRepository = prestadorRepository;
             _busControl = busControl;
