@@ -41,7 +41,7 @@ namespace GISA.Associado.Controllers
             return Ok(planos ?? new List<Plano>());
         }
 
-        [HttpGet("[action]")]
+        [HttpPost("[action]")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<bool>> CadastrarAssociado([FromBody] Entities.Associado associado)
         {
