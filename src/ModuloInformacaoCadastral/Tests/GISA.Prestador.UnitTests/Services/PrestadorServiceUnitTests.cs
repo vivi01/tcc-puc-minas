@@ -36,8 +36,15 @@ namespace GISA.Prestador.UnitTests.Services
         public async Task SolicitarMarcacaoExameComSucesso(string token, AutorizacaoExameMsg autorizacaoExameMsg)
         {
             //Arrange
-            _prestadorRepositoryMock.Setup(x => x.SolicitarAutorizacoExame(token, autorizacaoExameMsg))
-                .Returns(Task.FromResult("Autorizado"));
+            var plano = new Plano
+            {
+                CodigoPlano = 1257,
+                ClassificacaoPlano = Enums.EClassificacaoPlano.Enfermaria,
+                Descricao = "Plano básico",
+                TipoPlano = Enums.ETipoPlano.Individual
+            };
+            _planoServiceMock.Setup(x => x.ObterPlanoPorCodigo(autorizacaoExameMsg.CodigoPlano))
+                .ReturnsAsync(plano);
 
             //Act
             var result = await prestadorService.SolicitarAutorizacoExame(token, autorizacaoExameMsg);
@@ -52,9 +59,16 @@ namespace GISA.Prestador.UnitTests.Services
         {
             //Arrange
             var codigoPlano = 1257;
+            var plano = new Plano
+            {
+                CodigoPlano = 1257,
+                ClassificacaoPlano = Enums.EClassificacaoPlano.Enfermaria,
+                Descricao = "Plano básico",
+                TipoPlano = Enums.ETipoPlano.Individual
+            };
 
-            _prestadorRepositoryMock.Setup(x => x.GetPlanoConveniado(codigoPlano))
-                .ReturnsAsync(true);
+            _planoServiceMock.Setup(x => x.ObterPlanoPorCodigo(codigoPlano))
+                .ReturnsAsync(plano);
 
             //Act
             var result = await prestadorService.GetPlanoConveniado(codigoPlano);
@@ -68,7 +82,7 @@ namespace GISA.Prestador.UnitTests.Services
         {
             //Arrange
             var planos = GetMockPlanosConveniados();
-            _prestadorRepositoryMock.Setup(x => x.GetAllPlanosConveniados())
+            _planoServiceMock.Setup(x => x.ObterTodos())
                 .ReturnsAsync(planos);
 
             //Act
