@@ -17,7 +17,7 @@ namespace GISA.Prestador.Entities
         public Endereco Endereco { get; set; }
         public string Formacao { get; set; }
         public int CodigoPrestador { get; set; }
-        public virtual List<Plano> Planos { get; set; }
+        public List<Plano> Planos { get; set; }
         public int PlanoId { get; set; }
         public ECategoria Categoria { get; set; }
         public string Email { get; set; }

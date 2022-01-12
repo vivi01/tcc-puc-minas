@@ -56,7 +56,8 @@ services:
     restart: on-failure
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "EventBus:HostName=localhost"
+      - "ConnectionStrings:AssociadoConnection=Server=associadodb;Database=associadodb;User Id=sa;Password=!SwN12345678"
+      - "EventBus:HostName=rabbitmq"
     depends_on:
     - associadodb
     - rabbitmq
@@ -73,7 +74,7 @@ services:
     restart: on-failure
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "EventBus:HostName=localhost"
+      - "EventBus:HostName=rabbitmq"
     depends_on:
     - rabbitmq
     volumes:
@@ -89,7 +90,8 @@ services:
     restart: on-failure
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "EventBus:HostName=localhost"
+      - "ConnectionStrings:PrestadorConnection=Server=prestadordb;Database=prestadordb;User Id=sa;Password=!SwN12345678"
+      - "EventBus:HostName=rabbitmq"
     depends_on:
     - prestadordb
     - rabbitmq

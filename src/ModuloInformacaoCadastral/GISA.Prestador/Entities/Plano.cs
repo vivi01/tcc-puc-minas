@@ -1,4 +1,5 @@
 ﻿using GISA.Prestador.Enums;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,5 +14,6 @@ namespace GISA.Prestador.Entities
         public string Descricao { get; set; }
         public ETipoPlano TipoPlano { get; set; }
         public EClassificacaoPlano ClassificacaoPlano { get; set; }
+        public List<Prestador> Prestadores { get; set; }
     }
 }
