@@ -12,13 +12,16 @@ namespace GISA.Prestador.Services
 {
     public class PrestadorService : IPrestadorService
     {
-        public IPrestadorRepository _prestadorRepository;
-        private IBus _busControl;
+        private IPrestadorRepository _prestadorRepository;
+        private IPlanoService _planoService;
+        private readonly IBus _busControl;
 
-        public PrestadorService(IPrestadorRepository prestadorRepository, IBus busControl)
+        public PrestadorService(IPrestadorRepository prestadorRepository, IBus busControl,
+            IPlanoService planoService)
         {
             _prestadorRepository = prestadorRepository;
             _busControl = busControl;
+            _planoService = planoService;
         }
         public async Task<string> SolicitarAutorizacoExame(string token, AutorizacaoExameMsg autorizacaoExameMsg)
         {
@@ -37,7 +40,7 @@ namespace GISA.Prestador.Services
 
             var isConveniado = await GetPlanoConveniado(autorizacaoExameMsg.CodigoPlano);
 
-            if (isConveniado != true)
+            if (isConveniado != null)
             {
                 return "Plano não conveniado";
             }
@@ -61,14 +64,14 @@ namespace GISA.Prestador.Services
             await _busControl.SendAsync<AutorizacaoExameMsg>(EventBusConstants.PrestadorExchange, requestMessage); ;
         }
 
-        public async Task<bool> GetPlanoConveniado(int codigoPlano)
+        public async Task<Plano> GetPlanoConveniado(int codigoPlano)
         {
-            return await _prestadorRepository.GetPlanoConveniado(codigoPlano);
+            return await _planoService.ObterPlanoPorCodigo(codigoPlano);
         }
 
         public async Task<List<Plano>> GetAllPlanosConveniados()
         {
-            return await _prestadorRepository.GetAllPlanosConveniados();
+            return await _planoService.ObterTodos();
         }
     }
 }

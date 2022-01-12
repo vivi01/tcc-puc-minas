@@ -6,7 +6,7 @@ namespace GISA.Associado.Services.Interfaces
 {
     public interface IPlanoService
     {
-        Task<bool> Adicionar(Plano plano);
+       Task<bool> Adicionar(Plano plano);
 
         Task<bool> Editar(Plano plano);
 
