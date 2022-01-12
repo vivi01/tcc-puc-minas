@@ -33,9 +33,23 @@ namespace GISA.Prestador.UnitTests.Services
         }
 
         [Test]
-        public async Task SolicitarMarcacaoExameComSucesso(string token, AutorizacaoExameMsg autorizacaoExameMsg)
+        public async Task SolicitarMarcacaoExameComSucesso()
         {
             //Arrange
+            string token = "kskaksjlakjdkjd5656456";
+
+            var autorizacaoExame = new AutorizacaoExameMsg
+            {
+                RequestId = new System.Guid(),
+                CodigoAssociado = 1258,
+                CodigoExame = 254,
+                CodigoPlano = 27,
+                DataExame = new System.DateTime(2022, 02, 10),
+                MensagensErro = "",
+                Status = "Autorizado",
+                Token = "x14589909mlpq09875cv12"
+            };
+
             var plano = new Plano
             {
                 CodigoPlano = 1257,
@@ -43,11 +57,11 @@ namespace GISA.Prestador.UnitTests.Services
                 Descricao = "Plano básico",
                 TipoPlano = Enums.ETipoPlano.Individual
             };
-            _planoServiceMock.Setup(x => x.ObterPlanoPorCodigo(autorizacaoExameMsg.CodigoPlano))
+            _planoServiceMock.Setup(x => x.ObterPlanoPorCodigo(autorizacaoExame.CodigoPlano))
                 .ReturnsAsync(plano);
 
             //Act
-            var result = await prestadorService.SolicitarAutorizacoExame(token, autorizacaoExameMsg);
+            var result = await prestadorService.SolicitarAutorizacoExame(token, autorizacaoExame);
 
             //Assert           
             result.Equals("Autorizado");
