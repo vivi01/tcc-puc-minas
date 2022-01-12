@@ -35,6 +35,11 @@ namespace GISA.Associado.Services
             return _associadoRepository.GetAssociado(codigoAssociado);
         }
 
+        public Task<bool> CadastrarAssociado(Entities.Associado associado)
+        {
+            return _associadoRepository.Add(associado);
+        }
+
         public Task<decimal> GetValorPlano()
         {
             return _associadoRepository.GetValorPlano();

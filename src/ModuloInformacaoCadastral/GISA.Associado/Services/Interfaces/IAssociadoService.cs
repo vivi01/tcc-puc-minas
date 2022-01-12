@@ -10,7 +10,8 @@ namespace GISA.Associado.Services.Interfaces
         Task<Entities.Associado> GetAssociadoByUserName(string userName);
         Task<Entities.Associado> GetAssociadoByCodigo(int codigoAssociado);
         Task<decimal> GetValorPlano();
-        Task<bool> AlterarPlano(string token, int codigoNovoPlano, bool planoOdontologico);        
+        Task<bool> AlterarPlano(string token, int codigoNovoPlano, bool planoOdontologico);
         Task<string> SolicitarMarcacaoExame(AutorizacaoExameMsg request);
+        Task<bool> CadastrarAssociado(Entities.Associado associado);
     }
 }
