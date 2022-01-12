@@ -12,13 +12,15 @@ namespace GISA.Prestador.Services
 {
     public class PrestadorService : IPrestadorService
     {
-        public IPrestadorRepository _prestadorRepository;
-        private IBus _busControl;
+        public readonly IPrestadorRepository _prestadorRepository;
+        private readonly IPlanoService _planoService;
+        private readonly IBus _busControl;
 
-        public PrestadorService(IPrestadorRepository prestadorRepository, IBus busControl)
+        public PrestadorService(IPrestadorRepository prestadorRepository, IBus busControl, IPlanoService planoService)
         {
             _prestadorRepository = prestadorRepository;
             _busControl = busControl;
+            _planoService = planoService;
         }
         public async Task<string> SolicitarAutorizacoExame(string token, AutorizacaoExameMsg autorizacaoExameMsg)
         {
