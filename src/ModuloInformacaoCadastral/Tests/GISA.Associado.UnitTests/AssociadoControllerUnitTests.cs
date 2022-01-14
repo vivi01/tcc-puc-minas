@@ -6,7 +6,9 @@ using GISA.EventBusRabbitMQ.Events;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace GISA.Associado.UnitTests
@@ -111,6 +113,44 @@ namespace GISA.Associado.UnitTests
             var result = actionResult.Result as OkObjectResult;
             result.Should().NotBeNull();
             result.Value.Should().Be("Autorizado");
+        }
+
+        [Test]
+        public async Task CadastrarAssociadoComSucesso()
+        {
+            //Arrange
+            var codigoAssociado = 3005;
+            Entities.Associado associado = GetMockAssociado(codigoAssociado);
+
+            _associadoServiceMock.Setup(x => x.CadastrarAssociado(associado))
+                .ReturnsAsync(true);
+
+            //Act
+            var actionResult = await associadoController.CadastrarAssociado(associado);
+
+            //Assert           
+            var result = actionResult.Result as OkObjectResult;
+            result.Should().NotBeNull();
+            result.Value.Should().Be(true);
+        }
+
+        [Test]
+        public async Task CadastrarAssociadoDeveRetornarBadRequest()
+        {
+            //Arrange
+            var codigoAssociado = 3005;
+            Entities.Associado associado = GetMockAssociado(codigoAssociado);
+
+            _associadoServiceMock.Setup(x => x.CadastrarAssociado(associado))
+                .ReturnsAsync(false);
+
+            //Act
+            var actionResult = await associadoController.CadastrarAssociado(associado);
+
+            //Assert           
+            var result = actionResult.Result as BadRequestObjectResult;
+            result.Should().NotBeNull();
+            Assert.AreEqual(Convert.ToInt32(HttpStatusCode.BadRequest), result.StatusCode);
         }
 
         private static Entities.Associado GetMockAssociado(int codigoAssociado)

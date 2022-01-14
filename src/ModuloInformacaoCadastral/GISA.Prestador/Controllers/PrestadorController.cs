@@ -3,6 +3,7 @@ using GISA.Prestador.Entities;
 using GISA.Prestador.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace GISA.Prestador.Controllers
@@ -19,9 +20,22 @@ namespace GISA.Prestador.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<string>> SolicitarAutorizacoExame(string token, AutorizacaoExameMsg autorizacaoExameMsg)
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.BadRequest)]
+        public async Task<ActionResult<bool>> CadastrarPrestador([FromBody] Entities.Prestador prestador)
         {
-            return Ok(await _prestadorService.SolicitarAutorizacoExame(token, autorizacaoExameMsg));
+            var result = await _prestadorService.CadastrarPrestador(prestador);
+
+            if (!result)
+                return BadRequest(new { Message = "Erro ao realizar Cadastro do Prestador" });
+
+            return Ok(result);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<string>> SolicitarAutorizacoExame([FromBody] AutorizacaoExameMsg autorizacaoExameMsg)
+        {
+            return Ok(await _prestadorService.SolicitarAutorizacoExame(autorizacaoExameMsg));
         }
 
         [HttpGet("[action]")]

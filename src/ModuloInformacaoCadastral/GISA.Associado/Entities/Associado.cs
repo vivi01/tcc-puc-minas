@@ -1,18 +1,22 @@
 ﻿using GISA.Associado.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GISA.Associado.Entities
 {
     public class Associado
     {
+        [Key]
         public int Id { get; set; }
         public string Nome { get; set; }
         public DateTime DataNascimento { get; set; }
         public string CpfCnpj { get; set; }
-        public Endereco Endereco { get; set; }
+        public virtual Endereco Endereco { get; set; }
+        public int EnderecoId { get; set; }
         public string Formacao { get; set; }
-        public Plano Plano { get; set; }
+        public virtual Plano Plano { get; set; }
+        public int PlanoId { get; set; }
         public int CodigoAssociado { get; set; }
         public List<MarcacaoExame> MarcacaoExames { get; set; }
         public decimal ValorPlano { get; set; }

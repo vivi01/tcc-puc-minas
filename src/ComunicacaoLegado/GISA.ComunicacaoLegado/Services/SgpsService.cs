@@ -7,7 +7,7 @@ namespace GISA.ComunicacaoLegado.Services
 {
     public class SgpsService : ISgpsService
     {
-        private IBus _busControl;
+        private readonly IBus _busControl;
 
         public SgpsService(IBus busControl)
         {

@@ -17,6 +17,22 @@
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
+      "DownstreamPathTemplate": "/api/v1/associado/CadastrarAssociado",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44302
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "associados_auth_scheme",
+        "AllowedScopes": []
+      },
+      "UpstreamPathTemplate": "/apigateway/api/v1/associado/CadastrarAssociado",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
       "DownstreamPathTemplate": "/api/v1/associado/GetTodosPlanosDisponiveis",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -92,7 +108,7 @@
       "UpstreamHttpMethod": [ "Post" ]
     },
     {
-      "DownstreamPathTemplate": "/prestador",
+      "DownstreamPathTemplate": "/api/v1/prestador/CadastrarPrestador",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -104,10 +120,41 @@
         "AuthenticationProviderKey": "prestador_auth_scheme",
         "AllowedScopes": []
       },
-      "UpstreamPathTemplate": "/apigateway/prestador",
-      "UpstreamHttpMethod": [ "Get", "Post" ]
+      "UpstreamPathTemplate": "/apigateway/api/v1/prestador/CadastrarPrestador",
+      "UpstreamHttpMethod": [ "Post" ]
     },
-
+    {
+      "DownstreamPathTemplate": "/api/v1/prestador/SolicitarAutorizacoExame",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "prestador_auth_scheme",
+        "AllowedScopes": []
+      },
+      "UpstreamPathTemplate": "/apigateway/api/v1/prestador/SolicitarAutorizacoExame",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/prestador/GetAllPlanosConveniados",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "prestador_auth_scheme",
+        "AllowedScopes": []
+      },
+      "UpstreamPathTemplate": "/apigateway/api/v1/prestador/GetAllPlanosConveniados",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
     {
       "DownstreamPathTemplate": "/comunicacaoLegado",
       "DownstreamScheme": "http",
@@ -133,7 +180,6 @@
       "UpstreamPathTemplate": "/apigateway/comunicacaoLegado",
       "UpstreamHttpMethod": [ "Get", "Post" ]
     }
-
   ],
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:5000"

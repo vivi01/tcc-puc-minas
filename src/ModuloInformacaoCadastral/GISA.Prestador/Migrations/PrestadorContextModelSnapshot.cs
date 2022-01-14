@@ -89,7 +89,7 @@ namespace GISA.Prestador.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("EnderecoId")
+                    b.Property<int>("EnderecoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Formacao")
@@ -97,9 +97,6 @@ namespace GISA.Prestador.Migrations
 
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PlanoId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -127,7 +124,9 @@ namespace GISA.Prestador.Migrations
                 {
                     b.HasOne("GISA.Prestador.Entities.Endereco", "Endereco")
                         .WithMany()
-                        .HasForeignKey("EnderecoId");
+                        .HasForeignKey("EnderecoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Endereco");
                 });

@@ -22,13 +22,13 @@ namespace GISA.Prestador.Services
             _busControl = busControl;
             _planoService = planoService;
         }
-        public async Task<string> SolicitarAutorizacoExame(string token, AutorizacaoExameMsg autorizacaoExameMsg)
+        public async Task<string> SolicitarAutorizacoExame(AutorizacaoExameMsg autorizacaoExameMsg)
         {
             var message = new AssociadoMsg
             {
                 RequestId = new System.Guid(),
                 CodigoAssociado = autorizacaoExameMsg.CodigoAssociado,
-                Token = token
+                Token = autorizacaoExameMsg.Token
             };
 
             //chama o microsserviço do associado para verificar o status
@@ -63,10 +63,15 @@ namespace GISA.Prestador.Services
             await _busControl.SendAsync<AutorizacaoExameMsg>(EventBusConstants.PrestadorExchange, requestMessage); ;
         }
 
+        public async Task<bool> CadastrarPrestador(Entities.Prestador prestador)
+        {
+            return await _prestadorRepository.Add(prestador);
+        }
+
         public async Task<Plano> GetPlanoConveniado(int codigoPlano)
         {
             return await _planoService.ObterPlanoPorCodigo(codigoPlano);
-        }
+        }       
 
         public async Task<List<Plano>> GetAllPlanosConveniados()
         {

@@ -44,8 +44,8 @@ namespace GISA.Prestador
             services.AddTransient<IPrestadorRepository, PrestadorRepository>();
 
             //ConnectionStrings
-            services.AddDbContext<PrestadorContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
+            services.AddDbContext<PrestadorContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("PrestadorConnection")));
 
             #region RabbitMQ Dependencies
 

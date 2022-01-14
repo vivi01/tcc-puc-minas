@@ -68,7 +68,7 @@ namespace GISA.Associado.Services
                 CodigoExame = request.CodigoExame
             });
 
-            _associadoRepository.SalvarMarcacaoExame(associado);
+            await _associadoRepository.SalvarMarcacaoExame(associado);
 
             return "Marcação realizada com Sucesso!";
         }

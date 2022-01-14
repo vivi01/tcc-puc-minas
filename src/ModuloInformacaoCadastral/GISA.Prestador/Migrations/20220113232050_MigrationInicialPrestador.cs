@@ -48,10 +48,9 @@ namespace GISA.Prestador.Migrations
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DataNascimento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CpfCnpj = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EnderecoId = table.Column<int>(type: "int", nullable: true),
+                    EnderecoId = table.Column<int>(type: "int", nullable: false),
                     Formacao = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CodigoPrestador = table.Column<int>(type: "int", nullable: false),
-                    PlanoId = table.Column<int>(type: "int", nullable: false),
                     Categoria = table.Column<int>(type: "int", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -63,7 +62,7 @@ namespace GISA.Prestador.Migrations
                         column: x => x.EnderecoId,
                         principalTable: "Endereco",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

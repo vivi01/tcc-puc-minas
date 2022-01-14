@@ -53,7 +53,7 @@ namespace GISA.Associado.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("EnderecoId")
+                    b.Property<int>("EnderecoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Formacao")
@@ -62,7 +62,7 @@ namespace GISA.Associado.Migrations
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PlanoId")
+                    b.Property<int>("PlanoId")
                         .HasColumnType("int");
 
                     b.Property<bool>("PossuiPlanoOdontologico")
@@ -174,11 +174,15 @@ namespace GISA.Associado.Migrations
                 {
                     b.HasOne("GISA.Associado.Entities.Endereco", "Endereco")
                         .WithMany()
-                        .HasForeignKey("EnderecoId");
+                        .HasForeignKey("EnderecoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("GISA.Associado.Entities.Plano", "Plano")
                         .WithMany()
-                        .HasForeignKey("PlanoId");
+                        .HasForeignKey("PlanoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Endereco");
 

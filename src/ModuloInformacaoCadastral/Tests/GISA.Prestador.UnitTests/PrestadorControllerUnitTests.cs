@@ -6,7 +6,9 @@ using GISA.Prestador.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace GISA.Prestador.UnitTests
@@ -27,8 +29,6 @@ namespace GISA.Prestador.UnitTests
         public async Task SolicitarAutorizacoExameDeveRetornarComSucesso()
         {
             //Arrange
-            string token = "kskaksjlakjdkjd5656456";
-
             var autorizacaoExame = new AutorizacaoExameMsg
             {
                 RequestId = new System.Guid(),
@@ -41,11 +41,11 @@ namespace GISA.Prestador.UnitTests
                 Token = "x14589909mlpq09875cv12"
             };
 
-            _prestadorServiceMock.Setup(_ => _.SolicitarAutorizacoExame(token, autorizacaoExame))
+            _prestadorServiceMock.Setup(_ => _.SolicitarAutorizacoExame(autorizacaoExame))
                 .Returns(Task.FromResult("autorizado"));
 
             //Act
-            var actionResult = await prestadorController.SolicitarAutorizacoExame(token, autorizacaoExame);
+            var actionResult = await prestadorController.SolicitarAutorizacoExame(autorizacaoExame);
 
             //Assert
             var result = actionResult.Result as OkObjectResult;
@@ -68,6 +68,67 @@ namespace GISA.Prestador.UnitTests
             //Assert           
             result.Equals(planos);
         }
+
+        [Test]
+        public async Task CadastrarPrestadorComSucesso()
+        {
+            //Arrange
+            Entities.Prestador associado = GetMockPrestador();
+
+            _prestadorServiceMock.Setup(x => x.CadastrarPrestador(associado))
+                .ReturnsAsync(true);
+
+            //Act
+            var actionResult = await prestadorController.CadastrarPrestador(associado);
+
+            //Assert           
+            var result = actionResult.Result as OkObjectResult;
+            result.Should().NotBeNull();
+            result.Value.Should().Be(true);
+        }
+        
+        [Test]
+        public async Task CadastrarPrestadorDeveRetornarBadRequest()
+        {
+            //Arrange
+            Entities.Prestador associado = GetMockPrestador();
+
+            _prestadorServiceMock.Setup(x => x.CadastrarPrestador(associado))
+                .ReturnsAsync(false);
+
+            //Act
+            var actionResult = await prestadorController.CadastrarPrestador(associado);
+
+            //Assert           
+            var result = actionResult.Result as BadRequestObjectResult;
+            result.Should().NotBeNull();
+            Assert.AreEqual(Convert.ToInt32(HttpStatusCode.BadRequest), result.StatusCode);
+        }
+
+        private Entities.Prestador GetMockPrestador()
+        {
+            var endereco = new Endereco
+            {
+                Rua = "Rua X",
+                CEP = "42510698",
+                Cidade = "Rio de Janeiro",
+                Estado = "Rio de Janeiro"
+            };
+
+            return new Entities.Prestador
+            {
+                Categoria = Enums.ECategoria.Medico,
+                CodigoPrestador = 256,
+                CpfCnpj = "568369835614",
+                DataNascimento = new DateTime(1960, 03, 05),
+                Email = "prestador1@gmail.com",
+                Endereco = endereco,
+                Formacao = "medicina",
+                Nome = "José Ribeiro",
+                Planos = GetMockPlanosConveniados()
+            };
+        }
+
 
         private static List<Plano> GetMockPlanosConveniados()
         {

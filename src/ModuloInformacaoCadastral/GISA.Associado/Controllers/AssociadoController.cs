@@ -43,9 +43,15 @@ namespace GISA.Associado.Controllers
 
         [HttpPost("[action]")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult<bool>> CadastrarAssociado([FromBody] Entities.Associado associado)
         {
-            return Ok(await _associadoService.CadastrarAssociado(associado));
+            var result = await _associadoService.CadastrarAssociado(associado);
+
+            if (!result)
+                return BadRequest(new { Message = "Erro ao realizar Cadastro" });
+
+            return Ok(result);
         }
 
         [HttpPost("[action]")]

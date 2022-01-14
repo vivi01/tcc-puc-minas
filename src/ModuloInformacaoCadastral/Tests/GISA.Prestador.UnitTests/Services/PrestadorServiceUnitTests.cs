@@ -36,8 +36,6 @@ namespace GISA.Prestador.UnitTests.Services
         public async Task SolicitarMarcacaoExameComSucesso()
         {
             //Arrange
-            string token = "kskaksjlakjdkjd5656456";
-
             var autorizacaoExame = new AutorizacaoExameMsg
             {
                 RequestId = new System.Guid(),
@@ -61,7 +59,7 @@ namespace GISA.Prestador.UnitTests.Services
                 .ReturnsAsync(plano);
 
             //Act
-            var result = await prestadorService.SolicitarAutorizacoExame(token, autorizacaoExame);
+            var result = await prestadorService.SolicitarAutorizacoExame(autorizacaoExame);
 
             //Assert           
             result.Equals("Autorizado");

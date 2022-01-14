@@ -43,9 +43,10 @@ namespace GISA.Associado
             services.AddTransient<IEnderecoRepository, EnderecoRepository>();
             services.AddTransient<IMarcacaoExameRepository, MarcacaoExameRepository>();
             services.AddTransient<IPlanoRepository, PlanoRepository>();
-            
+
             //ConnectionStrings
-            services.AddDbContext<AssociadoContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<AssociadoContext>(options =>
+                     options.UseSqlServer(Configuration.GetConnectionString("AssociadoConnection")));
 
             #region RabbitMQ Dependencies
 

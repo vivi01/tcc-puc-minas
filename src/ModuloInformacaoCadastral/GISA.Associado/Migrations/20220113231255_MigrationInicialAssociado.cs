@@ -63,9 +63,9 @@ namespace GISA.Associado.Migrations
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DataNascimento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CpfCnpj = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EnderecoId = table.Column<int>(type: "int", nullable: true),
+                    EnderecoId = table.Column<int>(type: "int", nullable: false),
                     Formacao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PlanoId = table.Column<int>(type: "int", nullable: true),
+                    PlanoId = table.Column<int>(type: "int", nullable: false),
                     CodigoAssociado = table.Column<int>(type: "int", nullable: false),
                     ValorPlano = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -81,13 +81,13 @@ namespace GISA.Associado.Migrations
                         column: x => x.EnderecoId,
                         principalTable: "Enderecos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Associados_Planos_PlanoId",
                         column: x => x.PlanoId,
                         principalTable: "Planos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
