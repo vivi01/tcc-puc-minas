@@ -41,7 +41,7 @@ namespace GISA.OcelotApiGateway
                 sp.GetRequiredService<IOptions<AuthDatabaseSettings>>().Value);
 
             //repositories
-            services.AddTransient<IAuthContext, AuthContext>();
+            services.AddSingleton<IAuthContext, AuthContext>();
             services.AddTransient<ITokenRepository, TokenRepository>();
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 

@@ -9,6 +9,16 @@
           "Port": 44302
         }
       ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [
+
+        ],
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "QuotaExceededMessage": "Número de requisições excedida!",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "associados_auth_scheme",
         "AllowedScopes": []
@@ -25,6 +35,16 @@
           "Port": 44302
         }
       ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [
+
+        ],
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "QuotaExceededMessage": "Número de requisições excedida!",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "associados_auth_scheme",
         "AllowedScopes": []
@@ -47,6 +67,7 @@
         ],
         "EnableRateLimiting": true,
         "Period": "5s",
+        "QuotaExceededMessage": "Número de requisições excedida!",
         "PeriodTimespan": 1,
         "Limit": 1
       },
@@ -58,7 +79,7 @@
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
-      "DownstreamPathTemplate": "/api/v1/associado/AlterarPlano",
+      "DownstreamPathTemplate": "/api/v1/associado/AlterarPlano/{token}/{codigoNovoPlano}/{planoOdontologico}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -79,7 +100,7 @@
         "AuthenticationProviderKey": "associados_auth_scheme",
         "AllowedScopes": []
       },
-      "UpstreamPathTemplate": "/apigateway/api/v1/associado/AlterarPlano",
+      "UpstreamPathTemplate": "/apigateway/api/v1/associado/AlterarPlano/{token}/{codigoNovoPlano}/{planoOdontologico}",
       "UpstreamHttpMethod": [ "Post" ]
     },
     {
@@ -97,6 +118,7 @@
         ],
         "EnableRateLimiting": true,
         "Period": "5s",
+        "QuotaExceededMessage": "Número de requisições excedida!",
         "PeriodTimespan": 1,
         "Limit": 1
       },
@@ -116,6 +138,16 @@
           "Port": 5001
         }
       ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [
+
+        ],
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "QuotaExceededMessage": "Número de requisições excedida!",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "prestador_auth_scheme",
         "AllowedScopes": []
@@ -132,6 +164,16 @@
           "Port": 5001
         }
       ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [
+
+        ],
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "QuotaExceededMessage": "Número de requisições excedida!",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "prestador_auth_scheme",
         "AllowedScopes": []
@@ -148,6 +190,16 @@
           "Port": 5001
         }
       ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [
+
+        ],
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "QuotaExceededMessage": "Número de requisições excedida!",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "prestador_auth_scheme",
         "AllowedScopes": []
@@ -170,6 +222,7 @@
         ],
         "EnableRateLimiting": true,
         "Period": "5s",
+        "QuotaExceededMessage": "Número de requisições excedida!",
         "PeriodTimespan": 1,
         "Limit": 1
       },

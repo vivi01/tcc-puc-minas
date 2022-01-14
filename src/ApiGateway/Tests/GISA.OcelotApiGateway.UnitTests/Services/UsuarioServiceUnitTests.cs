@@ -2,12 +2,10 @@
 using GISA.OcelotApiGateway.Repositories.Interfaces;
 using GISA.OcelotApiGateway.SecurityModel;
 using GISA.OcelotApiGateway.Services;
+using GISA.OcelotApiGateway.Settings;
+using Microsoft.AspNetCore.DataProtection;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GISA.OcelotApiGateway.UnitTests.Services
@@ -16,13 +14,25 @@ namespace GISA.OcelotApiGateway.UnitTests.Services
     {
         private UsuarioService usuarioService;
         private Mock<IUsuarioRepository> _usuarioRepositoryMock;
+        private Mock<IDataProtectionProvider> _rootProvider;
+        private IAuthDatabaseSettings _settings;
+        private Mock<IDataProtector> _mockDataProtector;
 
         [SetUp]
         public void SetUp()
         {
             _usuarioRepositoryMock = new Mock<IUsuarioRepository>();
+            _rootProvider = new Mock<IDataProtectionProvider>();
+            _mockDataProtector = new Mock<IDataProtector>();
 
-            usuarioService = new UsuarioService(_usuarioRepositoryMock.Object);
+            _settings = new AuthDatabaseSettings
+            {
+                DatabaseName = "AuthDb",
+                UsuarioCollectionName = "Usuarios",
+                KeyDataProvider = "Authentication.Class.v1"
+            };
+
+            usuarioService = new UsuarioService(_usuarioRepositoryMock.Object, _rootProvider.Object, _settings);
         }
 
         [Test]
@@ -101,7 +111,7 @@ namespace GISA.OcelotApiGateway.UnitTests.Services
             AuthUser usuarioRetorno = new()
             {
                 Id = "associadoUser",
-                Password = "teste@758",
+                Password = "CfDJ8Mz3BQjJZiJPhldze0wxC8v2LrVPvxA2CoLzAz2T1bXyjZpFlEVz6L9vXG1RVtz4weZrf2cYvNfrvbGZuDGq2GNIcRU4 - 5sGR9U9ZPBCAeP2qZgOL - VxbrBb2ijCBODhXQ",
                 Role = "associado",
                 Username = "user1"
 
@@ -114,10 +124,13 @@ namespace GISA.OcelotApiGateway.UnitTests.Services
                 Role = "associado",
                 Username = "user1"
 
-            };
+            };          
 
             _usuarioRepositoryMock.Setup(_ => _.GetUsuarioByName("user1"))
                 .ReturnsAsync(usuarioRetorno);
+
+            _rootProvider.Setup(_ => _.CreateProtector(_settings.KeyDataProvider))
+                .Returns(_mockDataProtector.Object);
 
             //Act
             var result = usuarioService.ValidarUsuario(usuario);
@@ -133,7 +146,7 @@ namespace GISA.OcelotApiGateway.UnitTests.Services
             AuthUser usuarioRetorno = new()
             {
                 Id = "associadoUser",
-                Password = "teste@658",
+                Password = "CfDJ8Mz3BQjJZiJPhldze0wxC8v2LrVPvxA2CoLzAz2T1bXyjZpFlEVz6L9vXG1RVtz4weZrf2cYvNfrvbGZuDGq2GNIcRU4 - 5sGR9U9ZPBCAeP2qZgOL - VxbrBb2ijCBODhXQ",
                 Role = "associado",
                 Username = "user1"
 
@@ -142,7 +155,7 @@ namespace GISA.OcelotApiGateway.UnitTests.Services
             var usuario = new AuthUser
             {
                 Id = "associadoUser",
-                Password = "teste@658",
+                Password = "",
                 Role = "associado",
                 Username = "user1"
 
@@ -150,6 +163,9 @@ namespace GISA.OcelotApiGateway.UnitTests.Services
 
             _usuarioRepositoryMock.Setup(_ => _.GetUsuarioByName("user1"))
                 .ReturnsAsync(usuarioRetorno);
+
+            _rootProvider.Setup(_ => _.CreateProtector(_settings.KeyDataProvider))
+               .Returns(_mockDataProtector.Object);
 
             //Act
             var result = usuarioService.ValidarUsuario(usuario);
