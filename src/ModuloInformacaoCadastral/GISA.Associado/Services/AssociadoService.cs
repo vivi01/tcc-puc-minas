@@ -50,22 +50,33 @@ namespace GISA.Associado.Services
             return _associadoRepository.GetAssociadoByUserName(userName);
         }
 
-        public async Task<string> SolicitarMarcacaoExame(AutorizacaoExameMsg request)
+        public async Task GetSituacaoAssociado(AssociadoMsg requestMessage)
         {
-            var associado = await GetAssociadoByCodigo(request.CodigoAssociado);
+            var situacao = await GetAssociadoByCodigo(requestMessage.CodigoAssociado);
+
+            await _busControl.ReceiveAsync<AssociadoMsg>(EventBusConstants.GisaQueue,
+                     x =>
+                     {
+                         requestMessage.Status = situacao.SituacaoAssociado.ToString();
+                     });
+        }
+
+        public async Task<string> SolicitarMarcacaoExame(AutorizacaoExameMsg autorizacaoExameMsg)
+        {
+            var associado = await GetAssociadoByCodigo(autorizacaoExameMsg.CodigoAssociado);
 
             if (associado == null)
                 return "Associado Não Encontrado";
 
-            await _busControl.SendAsync<AutorizacaoExameMsg>(EventBusConstants.PrestadorExchange, request);
+            await _busControl.SendAsync<AutorizacaoExameMsg>(EventBusConstants.GisaQueue, autorizacaoExameMsg);
 
-            if (request.Status != "Autorizado")
-                return request.MensagensErro;
+            if (autorizacaoExameMsg.Status != "Autorizado")
+                return autorizacaoExameMsg.MensagensErro;
 
             associado.MarcacaoExames.Add(new MarcacaoExame
             {
-                DataExame = request.DataExame,
-                CodigoExame = request.CodigoExame
+                DataExame = autorizacaoExameMsg.DataExame,
+                CodigoExame = autorizacaoExameMsg.CodigoExame
             });
 
             await _associadoRepository.SalvarMarcacaoExame(associado);

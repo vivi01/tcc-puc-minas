@@ -44,11 +44,7 @@
         "QuotaExceededMessage": "Número de requisições excedida!",
         "PeriodTimespan": 1,
         "Limit": 1
-      },
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "associados_auth_scheme",
-        "AllowedScopes": []
-      },
+      },     
       "UpstreamPathTemplate": "/apigateway/api/v1/associado/CadastrarAssociado",
       "UpstreamHttpMethod": [ "Post" ]
     },
@@ -105,7 +101,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/v1/associado/SolicitarMarcacaoExame",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -131,11 +127,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/v1/prestador/CadastrarPrestador",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5001
+          "Port": 44326
         }
       ],
       "RateLimitOptions": {
@@ -147,21 +143,17 @@
         "QuotaExceededMessage": "Número de requisições excedida!",
         "PeriodTimespan": 1,
         "Limit": 1
-      },
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "prestador_auth_scheme",
-        "AllowedScopes": []
       },
       "UpstreamPathTemplate": "/apigateway/api/v1/prestador/CadastrarPrestador",
       "UpstreamHttpMethod": [ "Post" ]
     },
     {
       "DownstreamPathTemplate": "/api/v1/prestador/SolicitarAutorizacoExame",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5001
+          "Port": 44326
         }
       ],
       "RateLimitOptions": {
@@ -176,18 +168,18 @@
       },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "prestador_auth_scheme",
-        "AllowedScopes": []
+        "AllowedScopes": [ ]
       },
       "UpstreamPathTemplate": "/apigateway/api/v1/prestador/SolicitarAutorizacoExame",
       "UpstreamHttpMethod": [ "Post" ]
     },
     {
       "DownstreamPathTemplate": "/api/v1/prestador/GetAllPlanosConveniados",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5001
+          "Port": 44326
         }
       ],
       "RateLimitOptions": {
@@ -209,7 +201,7 @@
     },
     {
       "DownstreamPathTemplate": "/comunicacaoLegado",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -228,7 +220,7 @@
       },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "comunicacaoLegado_auth_scheme",
-        "AllowedScopes": []
+        "AllowedScopes": [ "prestador_auth_scheme" ]
       },
       "UpstreamPathTemplate": "/apigateway/comunicacaoLegado",
       "UpstreamHttpMethod": [ "Get", "Post" ]

@@ -24,7 +24,7 @@ namespace GISA.Prestador.Services
         }
         public async Task<string> SolicitarAutorizacoExame(AutorizacaoExameMsg autorizacaoExameMsg)
         {
-            var message = new AssociadoMsg
+            var requestMessage = new AssociadoMsg
             {
                 RequestId = new System.Guid(),
                 CodigoAssociado = autorizacaoExameMsg.CodigoAssociado,
@@ -32,15 +32,31 @@ namespace GISA.Prestador.Services
             };
 
             //chama o microsserviço do associado para verificar o status
-            GetSituacaoAssociado(message);
+            GetSituacaoAssociado(requestMessage);
 
-            if (message.Status != "Ativo")
+            if (requestMessage.Status != "Ativo")
+            {
+                await _busControl.ReceiveAsync<AssociadoMsg>(EventBusConstants.GisaQueue,
+                     x =>
+                     {
+                         autorizacaoExameMsg.Status = "Nao Autorizado";
+                         autorizacaoExameMsg.MensagensErro = "Não foi possível autorizar o exame";
+                     });
+
                 return "Nao Autorizado";
+            }
 
             var isConveniado = await GetPlanoConveniado(autorizacaoExameMsg.CodigoPlano);
 
-            if (isConveniado != null)
+            if (isConveniado == null)
             {
+                await _busControl.ReceiveAsync<AssociadoMsg>(EventBusConstants.GisaQueue,
+                    x =>
+                    {
+                        autorizacaoExameMsg.Status = "Nao Autorizado";
+                        autorizacaoExameMsg.MensagensErro = "Plano não conveniado";
+                    });
+
                 return "Plano não conveniado";
             }
 
@@ -49,18 +65,32 @@ namespace GISA.Prestador.Services
             GetAutorizacaoExame(autorizacaoExameMsg);
 
             if (autorizacaoExameMsg.Status != "Autorizado")
-                return "Nao Autorizado";
+            {
+                await _busControl.ReceiveAsync<AutorizacaoExameMsg>(EventBusConstants.GisaQueue,
+                   x =>
+                   {
+                       autorizacaoExameMsg.Status = "Nao Autorizado";
+                       autorizacaoExameMsg.MensagensErro = "Não foi possível autorizar o exame";
+                   });
 
+                return "Nao Autorizado";
+            }
+
+            await _busControl.ReceiveAsync<AutorizacaoExameMsg>(EventBusConstants.GisaQueue,
+                    x =>
+                   {
+                       autorizacaoExameMsg.Status = "Autorizado";
+                   });
             return "Autorizado";
         }
 
         private async void GetSituacaoAssociado(AssociadoMsg requestMessage)
         {
-            await _busControl.SendAsync<AssociadoMsg>(EventBusConstants.AssociadoExchange, requestMessage);
+            await _busControl.SendAsync<AssociadoMsg>(EventBusConstants.GisaQueue, requestMessage);
         }
         private async void GetAutorizacaoExame(AutorizacaoExameMsg requestMessage)
         {
-            await _busControl.SendAsync<AutorizacaoExameMsg>(EventBusConstants.PrestadorExchange, requestMessage); ;
+            await _busControl.SendAsync<AutorizacaoExameMsg>(EventBusConstants.GisaQueue, requestMessage);
         }
 
         public async Task<bool> CadastrarPrestador(Entities.Prestador prestador)
@@ -71,7 +101,7 @@ namespace GISA.Prestador.Services
         public async Task<Plano> GetPlanoConveniado(int codigoPlano)
         {
             return await _planoService.ObterPlanoPorCodigo(codigoPlano);
-        }       
+        }
 
         public async Task<List<Plano>> GetAllPlanosConveniados()
         {

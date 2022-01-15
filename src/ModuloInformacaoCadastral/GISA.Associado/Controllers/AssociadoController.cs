@@ -16,7 +16,7 @@ namespace GISA.Associado.Controllers
     {
         private readonly IAssociadoService _associadoService;
         private readonly IPlanoService _planoService;
-       // private readonly IDataProtectionProvider _dataProtector;
+        // private readonly IDataProtectionProvider _dataProtector;
 
         public AssociadoController(IAssociadoService associadoService, IPlanoService planoService)
         {
@@ -56,12 +56,20 @@ namespace GISA.Associado.Controllers
         }
 
         [HttpPost("[action]")]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult<bool>> AlterarPlano(string token, int codigoNovoPlano, bool planoOdontologico)
         {
-            return Ok(await _associadoService.AlterarPlano(token, codigoNovoPlano, planoOdontologico));
+            var result = await _associadoService.AlterarPlano(token, codigoNovoPlano, planoOdontologico);
+
+            if (!result)
+                return BadRequest(new { Message = "Erro ao alterar plano" });
+
+            return Ok(result);
         }
 
         [HttpPost("[action]")]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<string>> SolicitarMarcacaoExame([FromBody] AutorizacaoExameMsg autorizacaoExameMsg)
         {
             return Ok(await _associadoService.SolicitarMarcacaoExame(autorizacaoExameMsg));

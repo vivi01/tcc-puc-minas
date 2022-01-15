@@ -12,7 +12,7 @@ namespace GISA.ComunicacaoLegado.Services
         public SgpsService(IBus busControl)
         {
             _busControl = busControl;
-        }     
+        }
 
         public void AutorizarExame(AutorizacaoExameMsg requestMessage)
         {
@@ -22,10 +22,15 @@ namespace GISA.ComunicacaoLegado.Services
             }
             else
             {
-                //Criado um mock sempre vai retornar True.. numa situação real seria necessário verificar
-                //se o solicitante é conveniado e se o associado está adimplente
-                requestMessage.Status = EStatusExame.Autorizado.ToString();
-                _busControl.SendAsync<AutorizacaoExameMsg>(EventBusConstants.PrestadorExchange, requestMessage);
+                //Change to receive
+                _busControl.ReceiveAsync<AutorizacaoExameMsg>(EventBusConstants.GisaQueue,
+                 x =>
+                 {
+                      //Criado um mock sempre vai retornar True.. numa situação real seria necessário verificar
+                      //se o solicitante é conveniado e se o associado está adimplente
+                      requestMessage.Status = "Autorizado";
+                 });
+                //_busControl.SendAsync<AutorizacaoExameMsg>(EventBusConstants.PrestadorExchange, requestMessage);
             }
         }
     }

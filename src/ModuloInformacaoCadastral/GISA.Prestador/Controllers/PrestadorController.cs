@@ -33,6 +33,7 @@ namespace GISA.Prestador.Controllers
         }
 
         [HttpPost("[action]")]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<string>> SolicitarAutorizacoExame([FromBody] AutorizacaoExameMsg autorizacaoExameMsg)
         {
             return Ok(await _prestadorService.SolicitarAutorizacoExame(autorizacaoExameMsg));
