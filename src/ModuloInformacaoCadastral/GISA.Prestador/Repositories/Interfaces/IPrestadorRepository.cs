@@ -2,6 +2,5 @@
 {
     public interface IPrestadorRepository : IRepository<Entities.Prestador>
     {
-      
     }
 }

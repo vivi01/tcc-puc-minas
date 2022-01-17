@@ -71,15 +71,15 @@ namespace GISA.Associado.UnitTests
         {
             //Arrange
 
-            var token = "x14589909mlpq09875cv12";
+            var codigoAssociado = 156;
             var codigoNovoPlano = 27;
             var planoOdonlogico = false;
 
-            _associadoServiceMock.Setup(x => x.AlterarPlano(token, codigoNovoPlano, planoOdonlogico))
+            _associadoServiceMock.Setup(x => x.AlterarPlano(codigoAssociado, codigoNovoPlano, planoOdonlogico))
                 .ReturnsAsync(true);
 
             //Act
-            var actionResult = await associadoController.AlterarPlano(token, codigoNovoPlano, planoOdonlogico);
+            var actionResult = await associadoController.AlterarPlano(codigoAssociado, codigoNovoPlano, planoOdonlogico);
 
             //Assert           
             var result = actionResult.Result as OkObjectResult;

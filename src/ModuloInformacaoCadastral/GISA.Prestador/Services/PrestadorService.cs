@@ -1,11 +1,11 @@
 ﻿using GISA.EventBusRabbitMQ.Common;
 using GISA.EventBusRabbitMQ.Events;
 using GISA.EventBusRabbitMQ.Interfaces;
-using GISA.EventBusRabbitMQ.ModeloMensagens;
 using GISA.Prestador.Entities;
 using GISA.Prestador.Repositories.Interfaces;
 using GISA.Prestador.Services.Interfaces;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GISA.Prestador.Services
@@ -24,70 +24,36 @@ namespace GISA.Prestador.Services
         }
         public async Task<string> SolicitarAutorizacoExame(AutorizacaoExameMsg autorizacaoExameMsg)
         {
-            var requestMessage = new AssociadoMsg
+            if (autorizacaoExameMsg.StatusAssociado != "Ativo")
             {
-                RequestId = new System.Guid(),
-                CodigoAssociado = autorizacaoExameMsg.CodigoAssociado,
-                Token = autorizacaoExameMsg.Token
-            };
+                //await _busControl.ReceiveAsync<AutorizacaoExameMsg>(EventBusConstants.GisaQueue,
+                //     x =>
+                //     {
+                //         x.MensagensErro = "Associado não está ativo";
+                //         Task.Run(() => { GetAutorizacao(x); });
+                //     });
 
-            //chama o microsserviço do associado para verificar o status
-            GetSituacaoAssociado(requestMessage);
-
-            if (requestMessage.Status != "Ativo")
-            {
-                await _busControl.ReceiveAsync<AssociadoMsg>(EventBusConstants.GisaQueue,
-                     x =>
-                     {
-                         autorizacaoExameMsg.Status = "Nao Autorizado";
-                         autorizacaoExameMsg.MensagensErro = "Não foi possível autorizar o exame";
-                     });
-
-                return "Nao Autorizado";
+                return "Nao Autorizado! Associado não está ativo";
             }
 
             var isConveniado = await GetPlanoConveniado(autorizacaoExameMsg.CodigoPlano);
 
             if (isConveniado == null)
             {
-                await _busControl.ReceiveAsync<AssociadoMsg>(EventBusConstants.GisaQueue,
-                    x =>
-                    {
-                        autorizacaoExameMsg.Status = "Nao Autorizado";
-                        autorizacaoExameMsg.MensagensErro = "Plano não conveniado";
-                    });
-
-                return "Plano não conveniado";
+                return "Nao Autorizado! Plano não conveniado";
             }
 
             //chama o legado SGPS para solicitar a autorização do exame
-
-            GetAutorizacaoExame(autorizacaoExameMsg);
+            GetAutorizacaoExame(autorizacaoExameMsg);                     
 
             if (autorizacaoExameMsg.Status != "Autorizado")
             {
-                await _busControl.ReceiveAsync<AutorizacaoExameMsg>(EventBusConstants.GisaQueue,
-                   x =>
-                   {
-                       autorizacaoExameMsg.Status = "Nao Autorizado";
-                       autorizacaoExameMsg.MensagensErro = "Não foi possível autorizar o exame";
-                   });
-
                 return "Nao Autorizado";
             }
 
-            await _busControl.ReceiveAsync<AutorizacaoExameMsg>(EventBusConstants.GisaQueue,
-                    x =>
-                   {
-                       autorizacaoExameMsg.Status = "Autorizado";
-                   });
             return "Autorizado";
         }
 
-        private async void GetSituacaoAssociado(AssociadoMsg requestMessage)
-        {
-            await _busControl.SendAsync<AssociadoMsg>(EventBusConstants.GisaQueue, requestMessage);
-        }
         private async void GetAutorizacaoExame(AutorizacaoExameMsg requestMessage)
         {
             await _busControl.SendAsync<AutorizacaoExameMsg>(EventBusConstants.GisaQueue, requestMessage);

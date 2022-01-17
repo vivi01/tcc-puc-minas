@@ -23,14 +23,18 @@ namespace GISA.EventBusRabbitMQ
                 _channel.QueueDeclare(queue, true, false, false);
                 var properties = _channel.CreateBasicProperties();
                 properties.Persistent = false;
+
                 var output = JsonConvert.SerializeObject(message);
-                _channel.BasicPublish(string.Empty, queue, null,
-                Encoding.UTF8.GetBytes(output));
+
+                var body = Encoding.UTF8.GetBytes(output);
+
+                _channel.BasicPublish(string.Empty, queue, null, body);
             });
         }
         public async Task ReceiveAsync<T>(string queue, Action<T> onMessage)
         {
             _channel.QueueDeclare(queue, true, false, false);
+
             var consumer = new AsyncEventingBasicConsumer(_channel);
 
             consumer.Received += async (s, e) =>

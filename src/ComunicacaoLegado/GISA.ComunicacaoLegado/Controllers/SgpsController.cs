@@ -1,6 +1,8 @@
 ﻿using GISA.ComunicacaoLegado.Services;
 using GISA.EventBusRabbitMQ.Events;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace GISA.ComunicacaoLegado.Controllers
 {
@@ -15,10 +17,12 @@ namespace GISA.ComunicacaoLegado.Controllers
             _sgpsService = sgpsService;
         }
 
-        //[HttpPost("[action]")]
-        //public IActionResult AutorizarExame([FromBody] AutorizacaoExameMsg autorizacaoExameMsg)
-        //{
-        //    return Ok(_sgpsService.AutorizarExame(autorizacaoExameMsg));
-        //}
+        [HttpPost("[action]")]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+        public IActionResult AutorizarExame([FromBody] AutorizacaoExameMsg autorizacaoExameMsg)
+        {
+            _sgpsService.AutorizarExame(autorizacaoExameMsg);
+            return Ok();
+        }
     }
 }

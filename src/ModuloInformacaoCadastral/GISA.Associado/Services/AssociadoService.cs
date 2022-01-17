@@ -84,20 +84,13 @@ namespace GISA.Associado.Services
             return "Marcação realizada com Sucesso!";
         }
 
-        public async Task<bool> AlterarPlano(string token, int codigoNovoPlano, bool planoOdontologico)
+        public async Task<bool> AlterarPlano(int codigoAssociado, int codigoNovoPlano, bool planoOdontologico)
         {
-            var request = new AuthTokenMsg(token);
-
-            await _busControl.SendAsync<AuthTokenMsg>(EventBusConstants.AutenticacaoExchange, request);
-
-            if (string.IsNullOrWhiteSpace(request.UserName))
-                return false;
-
-            var usuario = await GetAssociadoByUserName(request.UserName);
+           var usuario = await GetAssociadoByCodigo(codigoAssociado);
 
             var plano = await _planoService.ObterPlanoPorCodigo(codigoNovoPlano);
 
-            usuario.Plano = plano;
+            usuario.PlanoId = plano.Id ;
             usuario.PossuiPlanoOdontologico = planoOdontologico;
             usuario.ValorPlano = CalcularValorNovoPlano(usuario.DataNascimento, plano);
 

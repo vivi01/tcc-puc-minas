@@ -137,7 +137,7 @@ namespace GISA.Associado.UnitTests.Services
         public async Task AlterarPlanoComSucesso(string userName, bool resultado)
         {
             //Arrange
-            var token = "x14589909mlpq09875cv12";
+            var codigoAssociado = 1258;
             var codigoNovoPlano = 28;
 
             var plano = new Plano
@@ -148,17 +148,9 @@ namespace GISA.Associado.UnitTests.Services
                 TipoPlano = ETipoPlano.Empresarial
             };
 
-            var request = new AuthTokenMsg(token)
-            {
-                UserName = userName
-            };
+            var associado = GetMockAssociado(codigoAssociado);
 
-            var associado = GetMockAssociado();
-
-            _busControlMock.Setup(_ => _.SendAsync(EventBusConstants.AutenticacaoExchange, request))
-                .Returns(Task.FromResult(request));
-
-            _associadoRepositoryMock.Setup(x => x.GetAssociadoByUserName(userName))
+             _associadoRepositoryMock.Setup(x => x.GetAssociadoByUserName(userName))
                .ReturnsAsync(associado);
 
             _associadoRepositoryMock.Setup(x => x.Update(associado))
@@ -168,7 +160,7 @@ namespace GISA.Associado.UnitTests.Services
                  .ReturnsAsync(plano);
 
             //Act
-            var result = await associadoService.AlterarPlano(token, codigoNovoPlano, true);
+            var result = await associadoService.AlterarPlano(codigoAssociado, codigoNovoPlano, true);
 
             //Assert           
             result.Equals(resultado);

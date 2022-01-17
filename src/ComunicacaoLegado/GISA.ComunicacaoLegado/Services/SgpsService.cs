@@ -1,7 +1,7 @@
-﻿using GISA.ComunicacaoLegado.Enums;
-using GISA.EventBusRabbitMQ.Common;
+﻿using GISA.EventBusRabbitMQ.Common;
 using GISA.EventBusRabbitMQ.Events;
 using GISA.EventBusRabbitMQ.Interfaces;
+using System.Threading.Tasks;
 
 namespace GISA.ComunicacaoLegado.Services
 {
@@ -14,24 +14,22 @@ namespace GISA.ComunicacaoLegado.Services
             _busControl = busControl;
         }
 
-        public void AutorizarExame(AutorizacaoExameMsg requestMessage)
+        public async void AutorizarExame(AutorizacaoExameMsg autorizacaoExameMsg)
         {
-            if (requestMessage.Token == null)
-            {
-                requestMessage.MensagensErro = "Usuário Não Autorizado";
-            }
-            else
-            {
-                //Change to receive
-                _busControl.ReceiveAsync<AutorizacaoExameMsg>(EventBusConstants.GisaQueue,
-                 x =>
-                 {
-                      //Criado um mock sempre vai retornar True.. numa situação real seria necessário verificar
-                      //se o solicitante é conveniado e se o associado está adimplente
-                      requestMessage.Status = "Autorizado";
-                 });
-                //_busControl.SendAsync<AutorizacaoExameMsg>(EventBusConstants.PrestadorExchange, requestMessage);
-            }
+            //Change to receive
+            await _busControl.ReceiveAsync<AutorizacaoExameMsg>(EventBusConstants.GisaQueue,
+               x =>
+               {
+                   //Criado um mock sempre vai retornar True.. numa situação real seria necessário verificar
+                   //se o solicitante é conveniado e se o associado está adimplente
+                   Task.Run(() => { GetAutorizacao(autorizacaoExameMsg); });
+               });
+
+        }
+
+        private static void GetAutorizacao(AutorizacaoExameMsg autorizacaoExameMsg)
+        {
+            autorizacaoExameMsg.Status = "Autorizado";          
         }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using GISA.Associado.Entities;
 using GISA.Associado.Services.Interfaces;
+using GISA.EventBusRabbitMQ.Common;
 using GISA.EventBusRabbitMQ.Events;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.DataProtection;
+using GISA.EventBusRabbitMQ.Interfaces;
+using GISA.EventBusRabbitMQ.ModeloMensagens;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Net;
@@ -16,7 +17,6 @@ namespace GISA.Associado.Controllers
     {
         private readonly IAssociadoService _associadoService;
         private readonly IPlanoService _planoService;
-        // private readonly IDataProtectionProvider _dataProtector;
 
         public AssociadoController(IAssociadoService associadoService, IPlanoService planoService)
         {
@@ -55,12 +55,12 @@ namespace GISA.Associado.Controllers
             return Ok(result);
         }
 
-        [HttpPost("[action]")]
+        [HttpPost("[action]/{codigoAssociado}/{codigoNovoPlano}/{planoOdontologico}")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.BadRequest)]
-        public async Task<ActionResult<bool>> AlterarPlano(string token, int codigoNovoPlano, bool planoOdontologico)
+        public async Task<ActionResult<bool>> AlterarPlano(int codigoAssociado,int codigoNovoPlano, bool planoOdontologico)
         {
-            var result = await _associadoService.AlterarPlano(token, codigoNovoPlano, planoOdontologico);
+            var result = await _associadoService.AlterarPlano(codigoAssociado, codigoNovoPlano, planoOdontologico);
 
             if (!result)
                 return BadRequest(new { Message = "Erro ao alterar plano" });

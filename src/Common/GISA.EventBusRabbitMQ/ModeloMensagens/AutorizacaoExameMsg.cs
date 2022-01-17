@@ -14,6 +14,8 @@ namespace GISA.EventBusRabbitMQ.Events
 
         public string Status { get; set; }
 
+        public string StatusAssociado { get; set; }
+
         public string Token { get; set; }
 
         public DateTime DataExame { get; set; }

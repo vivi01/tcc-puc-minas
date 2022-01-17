@@ -44,10 +44,10 @@
         "QuotaExceededMessage": "Número de requisições excedida!",
         "PeriodTimespan": 1,
         "Limit": 1
-      },     
+      },
       "UpstreamPathTemplate": "/apigateway/api/v1/associado/CadastrarAssociado",
       "UpstreamHttpMethod": [ "Post" ]
-    },
+    },    
     {
       "DownstreamPathTemplate": "/api/v1/associado/GetTodosPlanosDisponiveis",
       "DownstreamScheme": "https",
@@ -75,8 +75,8 @@
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
-      "DownstreamPathTemplate": "/api/v1/associado/AlterarPlano/{token}/{codigoNovoPlano}/{planoOdontologico}",
-      "DownstreamScheme": "http",
+      "DownstreamPathTemplate": "/api/v1/associado/AlterarPlano/{codigoAssociado}/{codigoNovoPlano}/{planoOdontologico}",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -96,7 +96,7 @@
         "AuthenticationProviderKey": "associados_auth_scheme",
         "AllowedScopes": []
       },
-      "UpstreamPathTemplate": "/apigateway/api/v1/associado/AlterarPlano/{token}/{codigoNovoPlano}/{planoOdontologico}",
+      "UpstreamPathTemplate": "/apigateway/api/v1/associado/AlterarPlano/{codigoAssociado}/{codigoNovoPlano}/{planoOdontologico}",
       "UpstreamHttpMethod": [ "Post" ]
     },
     {
@@ -168,7 +168,7 @@
       },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "prestador_auth_scheme",
-        "AllowedScopes": [ ]
+        "AllowedScopes": []
       },
       "UpstreamPathTemplate": "/apigateway/api/v1/prestador/SolicitarAutorizacoExame",
       "UpstreamHttpMethod": [ "Post" ]
@@ -200,12 +200,12 @@
       "UpstreamHttpMethod": [ "Post" ]
     },
     {
-      "DownstreamPathTemplate": "/comunicacaoLegado",
+      "DownstreamPathTemplate": "/api/v1/Sgps/AutorizarExame",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5001
+          "Port": 44382
         }
       ],
       "RateLimitOptions": {
@@ -222,8 +222,8 @@
         "AuthenticationProviderKey": "comunicacaoLegado_auth_scheme",
         "AllowedScopes": [ "prestador_auth_scheme" ]
       },
-      "UpstreamPathTemplate": "/apigateway/comunicacaoLegado",
-      "UpstreamHttpMethod": [ "Get", "Post" ]
+      "UpstreamPathTemplate": "/apigateway/api/v1/Sgps/AutorizarExame",
+      "UpstreamHttpMethod": [ "Post" ]
     }
   ],
   "GlobalConfiguration": {
