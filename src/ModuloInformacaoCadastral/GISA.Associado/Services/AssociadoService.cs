@@ -16,12 +16,12 @@ namespace GISA.Associado.Services
     {
         private readonly IAssociadoRepository _associadoRepository;
         private readonly IPlanoService _planoService;
-        private readonly IBus _busControl;
+      //  private readonly IBus _busControl;
 
-        public AssociadoService(IAssociadoRepository associadoRepository, IBus busControl, IPlanoService planoService)
+        public AssociadoService(IAssociadoRepository associadoRepository/*, IBus busControl*/, IPlanoService planoService)
         {
             _associadoRepository = associadoRepository;
-            _busControl = busControl;
+            //_busControl = busControl;
             _planoService = planoService;
         }
 
@@ -52,13 +52,7 @@ namespace GISA.Associado.Services
 
         public async Task GetSituacaoAssociado(AssociadoMsg requestMessage)
         {
-            var situacao = await GetAssociadoByCodigo(requestMessage.CodigoAssociado);
-
-            await _busControl.ReceiveAsync<AssociadoMsg>(EventBusConstants.GisaQueue,
-                     x =>
-                     {
-                         requestMessage.Status = situacao.SituacaoAssociado.ToString();
-                     });
+           await GetAssociadoByCodigo(requestMessage.CodigoAssociado);            
         }
 
         public async Task<string> SolicitarMarcacaoExame(AutorizacaoExameMsg autorizacaoExameMsg)
@@ -68,7 +62,7 @@ namespace GISA.Associado.Services
             if (associado == null)
                 return "Associado Não Encontrado";
 
-            await _busControl.SendAsync<AutorizacaoExameMsg>(EventBusConstants.GisaQueue, autorizacaoExameMsg);
+            //await _busControl.SendAsync<AutorizacaoExameMsg>(EventBusConstants.GisaQueue, autorizacaoExameMsg);
 
             if (autorizacaoExameMsg.Status != "Autorizado")
                 return autorizacaoExameMsg.MensagensErro;

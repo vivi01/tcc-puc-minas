@@ -6,10 +6,7 @@ using GISA.Prestador.Services;
 using GISA.Prestador.Services.Interfaces;
 using Moq;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GISA.Prestador.UnitTests.Services
@@ -28,8 +25,7 @@ namespace GISA.Prestador.UnitTests.Services
             _planoServiceMock = new Mock<IPlanoService>();
             _busControlMock = new Mock<IBus>();
 
-            prestadorService = new PrestadorService(_prestadorRepositoryMock.Object,
-                _busControlMock.Object, _planoServiceMock.Object);
+            prestadorService = new PrestadorService(_prestadorRepositoryMock.Object, _planoServiceMock.Object);
         }
 
         [Test]

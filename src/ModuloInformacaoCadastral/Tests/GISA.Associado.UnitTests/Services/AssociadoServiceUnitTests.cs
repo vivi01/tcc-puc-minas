@@ -29,7 +29,7 @@ namespace GISA.Associado.UnitTests.Services
             _busControlMock = new Mock<IBus>();
 
             associadoService = new AssociadoService(_associadoRepositoryMock.Object,
-                _busControlMock.Object, _planoServiceMock.Object);
+               /* _busControlMock.Object,*/ _planoServiceMock.Object);
         }
 
         [TestCase(ESituacaoAssociado.Ativo)]

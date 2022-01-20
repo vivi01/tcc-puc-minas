@@ -50,21 +50,21 @@ namespace GISA.Associado
 
             #region RabbitMQ Dependencies
 
-            var hostName = Configuration["EventBus:HostName"];
-            var userName = string.Empty;
-            var password = string.Empty;
+            //var hostName = Configuration["EventBus:HostName"];
+            //var userName = string.Empty;
+            //var password = string.Empty;
 
-            if (!string.IsNullOrEmpty(Configuration["EventBus:UserName"]))
-            {
-                userName = Configuration["EventBus:UserName"];
-            }
+            //if (!string.IsNullOrEmpty(Configuration["EventBus:UserName"]))
+            //{
+            //    userName = Configuration["EventBus:UserName"];
+            //}
 
-            if (!string.IsNullOrEmpty(Configuration["EventBus:Password"]))
-            {
-                password = Configuration["EventBus:Password"];
-            }
+            //if (!string.IsNullOrEmpty(Configuration["EventBus:Password"]))
+            //{
+            //    password = Configuration["EventBus:Password"];
+            //}
 
-            services.AddSingleton(sp => RabbitHutch.CreateBus(hostName, userName, password));
+            //services.AddSingleton(sp => RabbitHutch.CreateBus(hostName, userName, password));
 
             #endregion
         }
