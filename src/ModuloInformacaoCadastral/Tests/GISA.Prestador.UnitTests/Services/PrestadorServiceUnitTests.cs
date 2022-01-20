@@ -1,5 +1,4 @@
 ﻿using GISA.EventBusRabbitMQ.Events;
-using GISA.EventBusRabbitMQ.Interfaces;
 using GISA.Prestador.Entities;
 using GISA.Prestador.Repositories.Interfaces;
 using GISA.Prestador.Services;
@@ -16,15 +15,12 @@ namespace GISA.Prestador.UnitTests.Services
         private PrestadorService prestadorService;
         private Mock<IPrestadorRepository> _prestadorRepositoryMock;
         private Mock<IPlanoService> _planoServiceMock;
-        private Mock<IBus> _busControlMock;
 
         [SetUp]
         public void Setup()
         {
             _prestadorRepositoryMock = new Mock<IPrestadorRepository>();
             _planoServiceMock = new Mock<IPlanoService>();
-            _busControlMock = new Mock<IBus>();
-
             prestadorService = new PrestadorService(_prestadorRepositoryMock.Object, _planoServiceMock.Object);
         }
 
@@ -51,6 +47,7 @@ namespace GISA.Prestador.UnitTests.Services
                 Descricao = "Plano básico",
                 TipoPlano = Enums.ETipoPlano.Individual
             };
+
             _planoServiceMock.Setup(x => x.ObterPlanoPorCodigo(autorizacaoExame.CodigoPlano))
                 .ReturnsAsync(plano);
 
@@ -90,6 +87,7 @@ namespace GISA.Prestador.UnitTests.Services
         {
             //Arrange
             var planos = GetMockPlanosConveniados();
+
             _planoServiceMock.Setup(x => x.ObterTodos())
                 .ReturnsAsync(planos);
 

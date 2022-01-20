@@ -2,12 +2,9 @@
 using GISA.Associado.Enums;
 using GISA.Associado.Repositories.Interfaces;
 using GISA.Associado.Services.Interfaces;
-using GISA.EventBusRabbitMQ.Common;
 using GISA.EventBusRabbitMQ.Events;
-using GISA.EventBusRabbitMQ.Interfaces;
 using GISA.EventBusRabbitMQ.ModeloMensagens;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GISA.Associado.Services
@@ -15,8 +12,7 @@ namespace GISA.Associado.Services
     public class AssociadoService : IAssociadoService
     {
         private readonly IAssociadoRepository _associadoRepository;
-        private readonly IPlanoService _planoService;
-      //  private readonly IBus _busControl;
+        private readonly IPlanoService _planoService;     
 
         public AssociadoService(IAssociadoRepository associadoRepository/*, IBus busControl*/, IPlanoService planoService)
         {
@@ -60,9 +56,7 @@ namespace GISA.Associado.Services
             var associado = await GetAssociadoByCodigo(autorizacaoExameMsg.CodigoAssociado);
 
             if (associado == null)
-                return "Associado Não Encontrado";
-
-            //await _busControl.SendAsync<AutorizacaoExameMsg>(EventBusConstants.GisaQueue, autorizacaoExameMsg);
+                return "Associado Não Encontrado";           
 
             if (autorizacaoExameMsg.Status != "Autorizado")
                 return autorizacaoExameMsg.MensagensErro;

@@ -6,7 +6,6 @@ using GISA.Associado.Services.Interfaces;
 using GISA.EventBusRabbitMQ.Common;
 using GISA.EventBusRabbitMQ.Events;
 using GISA.EventBusRabbitMQ.Interfaces;
-using GISA.EventBusRabbitMQ.ModeloMensagens;
 using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -28,8 +27,7 @@ namespace GISA.Associado.UnitTests.Services
             _planoServiceMock = new Mock<IPlanoService>();
             _busControlMock = new Mock<IBus>();
 
-            associadoService = new AssociadoService(_associadoRepositoryMock.Object,
-               /* _busControlMock.Object,*/ _planoServiceMock.Object);
+            associadoService = new AssociadoService(_associadoRepositoryMock.Object, _planoServiceMock.Object);
         }
 
         [TestCase(ESituacaoAssociado.Ativo)]
@@ -132,9 +130,9 @@ namespace GISA.Associado.UnitTests.Services
             result.Equals("Marcação realizada com Sucesso!");
         }
 
-        [TestCase("", false)]
-        [TestCase("user1", true)]
-        public async Task AlterarPlanoComSucesso(string userName, bool resultado)
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task AlterarPlanoComSucesso(bool resultado)
         {
             //Arrange
             var codigoAssociado = 1258;
@@ -142,6 +140,7 @@ namespace GISA.Associado.UnitTests.Services
 
             var plano = new Plano
             {
+                Id = 25,
                 CodigoPlano = 28,
                 ClassificacaoPlano = Enums.EClassificacaoPlano.Apartamento,
                 Descricao = "Plano intermediário",
@@ -150,8 +149,8 @@ namespace GISA.Associado.UnitTests.Services
 
             var associado = GetMockAssociado(codigoAssociado);
 
-             _associadoRepositoryMock.Setup(x => x.GetAssociadoByUserName(userName))
-               .ReturnsAsync(associado);
+            _associadoRepositoryMock.Setup(x => x.GetAssociado(codigoAssociado))
+              .ReturnsAsync(associado);
 
             _associadoRepositoryMock.Setup(x => x.Update(associado))
                .ReturnsAsync(resultado);

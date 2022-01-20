@@ -53,17 +53,17 @@ namespace GISA.Prestador.UnitTests.Services
         }
 
         [Test]
-        public async Task ObterPorIdDeveSerExecutadoComSucesso()
+        public async Task ObterPorCodigoDeveSerExecutadoComSucesso()
         {
             //Arrange
-            var planoId = 25;
+            var codigoPlano = 25;
             var plano = GetPlanoMock();
 
-            _planoRepositoryMock.Setup(x => x.GetById(planoId))
+            _planoRepositoryMock.Setup(x => x.ObterPlanoPorCodigo(codigoPlano))
                 .ReturnsAsync(plano);
 
             //Act
-            var result = await planoService.ObterPlanoPorCodigo(planoId);
+            var result = await planoService.ObterPlanoPorCodigo(codigoPlano);
 
             //Assert
             result.Should().Be(plano);

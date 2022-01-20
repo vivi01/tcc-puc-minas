@@ -1,7 +1,6 @@
 ﻿using GISA.EventBusRabbitMQ.Events;
 using GISA.Prestador.Entities;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace GISA.Prestador.Services.Interfaces

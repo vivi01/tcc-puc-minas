@@ -1,5 +1,6 @@
 ﻿using GISA.EventBusRabbitMQ.Common;
 using GISA.EventBusRabbitMQ.Events;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -15,7 +16,8 @@ namespace GISA.ComunicacaoLegado.RabbitmqConsumer
     {
         private readonly IConnection _connection;
         private readonly IModel _channel;
-        private readonly IServiceProvider _serviceProvider;
+        private IServiceProvider _serviceProvider;
+       
         public AutorizacaoExameConsumer(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
@@ -36,12 +38,15 @@ namespace GISA.ComunicacaoLegado.RabbitmqConsumer
 
             consumer.Received += (sender, eventArgs) =>
             {
-                var byteArray = eventArgs.Body.ToArray();
+                var byteArray = eventArgs.Body.Span;
                 var autorizacaoInfoJson = Encoding.UTF8.GetString(byteArray);
 
-                var autorizcaoInfo = JsonSerializer.Deserialize<AutorizacaoExameMsg>(autorizacaoInfoJson);
+                if(!string.IsNullOrWhiteSpace(autorizacaoInfoJson))
+                {
+                    var autorizacaoInfo = JsonSerializer.Deserialize<AutorizacaoExameMsg>(autorizacaoInfoJson);
 
-                GetAutorizacao(autorizcaoInfo);                
+                    GetAutorizacao(autorizacaoInfo);
+                }                         
 
                 _channel.BasicAck(eventArgs.DeliveryTag, false);
             };
@@ -51,9 +56,12 @@ namespace GISA.ComunicacaoLegado.RabbitmqConsumer
             return Task.CompletedTask;
         }
 
-        private static void GetAutorizacao(AutorizacaoExameMsg autorizacaoExameMsg)
+        private void GetAutorizacao(AutorizacaoExameMsg autorizacaoExameMsg)
         {
-            autorizacaoExameMsg.Status = "Autorizado";
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                autorizacaoExameMsg.Status = "Autorizado";
+            }           
         }
     }
 }

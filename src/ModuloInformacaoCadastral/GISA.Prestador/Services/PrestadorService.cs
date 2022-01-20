@@ -20,7 +20,6 @@ namespace GISA.Prestador.Services
         public PrestadorService(IPrestadorRepository prestadorRepository, IPlanoService planoService)
         {
             _prestadorRepository = prestadorRepository;
-            // _busControl = busControl;
             _planoService = planoService;
             var factory = new ConnectionFactory
             {
@@ -58,7 +57,6 @@ namespace GISA.Prestador.Services
         private void GetAutorizacaoExame(AutorizacaoExameMsg requestMessage)
         {
             var output = JsonConvert.SerializeObject(requestMessage);
-
             var body = Encoding.UTF8.GetBytes(output);
             _channel.BasicPublish(string.Empty, EventBusConstants.GisaQueue, null, body);
         }

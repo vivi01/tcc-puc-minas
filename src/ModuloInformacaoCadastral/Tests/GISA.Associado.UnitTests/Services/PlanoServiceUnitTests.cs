@@ -60,8 +60,8 @@ namespace GISA.Associado.UnitTests.Services
             var planoId = 25;
             var plano = GetPlanoMock();
 
-            _planoRepositoryMock.Setup(x => x.GetById(planoId))
-                .ReturnsAsync(plano);
+            _planoRepositoryMock.Setup(x => x.ObterPlanoPorCodigo(planoId))
+               .ReturnsAsync(plano);
 
             //Act
             var result = await planoService.ObterPlanoPorCodigo(planoId);
