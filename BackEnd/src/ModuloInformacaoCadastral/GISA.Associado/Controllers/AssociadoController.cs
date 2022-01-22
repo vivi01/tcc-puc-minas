@@ -1,11 +1,7 @@
 ﻿using GISA.Associado.Entities;
 using GISA.Associado.Services.Interfaces;
-using GISA.EventBusRabbitMQ.Common;
 using GISA.EventBusRabbitMQ.Events;
-using GISA.EventBusRabbitMQ.Interfaces;
-using GISA.EventBusRabbitMQ.ModeloMensagens;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -16,12 +12,10 @@ namespace GISA.Associado.Controllers
     public class AssociadoController : ControllerBase
     {
         private readonly IAssociadoService _associadoService;
-        private readonly IPlanoService _planoService;
-
-        public AssociadoController(IAssociadoService associadoService, IPlanoService planoService)
+        
+        public AssociadoController(IAssociadoService associadoService)
         {
-            _associadoService = associadoService;
-            _planoService = planoService;
+            _associadoService = associadoService;         
         }
 
         [HttpGet("[action]/{codigoAssociado}")]
@@ -31,16 +25,7 @@ namespace GISA.Associado.Controllers
             var associado = await _associadoService.GetAssociadoByCodigo(codigoAssociado);
 
             return Ok(associado ?? new Entities.Associado());
-        }
-
-        [HttpGet("[action]")]
-        [ProducesResponseType(typeof(List<Plano>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<List<Plano>>> GetTodosPlanosDisponiveis()
-        {
-            var planos = await _planoService.ObterTodos();
-
-            return Ok(planos ?? new List<Plano>());
-        }
+        }       
 
         [HttpPost("[action]")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
@@ -58,9 +43,9 @@ namespace GISA.Associado.Controllers
         [HttpPost("[action]/{codigoAssociado}/{codigoNovoPlano}/{planoOdontologico}")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.BadRequest)]
-        public async Task<ActionResult<bool>> AlterarPlano(int codigoAssociado,int codigoNovoPlano, bool planoOdontologico)
+        public async Task<ActionResult<bool>> AlterarPlano([FromBody] AlterarPlano alterarPlano)
         {
-            var result = await _associadoService.AlterarPlano(codigoAssociado, codigoNovoPlano, planoOdontologico);
+            var result = await _associadoService.AlterarPlano(alterarPlano);
 
             if (!result)
                 return BadRequest(new { Message = "Erro ao alterar plano" });

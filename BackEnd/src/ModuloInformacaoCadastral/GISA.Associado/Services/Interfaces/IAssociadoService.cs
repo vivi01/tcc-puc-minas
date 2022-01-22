@@ -1,4 +1,5 @@
-﻿using GISA.Associado.Enums;
+﻿using GISA.Associado.Entities;
+using GISA.Associado.Enums;
 using GISA.EventBusRabbitMQ.Events;
 using GISA.EventBusRabbitMQ.ModeloMensagens;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace GISA.Associado.Services.Interfaces
         Task<Entities.Associado> GetAssociadoByCodigo(int codigoAssociado);
         Task GetSituacaoAssociado(AssociadoMsg requestMessage);
         Task<decimal> GetValorPlano();
-        Task<bool> AlterarPlano(int codigoAssociado, int codigoNovoPlano, bool planoOdontologico);
+        Task<bool> AlterarPlano(AlterarPlano alterarPlano);
         Task<string> SolicitarMarcacaoExame(AutorizacaoExameMsg request);
         Task<bool> CadastrarAssociado(Entities.Associado associado);
     }

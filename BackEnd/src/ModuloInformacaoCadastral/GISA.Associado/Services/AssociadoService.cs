@@ -12,12 +12,11 @@ namespace GISA.Associado.Services
     public class AssociadoService : IAssociadoService
     {
         private readonly IAssociadoRepository _associadoRepository;
-        private readonly IPlanoService _planoService;     
+        private readonly IPlanoService _planoService;
 
-        public AssociadoService(IAssociadoRepository associadoRepository/*, IBus busControl*/, IPlanoService planoService)
+        public AssociadoService(IAssociadoRepository associadoRepository, IPlanoService planoService)
         {
             _associadoRepository = associadoRepository;
-            //_busControl = busControl;
             _planoService = planoService;
         }
 
@@ -48,7 +47,7 @@ namespace GISA.Associado.Services
 
         public async Task GetSituacaoAssociado(AssociadoMsg requestMessage)
         {
-           await GetAssociadoByCodigo(requestMessage.CodigoAssociado);            
+            await GetAssociadoByCodigo(requestMessage.CodigoAssociado);
         }
 
         public async Task<string> SolicitarMarcacaoExame(AutorizacaoExameMsg autorizacaoExameMsg)
@@ -56,7 +55,7 @@ namespace GISA.Associado.Services
             var associado = await GetAssociadoByCodigo(autorizacaoExameMsg.CodigoAssociado);
 
             if (associado == null)
-                return "Associado Não Encontrado";           
+                return "Associado Não Encontrado";
 
             if (autorizacaoExameMsg.Status != "Autorizado")
                 return autorizacaoExameMsg.MensagensErro;
@@ -72,14 +71,14 @@ namespace GISA.Associado.Services
             return "Marcação realizada com Sucesso!";
         }
 
-        public async Task<bool> AlterarPlano(int codigoAssociado, int codigoNovoPlano, bool planoOdontologico)
+        public async Task<bool> AlterarPlano(AlterarPlano alterarPlano)
         {
-           var usuario = await GetAssociadoByCodigo(codigoAssociado);
+            var usuario = await GetAssociadoByCodigo(alterarPlano.CodigoAssociado);
 
-            var plano = await _planoService.ObterPlanoPorCodigo(codigoNovoPlano);
+            var plano = await _planoService.ObterPlanoPorCodigo(alterarPlano.CodigoNovoPlano);
 
-            usuario.PlanoId = plano.Id ;
-            usuario.PossuiPlanoOdontologico = planoOdontologico;
+            usuario.PlanoId = plano.Id;
+            usuario.PossuiPlanoOdontologico = alterarPlano.PlanoOdontologico;
             usuario.ValorPlano = CalcularValorNovoPlano(usuario.DataNascimento, plano);
 
             return await _associadoRepository.Update(usuario);
@@ -95,8 +94,7 @@ namespace GISA.Associado.Services
             return CalcularValorPlanoIndividual(idade, plano.ValorBase, plano.ClassificacaoPlano); ;
         }
 
-        private decimal CalcularValorPlanoEmpresarial(int idade, decimal valorPlanoBase,
-            EClassificacaoPlano classificacaoPlano)
+        private static decimal CalcularValorPlanoEmpresarial(int idade, decimal valorPlanoBase, EClassificacaoPlano classificacaoPlano)
         {
             if (idade < 18)
             {
@@ -158,14 +156,14 @@ namespace GISA.Associado.Services
                 case EClassificacaoPlano.Enfermaria: return valorPlanoBase += 112.50M;
                 case EClassificacaoPlano.Apartamento: return valorPlanoBase += 225;
                 case EClassificacaoPlano.Vip: return valorPlanoBase += 302;
-
+                default:
+                    break;
             }
 
             return 0;
         }
 
-        private decimal CalcularValorPlanoIndividual(int idade, decimal valorPlanoBase,
-            EClassificacaoPlano classificacaoPlano)
+        private static decimal CalcularValorPlanoIndividual(int idade, decimal valorPlanoBase, EClassificacaoPlano classificacaoPlano)
         {
             if (idade < 18)
             {

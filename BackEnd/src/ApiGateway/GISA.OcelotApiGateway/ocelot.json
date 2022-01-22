@@ -75,7 +75,7 @@
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
-      "DownstreamPathTemplate": "/api/v1/associado/AlterarPlano/{codigoAssociado}/{codigoNovoPlano}/{planoOdontologico}",
+      "DownstreamPathTemplate": "/api/v1/associado/AlterarPlano",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -96,7 +96,7 @@
         "AuthenticationProviderKey": "associados_auth_scheme",
         "AllowedScopes": []
       },
-      "UpstreamPathTemplate": "/apigateway/api/v1/associado/AlterarPlano/{codigoAssociado}/{codigoNovoPlano}/{planoOdontologico}",
+      "UpstreamPathTemplate": "/apigateway/api/v1/associado/AlterarPlano",
       "UpstreamHttpMethod": [ "Post" ]
     },
     {
