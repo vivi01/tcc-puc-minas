@@ -45,7 +45,7 @@ namespace GISA.OcelotApiGateway.Services
             return true;
         }
 
-        private string DesProtegerSenha(IDataProtector protector, string senha)
+        private static string DesProtegerSenha(IDataProtector protector, string senha)
         {
             return protector.Unprotect(senha);
         }
