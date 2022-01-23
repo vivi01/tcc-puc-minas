@@ -40,7 +40,7 @@ namespace GISA.Associado.Controllers
             return Ok(result);
         }
 
-        [HttpPost("[action]/{codigoAssociado}/{codigoNovoPlano}/{planoOdontologico}")]
+        [HttpPost("[action]")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult<bool>> AlterarPlano([FromBody] AlterarPlano alterarPlano)

@@ -25,7 +25,7 @@ namespace GISA.Associado.UnitTests
             _associadoServiceMock = new Mock<IAssociadoService>();
             _planoServiceMock = new Mock<IPlanoService>();
 
-            associadoController = new AssociadoController(_associadoServiceMock.Object, _planoServiceMock.Object);
+            associadoController = new AssociadoController(_associadoServiceMock.Object);
         }
 
         [Test]
@@ -45,26 +45,7 @@ namespace GISA.Associado.UnitTests
             var result = actionResult.Result as OkObjectResult;
             result.Should().NotBeNull();
             result.Value.Should().Be(associado);
-        }
-
-        [Test]
-        public async Task GetGetTodosPlanosDisponiveisDeveRetornarAssociadoComSucesso()
-        {
-            //Arrange
-
-            var planos = GetTodosPlanosMock();
-
-            _planoServiceMock.Setup(x => x.ObterTodos())
-                .ReturnsAsync(planos);
-
-            //Act
-            var actionResult = await associadoController.GetTodosPlanosDisponiveis();
-
-            //Assert           
-            var result = actionResult.Result as OkObjectResult;
-            result.Should().NotBeNull();
-            result.Value.Should().Be(planos);
-        }
+        }       
 
         [Test]
         public async Task AlterarPlanoRetornarAssociadoComSucesso()
@@ -75,11 +56,18 @@ namespace GISA.Associado.UnitTests
             var codigoNovoPlano = 27;
             var planoOdonlogico = false;
 
-            _associadoServiceMock.Setup(x => x.AlterarPlano(codigoAssociado, codigoNovoPlano, planoOdonlogico))
+            var alterarPlano = new AlterarPlano
+            {
+                CodigoAssociado = codigoAssociado,
+                CodigoNovoPlano = codigoNovoPlano,
+                PlanoOdontologico = planoOdonlogico
+            };
+
+            _associadoServiceMock.Setup(x => x.AlterarPlano(alterarPlano))
                 .ReturnsAsync(true);
 
             //Act
-            var actionResult = await associadoController.AlterarPlano(codigoAssociado, codigoNovoPlano, planoOdonlogico);
+            var actionResult = await associadoController.AlterarPlano(alterarPlano);
 
             //Assert           
             var result = actionResult.Result as OkObjectResult;

@@ -158,8 +158,15 @@ namespace GISA.Associado.UnitTests.Services
             _planoServiceMock.Setup(x => x.ObterPlanoPorCodigo(codigoNovoPlano))
                  .ReturnsAsync(plano);
 
+            var alterarPlano = new AlterarPlano
+            {
+                CodigoAssociado = codigoAssociado,
+                CodigoNovoPlano = codigoNovoPlano,
+                PlanoOdontologico = true
+            };
+
             //Act
-            var result = await associadoService.AlterarPlano(codigoAssociado, codigoNovoPlano, true);
+            var result = await associadoService.AlterarPlano(alterarPlano);
 
             //Assert           
             result.Equals(resultado);
