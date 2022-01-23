@@ -1,0 +1,46 @@
+<div>
+    <h3>Lista de Planos</h3>
+  </div>
+  
+      <table mat-table #table [dataSource]="planos" class="mat-elevation-z8">
+          
+          <ng-container matColumnDef="descricao">
+            <th mat-header-cell *matHeaderCellDef> Descrição </th>
+            <th mat-cell *matCellDef="let plano"> {{plano.descricao}} </th>
+          </ng-container>
+  
+          <ng-container matColumnDef="tipoPlano">
+            <th mat-header-cell *matHeaderCellDef> Tipo de Plano </th>
+            <th mat-cell *matCellDef="let plano"> {{plano.tipoPlano}} </th>
+          </ng-container>
+  
+          <ng-container matColumnDef="classificacaoPlano">
+            <th mat-header-cell *matHeaderCellDef> Classificação do Plano </th>
+            <th mat-cell *matCellDef="let plano"> {{plano.classificacaoPlano}} </th>
+          </ng-container>
+  
+          <ng-container matColumnDef="valorBase">
+            <th mat-header-cell *matHeaderCellDef> Valor Base </th>
+            <th mat-cell *matCellDef="let plano"> {{plano.valorBase}} </th>
+          </ng-container>
+  
+          <ng-container matColumnDef="editar">
+            <th mat-header-cell *matHeaderCellDef>  </th>
+            <td mat-cell *matCellDef="let plano"> <button mat-flat-button color="primary" routerLink="/plano-editar/{{plano.id}}" selected>Editar</button></td>
+          </ng-container>
+  
+          <ng-container matColumnDef="detalhe">
+            <th mat-header-cell *matHeaderCellDef>  </th>
+            <td mat-cell *matCellDef="let plano"> <button mat-flat-button color="secondary" routerLink="/plano-detalhe/{{plano.id}}" selected>Detalhe</button></td>
+          </ng-container>
+          
+          <ng-container matColumnDef="excluir">
+            <th mat-header-cell *matHeaderCellDef>  </th>
+            <td mat-cell *matCellDef="let plano"> <button mat-flat-button color="secondary" routerLink="/plano-excluir/{{plano.id}}" selected>Excluir</button></td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+    </table>
+   
