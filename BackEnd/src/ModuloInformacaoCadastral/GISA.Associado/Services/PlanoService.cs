@@ -30,6 +30,11 @@ namespace GISA.Associado.Services
             return _planoRepository.ObterPlanoPorCodigo(codigo);
         }
 
+        public Task<Plano> ObterPlanoPorId(int id)
+        {
+            return _planoRepository.GetById(id);
+        }
+
         public Task<bool> Deletar(Plano plano)
         {
             return _planoRepository.Delete(plano);

@@ -9,7 +9,7 @@ import { Plano } from "../models/plano";
     providedIn: 'root'
 })
 export class PlanosService {
-    private url = "https://localhost:44302/api/planos";
+    private url = "https://localhost:44302/api/v1/planos";
     constructor(private http: HttpClient) { }
 
     obterPlanos(): Observable<Plano[]>  {

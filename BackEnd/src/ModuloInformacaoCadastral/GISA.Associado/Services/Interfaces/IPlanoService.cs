@@ -12,6 +12,8 @@ namespace GISA.Associado.Services.Interfaces
 
         Task<Plano> ObterPlanoPorCodigo(int codigo);
 
+        Task<Plano> ObterPlanoPorId(int id);
+
         Task<bool> Deletar(Plano plano);
 
         Task<List<Plano>> ObterTodos();
