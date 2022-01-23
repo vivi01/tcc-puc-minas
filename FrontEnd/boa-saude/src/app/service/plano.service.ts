@@ -20,7 +20,7 @@ export class PlanosService {
         return this.http.get<Plano>(this.url + id.toString());
     }
 
-    adicionarUsuario(plano: Plano ){
+    adicionarPlano(plano: Plano ){
         return this.http.post<Plano>(this.url, plano);
     }
 
