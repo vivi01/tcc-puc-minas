@@ -1,6 +1,5 @@
-using GISA.ComunicacaoLegado.RabbitmqConsumer;
 using GISA.ComunicacaoLegado.Services;
-using GISA.EventBusRabbitMQ;
+using GISA.EventBusRabbitMQ.Consumers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -31,26 +30,9 @@ namespace GISA.ComunicacaoLegado
 
             services.AddSingleton<ISgpsService, SgpsService>();
 
-            #region RabbitMQ Dependencies
+            #region RabbitMQ Dependencies           
 
-            services.AddHostedService<AutorizacaoExameConsumer>();
-
-            //var hostName = Configuration["EventBus:HostName"];
-            //var userName = string.Empty;
-            //var password = string.Empty;
-
-            //if (!string.IsNullOrEmpty(Configuration["EventBus:UserName"]))
-            //{
-            //    userName = Configuration["EventBus:UserName"];
-            //}
-
-            //if (!string.IsNullOrEmpty(Configuration["EventBus:Password"]))
-            //{
-            //    password = Configuration["EventBus:Password"];
-            //}
-
-            //services.AddSingleton(sp => RabbitHutch.CreateBus(hostName, userName, password));         
-
+            services.AddHostedService<ConsumeRabbitMQHostedService>();
             #endregion
         }
 

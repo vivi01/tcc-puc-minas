@@ -1,4 +1,5 @@
 ﻿using GISA.EventBusRabbitMQ.Events;
+using GISA.EventBusRabbitMQ.Interfaces;
 using GISA.Prestador.Entities;
 using GISA.Prestador.Repositories.Interfaces;
 using GISA.Prestador.Services;
@@ -15,13 +16,16 @@ namespace GISA.Prestador.UnitTests.Services
         private PrestadorService prestadorService;
         private Mock<IPrestadorRepository> _prestadorRepositoryMock;
         private Mock<IPlanoService> _planoServiceMock;
+        private Mock<IRabbitManager> _managerMock;
 
         [SetUp]
         public void Setup()
         {
             _prestadorRepositoryMock = new Mock<IPrestadorRepository>();
             _planoServiceMock = new Mock<IPlanoService>();
-            prestadorService = new PrestadorService(_prestadorRepositoryMock.Object, _planoServiceMock.Object);
+            _managerMock = new Mock<IRabbitManager>();
+
+            prestadorService = new PrestadorService(_prestadorRepositoryMock.Object, _planoServiceMock.Object, _managerMock.Object);
         }
 
         [Test]

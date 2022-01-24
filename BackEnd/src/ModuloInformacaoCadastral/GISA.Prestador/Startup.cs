@@ -1,3 +1,7 @@
+using GISA.EventBusRabbitMQ;
+using GISA.EventBusRabbitMQ.Extensions;
+using GISA.EventBusRabbitMQ.Interfaces;
+using GISA.EventBusRabbitMQ.Settings;
 using GISA.Prestador.Context;
 using GISA.Prestador.Repositories;
 using GISA.Prestador.Repositories.Interfaces;
@@ -9,7 +13,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.ObjectPool;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using RabbitMQ.Client;
 
 namespace GISA.Prestador
 {
@@ -46,23 +53,16 @@ namespace GISA.Prestador
             services.AddDbContext<PrestadorContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("PrestadorConnection")));
 
+            var rabbitConfig = Configuration.GetSection("rabbit");
+
+            services.Configure<RabbitOptionsSettings>(rabbitConfig);
+
+            services.AddSingleton<RabbitOptionsSettings>(sp =>
+               sp.GetRequiredService<IOptions<RabbitOptionsSettings>>().Value);
+
+            services.AddRabbit(Configuration);
+
             #region RabbitMQ Dependencies
-
-            //var hostName = Configuration["EventBus:HostName"];
-            //var userName = string.Empty;
-            //var password = string.Empty;
-
-            //if (!string.IsNullOrEmpty(Configuration["EventBus:UserName"]))
-            //{
-            //    userName = Configuration["EventBus:UserName"];
-            //}
-
-            //if (!string.IsNullOrEmpty(Configuration["EventBus:Password"]))
-            //{
-            //    password = Configuration["EventBus:Password"];
-            //}
-
-            //services.AddSingleton(sp => RabbitHutch.CreateBus(hostName, userName, password));
 
             #endregion
         }

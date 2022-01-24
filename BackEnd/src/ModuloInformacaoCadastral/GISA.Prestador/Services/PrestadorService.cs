@@ -1,12 +1,10 @@
 ﻿using GISA.EventBusRabbitMQ.Common;
 using GISA.EventBusRabbitMQ.Events;
+using GISA.EventBusRabbitMQ.Interfaces;
 using GISA.Prestador.Entities;
 using GISA.Prestador.Repositories.Interfaces;
 using GISA.Prestador.Services.Interfaces;
-using Newtonsoft.Json;
-using RabbitMQ.Client;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 namespace GISA.Prestador.Services
 {
@@ -14,20 +12,13 @@ namespace GISA.Prestador.Services
     {
         public readonly IPrestadorRepository _prestadorRepository;
         private readonly IPlanoService _planoService;
-        private readonly IModel _channel;
-        private readonly IConnection _connection;
+        private readonly IRabbitManager _manager;
 
-        public PrestadorService(IPrestadorRepository prestadorRepository, IPlanoService planoService)
+        public PrestadorService(IPrestadorRepository prestadorRepository, IPlanoService planoService, IRabbitManager manager)
         {
             _prestadorRepository = prestadorRepository;
             _planoService = planoService;
-            var factory = new ConnectionFactory
-            {
-                HostName = "localhost"
-            };
-
-            _connection = factory.CreateConnection();
-            _channel = _connection.CreateModel();
+            _manager = manager;            
         }
         public async Task<string> SolicitarAutorizacoExame(AutorizacaoExameMsg autorizacaoExameMsg)
         {
@@ -56,9 +47,7 @@ namespace GISA.Prestador.Services
 
         private void GetAutorizacaoExame(AutorizacaoExameMsg requestMessage)
         {
-            var output = JsonConvert.SerializeObject(requestMessage);
-            var body = Encoding.UTF8.GetBytes(output);
-            _channel.BasicPublish(string.Empty, EventBusConstants.GisaQueue, null, body);
+            _manager.Publish<AutorizacaoExameMsg>(requestMessage, "", "", EventBusConstants.GisaQueue);          
         }
 
         public async Task<bool> CadastrarPrestador(Entities.Prestador prestador)

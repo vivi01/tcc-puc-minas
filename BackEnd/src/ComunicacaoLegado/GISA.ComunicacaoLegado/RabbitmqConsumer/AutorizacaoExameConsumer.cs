@@ -16,7 +16,7 @@ namespace GISA.ComunicacaoLegado.RabbitmqConsumer
     {
         private readonly IConnection _connection;
         private readonly IModel _channel;
-        private IServiceProvider _serviceProvider;
+        private readonly IServiceProvider _serviceProvider;
        
         public AutorizacaoExameConsumer(IServiceProvider serviceProvider)
         {
