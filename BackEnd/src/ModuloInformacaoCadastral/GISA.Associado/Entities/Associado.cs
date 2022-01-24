@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GISA.Associado.Entities
 {
@@ -19,6 +20,8 @@ namespace GISA.Associado.Entities
         public int PlanoId { get; set; }
         public int CodigoAssociado { get; set; }
         public List<MarcacaoExame> MarcacaoExames { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
         public decimal ValorPlano { get; set; }
         public string Email { get; set; }
         public bool PossuiPlanoOdontologico { get; set; }

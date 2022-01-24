@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GISA.Associado.Migrations
 {
     [DbContext(typeof(AssociadoContext))]
-    [Migration("20220113231255_MigrationInicialAssociado")]
+    [Migration("20220124152453_MigrationInicialAssociado")]
     partial class MigrationInicialAssociado
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

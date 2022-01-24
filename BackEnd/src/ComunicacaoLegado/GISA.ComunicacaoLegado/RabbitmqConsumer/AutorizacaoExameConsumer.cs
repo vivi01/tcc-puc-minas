@@ -30,6 +30,13 @@ namespace GISA.ComunicacaoLegado.RabbitmqConsumer
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
 
+            _channel.QueueDeclare(
+               queue: EventBusConstants.GisaQueue,
+               durable: false,
+               exclusive: false,
+               autoDelete: false,
+               arguments: null);
+
         }
         
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -46,9 +53,9 @@ namespace GISA.ComunicacaoLegado.RabbitmqConsumer
                     var autorizacaoInfo = JsonSerializer.Deserialize<AutorizacaoExameMsg>(autorizacaoInfoJson);
 
                     GetAutorizacao(autorizacaoInfo);
-                }                         
 
-                _channel.BasicAck(eventArgs.DeliveryTag, false);
+                    _channel.BasicAck(eventArgs.DeliveryTag, false);
+                }               
             };
 
             _channel.BasicConsume(EventBusConstants.GisaQueue, false, consumer);

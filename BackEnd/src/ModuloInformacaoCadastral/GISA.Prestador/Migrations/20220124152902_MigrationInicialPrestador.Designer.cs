@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GISA.Prestador.Migrations
 {
     [DbContext(typeof(PrestadorContext))]
-    [Migration("20220113232050_MigrationInicialPrestador")]
+    [Migration("20220124152902_MigrationInicialPrestador")]
     partial class MigrationInicialPrestador
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -14,7 +14,7 @@ services:
   prestadordb:
     container_name: prestadordb
     ports:
-      - "1433:1433"
+      - "1432:1432"
     environment:
       SA_PASSWORD: "!SwN12345678"
       ACCEPT_EULA: "Y"

@@ -9,30 +9,41 @@ services:
 
   securitydb:
     image: mongo
-  
+    
   rabbitmq:
     image: rabbitmq:3-management-alpine
   
   gisa.ocelotapigateway:
     image: ${DOCKER_REGISTRY-}gisaocelotapigateway
+    networks: 
+     - gisa-pos
     build:
       context: .
       dockerfile: src/ApiGateway/GISA.OcelotApiGateway/Dockerfile
 
   gisa.associado:
     image: ${DOCKER_REGISTRY-}gisaassociado
+    networks: 
+     - gisa-pos
     build:
       context: .
       dockerfile: src/ModuloInformacaoCadastral/GISA.Associado/Dockerfile
 
   gisa.comunicacaolegado:
     image: ${DOCKER_REGISTRY-}gisacomunicacaolegado
+    networks: 
+     - gisa-pos
     build:
       context: .
       dockerfile: src/ComunicacaoLegado/GISA.ComunicacaoLegado/Dockerfile
 
   gisa.prestador:
     image: ${DOCKER_REGISTRY-}gisaprestador
+    networks: 
+     - gisa-pos
     build:
       context: .
       dockerfile: src/ModuloInformacaoCadastral/GISA.Prestador/Dockerfile
+networks:
+  gisa-pos:
+   name: gisa-pos

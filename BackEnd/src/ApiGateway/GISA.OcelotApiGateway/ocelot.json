@@ -6,7 +6,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44302
+          "Port": 80
         }
       ],
       "RateLimitOptions": {
@@ -47,14 +47,14 @@
       },
       "UpstreamPathTemplate": "/apigateway/api/v1/associado/CadastrarAssociado",
       "UpstreamHttpMethod": [ "Post" ]
-    },    
+    },
     {
       "DownstreamPathTemplate": "/api/v1/associado/GetTodosPlanosDisponiveis",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44302
+          "Port": 80
         }
       ],
       "RateLimitOptions": {
@@ -80,7 +80,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44302
+          "Port": 80
         }
       ],
       "RateLimitOptions": {
@@ -105,7 +105,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44302
+          "Port": 80
         }
       ],
       "RateLimitOptions": {
@@ -153,7 +153,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44326
+          "Port": 80
         }
       ],
       "RateLimitOptions": {
@@ -179,7 +179,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44326
+          "Port": 80
         }
       ],
       "RateLimitOptions": {
@@ -205,7 +205,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44382
+          "Port": 80
         }
       ],
       "RateLimitOptions": {

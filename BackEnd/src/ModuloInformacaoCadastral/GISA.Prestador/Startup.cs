@@ -1,4 +1,3 @@
-using GISA.EventBusRabbitMQ;
 using GISA.Prestador.Context;
 using GISA.Prestador.Repositories;
 using GISA.Prestador.Repositories.Interfaces;
