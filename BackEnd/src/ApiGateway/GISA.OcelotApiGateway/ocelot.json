@@ -32,7 +32,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44302
+          "Port": 80
         }
       ],
       "RateLimitOptions": {
@@ -131,7 +131,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44326
+          "Port": 80
         }
       ],
       "RateLimitOptions": {
@@ -197,7 +197,7 @@
         "AllowedScopes": []
       },
       "UpstreamPathTemplate": "/apigateway/api/v1/prestador/GetAllPlanosConveniados",
-      "UpstreamHttpMethod": [ "Post" ]
+      "UpstreamHttpMethod": [ "Get" ]
     },
     {
       "DownstreamPathTemplate": "/api/v1/Sgps/AutorizarExame",
