@@ -7,6 +7,7 @@ using GISA.Prestador.Repositories;
 using GISA.Prestador.Repositories.Interfaces;
 using GISA.Prestador.Services;
 using GISA.Prestador.Services.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -32,7 +33,7 @@ namespace GISA.Prestador
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddMediatR(typeof(Startup));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

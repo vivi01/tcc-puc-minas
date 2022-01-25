@@ -4,8 +4,8 @@ using GISA.Associado.Repositories.Interfaces;
 using GISA.Associado.Services;
 using GISA.Associado.Services.Interfaces;
 using GISA.EventBusRabbitMQ.Common;
-using GISA.EventBusRabbitMQ.Events;
 using GISA.EventBusRabbitMQ.Interfaces;
+using GISA.EventBusRabbitMQ.Messages;
 using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -101,7 +101,7 @@ namespace GISA.Associado.UnitTests.Services
         public async Task SolicitarMarcacaoExameComSucesso()
         {
             //Arrange
-            var autorizacaoExame = new AutorizacaoExameMsg
+            var autorizacaoExame = new AutorizacaoExame
             {
                 RequestId = new System.Guid(),
                 CodigoAssociado = 1258,

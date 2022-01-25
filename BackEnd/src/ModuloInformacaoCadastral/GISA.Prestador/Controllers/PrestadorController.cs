@@ -1,4 +1,4 @@
-﻿using GISA.EventBusRabbitMQ.Events;
+﻿using GISA.Prestador.Command;
 using GISA.Prestador.Entities;
 using GISA.Prestador.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +34,7 @@ namespace GISA.Prestador.Controllers
 
         [HttpPost("[action]")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<string>> SolicitarAutorizacoExame([FromBody] AutorizacaoExameMsg autorizacaoExameMsg)
+        public async Task<ActionResult<string>> SolicitarAutorizacoExame([FromBody] AutorizacaoExameCommand autorizacaoExameMsg)
         {
             return Ok(await _prestadorService.SolicitarAutorizacoExame(autorizacaoExameMsg));
         }

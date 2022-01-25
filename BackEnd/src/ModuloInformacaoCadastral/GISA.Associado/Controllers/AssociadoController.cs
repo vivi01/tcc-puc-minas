@@ -1,6 +1,6 @@
 ﻿using GISA.Associado.Entities;
 using GISA.Associado.Services.Interfaces;
-using GISA.EventBusRabbitMQ.Events;
+using GISA.EventBusRabbitMQ.Messages;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Threading.Tasks;
@@ -55,7 +55,7 @@ namespace GISA.Associado.Controllers
 
         [HttpPost("[action]")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<string>> SolicitarMarcacaoExame([FromBody] AutorizacaoExameMsg autorizacaoExameMsg)
+        public async Task<ActionResult<string>> SolicitarMarcacaoExame([FromBody] AutorizacaoExame autorizacaoExameMsg)
         {
             return Ok(await _associadoService.SolicitarMarcacaoExame(autorizacaoExameMsg));
         }

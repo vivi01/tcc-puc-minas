@@ -1,4 +1,4 @@
-﻿namespace GISA.EventBusRabbitMQ.ModeloMensagens
+﻿namespace GISA.EventBusRabbitMQ.Messages
 {
     public class AuthTokenMsg
     {

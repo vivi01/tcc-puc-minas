@@ -1,4 +1,4 @@
-﻿using GISA.EventBusRabbitMQ.Events;
+﻿using GISA.EventBusRabbitMQ.Messages;
 
 namespace GISA.ComunicacaoLegado.Services
 {
@@ -11,7 +11,7 @@ namespace GISA.ComunicacaoLegado.Services
         //    //_busControl = busControl;
         //}
 
-        public async void AutorizarExame(AutorizacaoExameMsg autorizacaoExameMsg)
+        public async void AutorizarExame(AutorizacaoExame autorizacaoExameMsg)
         {
             ////Change to receive
             //await _busControl.ReceiveAsync<AutorizacaoExameMsg>(EventBusConstants.GisaQueue,
@@ -23,7 +23,7 @@ namespace GISA.ComunicacaoLegado.Services
             //   });
         }
 
-        private static void GetAutorizacao(AutorizacaoExameMsg autorizacaoExameMsg)
+        private static void GetAutorizacao(AutorizacaoExame autorizacaoExameMsg)
         {
             autorizacaoExameMsg.Status = "Autorizado";          
         }

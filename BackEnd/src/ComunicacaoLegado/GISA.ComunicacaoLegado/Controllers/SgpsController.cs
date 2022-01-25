@@ -1,8 +1,7 @@
 ﻿using GISA.ComunicacaoLegado.Services;
-using GISA.EventBusRabbitMQ.Events;
+using GISA.EventBusRabbitMQ.Messages;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace GISA.ComunicacaoLegado.Controllers
 {
@@ -19,7 +18,7 @@ namespace GISA.ComunicacaoLegado.Controllers
 
         [HttpPost("[action]")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
-        public IActionResult AutorizarExame([FromBody] AutorizacaoExameMsg autorizacaoExameMsg)
+        public IActionResult AutorizarExame([FromBody] AutorizacaoExame autorizacaoExameMsg)
         {
             _sgpsService.AutorizarExame(autorizacaoExameMsg);
             return Ok();

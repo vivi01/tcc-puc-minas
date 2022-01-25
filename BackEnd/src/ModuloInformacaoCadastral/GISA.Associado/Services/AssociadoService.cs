@@ -2,8 +2,7 @@
 using GISA.Associado.Enums;
 using GISA.Associado.Repositories.Interfaces;
 using GISA.Associado.Services.Interfaces;
-using GISA.EventBusRabbitMQ.Events;
-using GISA.EventBusRabbitMQ.ModeloMensagens;
+using GISA.EventBusRabbitMQ.Messages;
 using System;
 using System.Threading.Tasks;
 
@@ -50,7 +49,7 @@ namespace GISA.Associado.Services
             await GetAssociadoByCodigo(requestMessage.CodigoAssociado);
         }
 
-        public async Task<string> SolicitarMarcacaoExame(AutorizacaoExameMsg autorizacaoExameMsg)
+        public async Task<string> SolicitarMarcacaoExame(AutorizacaoExame autorizacaoExameMsg)
         {
             var associado = await GetAssociadoByCodigo(autorizacaoExameMsg.CodigoAssociado);
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GISA.EventBusRabbitMQ.ModeloMensagens
+namespace GISA.EventBusRabbitMQ.Messages
 {
     public class AssociadoMsg
     {

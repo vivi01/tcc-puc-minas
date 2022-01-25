@@ -1,9 +1,10 @@
 ﻿using GISA.EventBusRabbitMQ.Common;
-using GISA.EventBusRabbitMQ.Events;
 using GISA.EventBusRabbitMQ.Interfaces;
+using GISA.Prestador.Command;
 using GISA.Prestador.Entities;
 using GISA.Prestador.Repositories.Interfaces;
 using GISA.Prestador.Services.Interfaces;
+using MediatR;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 namespace GISA.Prestador.Services
@@ -13,14 +14,17 @@ namespace GISA.Prestador.Services
         public readonly IPrestadorRepository _prestadorRepository;
         private readonly IPlanoService _planoService;
         private readonly IRabbitManager _manager;
+        private readonly IMediator _mediator;
 
-        public PrestadorService(IPrestadorRepository prestadorRepository, IPlanoService planoService, IRabbitManager manager)
+        public PrestadorService(IPrestadorRepository prestadorRepository, IPlanoService planoService,
+            IRabbitManager manager, IMediator mediator)
         {
             _prestadorRepository = prestadorRepository;
             _planoService = planoService;
-            _manager = manager;            
+            _manager = manager;
+            _mediator = mediator;
         }
-        public async Task<string> SolicitarAutorizacoExame(AutorizacaoExameMsg autorizacaoExameMsg)
+        public async Task<string> SolicitarAutorizacoExame(AutorizacaoExameCommand autorizacaoExameMsg)
         {
             if (autorizacaoExameMsg.StatusAssociado != "Ativo")
             {
@@ -35,9 +39,9 @@ namespace GISA.Prestador.Services
             }
 
             //chama o legado SGPS para solicitar a autorização do exame
-            GetAutorizacaoExame(autorizacaoExameMsg);
+            var result = await GetAutorizacaoExame(autorizacaoExameMsg);
 
-            if (autorizacaoExameMsg.Status != "Autorizado")
+            if (result != "Autorizado")
             {
                 return "Nao Autorizado";
             }
@@ -45,9 +49,10 @@ namespace GISA.Prestador.Services
             return "Autorizado";
         }
 
-        private void GetAutorizacaoExame(AutorizacaoExameMsg requestMessage)
+        private async Task<string> GetAutorizacaoExame(AutorizacaoExameCommand requestMessage)
         {
-            _manager.Publish<AutorizacaoExameMsg>(requestMessage, "", "", EventBusConstants.GisaQueue);          
+            _manager.Publish<AutorizacaoExameCommand>(requestMessage, "", "", EventBusConstants.GisaQueue);
+            return await _mediator.Send(requestMessage);
         }
 
         public async Task<bool> CadastrarPrestador(Entities.Prestador prestador)

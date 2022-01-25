@@ -1,10 +1,9 @@
-﻿using GISA.EventBusRabbitMQ.Events;
-using System.Threading.Tasks;
+﻿using GISA.EventBusRabbitMQ.Messages;
 
 namespace GISA.ComunicacaoLegado.Services
 {
     public interface ISgpsService
     {
-        void AutorizarExame(AutorizacaoExameMsg autorizacaoExameMsg);
+        void AutorizarExame(AutorizacaoExame autorizacaoExameMsg);
     }
 }

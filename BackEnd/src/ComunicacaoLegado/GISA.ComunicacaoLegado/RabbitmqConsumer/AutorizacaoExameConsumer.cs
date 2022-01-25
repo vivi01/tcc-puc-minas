@@ -1,5 +1,5 @@
 ﻿using GISA.EventBusRabbitMQ.Common;
-using GISA.EventBusRabbitMQ.Events;
+using GISA.EventBusRabbitMQ.Messages;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RabbitMQ.Client;
@@ -50,7 +50,7 @@ namespace GISA.ComunicacaoLegado.RabbitmqConsumer
 
                 if(!string.IsNullOrWhiteSpace(autorizacaoInfoJson))
                 {
-                    var autorizacaoInfo = JsonSerializer.Deserialize<AutorizacaoExameMsg>(autorizacaoInfoJson);
+                    var autorizacaoInfo = JsonSerializer.Deserialize<AutorizacaoExame>(autorizacaoInfoJson);
 
                     GetAutorizacao(autorizacaoInfo);
 
@@ -63,7 +63,7 @@ namespace GISA.ComunicacaoLegado.RabbitmqConsumer
             return Task.CompletedTask;
         }
 
-        private void GetAutorizacao(AutorizacaoExameMsg autorizacaoExameMsg)
+        private void GetAutorizacao(AutorizacaoExame autorizacaoExameMsg)
         {
             using (var scope = _serviceProvider.CreateScope())
             {

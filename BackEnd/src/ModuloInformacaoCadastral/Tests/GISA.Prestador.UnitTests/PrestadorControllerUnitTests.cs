@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using GISA.EventBusRabbitMQ.Events;
+using GISA.Prestador.Command;
 using GISA.Prestador.Controllers;
 using GISA.Prestador.Entities;
 using GISA.Prestador.Services.Interfaces;
@@ -29,7 +29,7 @@ namespace GISA.Prestador.UnitTests
         public async Task SolicitarAutorizacoExameDeveRetornarComSucesso()
         {
             //Arrange
-            var autorizacaoExame = new AutorizacaoExameMsg
+            var autorizacaoExame = new AutorizacaoExameCommand
             {
                 RequestId = new System.Guid(),
                 CodigoAssociado = 1258,

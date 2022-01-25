@@ -1,5 +1,5 @@
 ﻿using GISA.EventBusRabbitMQ.Common;
-using GISA.EventBusRabbitMQ.Events;
+using GISA.EventBusRabbitMQ.Messages;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
@@ -67,9 +67,10 @@ namespace GISA.EventBusRabbitMQ.Consumers
 
         private void HandleMessage(string content)
         {
-            var autorizacaoInfo = JsonSerializer.Deserialize<AutorizacaoExameMsg>(content);
+            var autorizacaoInfo = JsonSerializer.Deserialize<AutorizacaoExame>(content);
 
             autorizacaoInfo.Status = "Autorizado";
+
             // we just print this message  
             _logger.LogInformation($"consumer received {content}");
         }

@@ -1,9 +1,10 @@
-﻿using GISA.EventBusRabbitMQ.Events;
-using GISA.EventBusRabbitMQ.Interfaces;
+﻿using GISA.EventBusRabbitMQ.Interfaces;
+using GISA.Prestador.Command;
 using GISA.Prestador.Entities;
 using GISA.Prestador.Repositories.Interfaces;
 using GISA.Prestador.Services;
 using GISA.Prestador.Services.Interfaces;
+using MediatR;
 using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace GISA.Prestador.UnitTests.Services
         private Mock<IPrestadorRepository> _prestadorRepositoryMock;
         private Mock<IPlanoService> _planoServiceMock;
         private Mock<IRabbitManager> _managerMock;
+        private Mock<IMediator> _mediatorMock;
 
         [SetUp]
         public void Setup()
@@ -24,15 +26,17 @@ namespace GISA.Prestador.UnitTests.Services
             _prestadorRepositoryMock = new Mock<IPrestadorRepository>();
             _planoServiceMock = new Mock<IPlanoService>();
             _managerMock = new Mock<IRabbitManager>();
+            _mediatorMock = new Mock<IMediator>();
 
-            prestadorService = new PrestadorService(_prestadorRepositoryMock.Object, _planoServiceMock.Object, _managerMock.Object);
+            prestadorService = new PrestadorService(_prestadorRepositoryMock.Object, _planoServiceMock.Object, 
+                _managerMock.Object, _mediatorMock.Object);
         }
 
         [Test]
         public async Task SolicitarMarcacaoExameComSucesso()
         {
             //Arrange
-            var autorizacaoExame = new AutorizacaoExameMsg
+            var autorizacaoExame = new AutorizacaoExameCommand
             {
                 RequestId = new System.Guid(),
                 CodigoAssociado = 1258,

@@ -2,7 +2,7 @@ using FluentAssertions;
 using GISA.Associado.Controllers;
 using GISA.Associado.Entities;
 using GISA.Associado.Services.Interfaces;
-using GISA.EventBusRabbitMQ.Events;
+using GISA.EventBusRabbitMQ.Messages;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -79,7 +79,7 @@ namespace GISA.Associado.UnitTests
         public async Task SolicitarMarcacaoExameComSucesso()
         {
             //Arrange
-            var autorizacaoExame = new AutorizacaoExameMsg
+            var autorizacaoExame = new AutorizacaoExame
             {
                 RequestId = new System.Guid(),
                 CodigoAssociado = 1258,
