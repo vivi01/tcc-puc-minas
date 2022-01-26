@@ -49,7 +49,7 @@ namespace GISA.Associado.Services
             await GetAssociadoByCodigo(requestMessage.CodigoAssociado);
         }
 
-        public async Task<string> SolicitarMarcacaoExame(AutorizacaoExame autorizacaoExameMsg)
+        public async Task<string> SolicitarMarcacaoExame(MarcacaoExameMsg autorizacaoExameMsg)
         {
             var associado = await GetAssociadoByCodigo(autorizacaoExameMsg.CodigoAssociado);
 

@@ -3,8 +3,6 @@ using GISA.Associado.Enums;
 using GISA.Associado.Repositories.Interfaces;
 using GISA.Associado.Services;
 using GISA.Associado.Services.Interfaces;
-using GISA.EventBusRabbitMQ.Common;
-using GISA.EventBusRabbitMQ.Interfaces;
 using GISA.EventBusRabbitMQ.Messages;
 using Moq;
 using NUnit.Framework;
@@ -18,14 +16,12 @@ namespace GISA.Associado.UnitTests.Services
         private AssociadoService associadoService;
         private Mock<IAssociadoRepository> _associadoRepositoryMock;
         private Mock<IPlanoService> _planoServiceMock;
-        private Mock<IBus> _busControlMock;
 
         [SetUp]
         public void Setup()
         {
             _associadoRepositoryMock = new Mock<IAssociadoRepository>();
             _planoServiceMock = new Mock<IPlanoService>();
-            _busControlMock = new Mock<IBus>();
 
             associadoService = new AssociadoService(_associadoRepositoryMock.Object, _planoServiceMock.Object);
         }
@@ -101,7 +97,7 @@ namespace GISA.Associado.UnitTests.Services
         public async Task SolicitarMarcacaoExameComSucesso()
         {
             //Arrange
-            var autorizacaoExame = new AutorizacaoExame
+            var autorizacaoExame = new MarcacaoExameMsg
             {
                 RequestId = new System.Guid(),
                 CodigoAssociado = 1258,
@@ -113,10 +109,7 @@ namespace GISA.Associado.UnitTests.Services
                 Token = "x14589909mlpq09875cv12"
             };
 
-            var associado = GetMockAssociado();
-
-            _busControlMock.Setup(_ => _.SendAsync(EventBusConstants.PrestadorExchange, autorizacaoExame))
-                .Returns(Task.FromResult(autorizacaoExame));
+            var associado = GetMockAssociado();            
 
             _associadoRepositoryMock.Setup(x => x.GetAssociado(autorizacaoExame.CodigoAssociado))
                .ReturnsAsync(associado);

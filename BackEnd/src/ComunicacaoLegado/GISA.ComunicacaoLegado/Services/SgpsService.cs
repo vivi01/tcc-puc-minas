@@ -1,31 +1,21 @@
 ﻿using GISA.EventBusRabbitMQ.Messages;
+using GISA.EventBusRabbitMQ.Messages.Integracao;
 
 namespace GISA.ComunicacaoLegado.Services
 {
     public class SgpsService : ISgpsService
     {
-        //private readonly IBus _busControl;
-
-        //public SgpsService(IBus busControl)
-        //{
-        //    //_busControl = busControl;
-        //}
-
-        public async void AutorizarExame(AutorizacaoExame autorizacaoExameMsg)
+        public DefaultResponse AutorizarExame(AutorizacaoExameMsg autorizacaoExameMsg)
         {
-            ////Change to receive
-            //await _busControl.ReceiveAsync<AutorizacaoExameMsg>(EventBusConstants.GisaQueue,
-            //   x =>
-            //   {
-            //       //Criado um mock sempre vai retornar True.. numa situação real seria necessário verificar
-            //       //se o solicitante é conveniado e se o associado está adimplente
-            //       Task.Run(() => { GetAutorizacao(autorizacaoExameMsg); });
-            //   });
-        }
-
-        private static void GetAutorizacao(AutorizacaoExame autorizacaoExameMsg)
-        {
-            autorizacaoExameMsg.Status = "Autorizado";          
+            //Nesta parte deverá ser implementado uma chamada para o serviço legado
+            //retornar o status. 
+            //Valor mocado para testes.]
+            return new DefaultResponse
+            {
+                Status = "Autorizado",
+                Sucess = true,
+                Title = "Autorizado pelo SGPS"
+            };
         }
     }
 }

@@ -148,7 +148,7 @@
       "UpstreamHttpMethod": [ "Post" ]
     },
     {
-      "DownstreamPathTemplate": "/api/v1/prestador/SolicitarAutorizacoExame",
+      "DownstreamPathTemplate": "/api/v1/prestador/SolicitarAutorizacaoExame",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -170,7 +170,7 @@
         "AuthenticationProviderKey": "prestador_auth_scheme",
         "AllowedScopes": []
       },
-      "UpstreamPathTemplate": "/apigateway/api/v1/prestador/SolicitarAutorizacoExame",
+      "UpstreamPathTemplate": "/apigateway/api/v1/prestador/SolicitarAutorizacaoExame",
       "UpstreamHttpMethod": [ "Post" ]
     },
     {

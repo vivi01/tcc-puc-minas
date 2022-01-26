@@ -1,7 +1,9 @@
 ﻿using GISA.ComunicacaoLegado.Services;
 using GISA.EventBusRabbitMQ.Messages;
+using GISA.EventBusRabbitMQ.Messages.Integracao;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace GISA.ComunicacaoLegado.Controllers
 {
@@ -17,11 +19,10 @@ namespace GISA.ComunicacaoLegado.Controllers
         }
 
         [HttpPost("[action]")]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
-        public IActionResult AutorizarExame([FromBody] AutorizacaoExame autorizacaoExameMsg)
+        [ProducesResponseType(typeof(DefaultResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<DefaultResponse>> AutorizarExame([FromBody] AutorizacaoExameMsg autorizacaoExameMsg)
         {
-            _sgpsService.AutorizarExame(autorizacaoExameMsg);
-            return Ok();
+            return Ok(_sgpsService.AutorizarExame(autorizacaoExameMsg));
         }
     }
 }

@@ -79,16 +79,14 @@ namespace GISA.Associado.UnitTests
         public async Task SolicitarMarcacaoExameComSucesso()
         {
             //Arrange
-            var autorizacaoExame = new AutorizacaoExame
+            var autorizacaoExame = new MarcacaoExameMsg
             {
-                RequestId = new System.Guid(),
+                RequestId = new Guid(),
                 CodigoAssociado = 1258,
                 CodigoExame = 254,
                 CodigoPlano = 27,
-                DataExame = new System.DateTime(2022, 02, 10),
-                MensagensErro = "",
-                Status = "Autorizado",
-                Token = "x14589909mlpq09875cv12"
+                DataExame = new DateTime(2022, 02, 10),               
+                Status = "Autorizado"               
             };
 
             _associadoServiceMock.Setup(x => x.SolicitarMarcacaoExame(autorizacaoExame))

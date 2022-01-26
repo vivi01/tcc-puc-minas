@@ -1,23 +1,16 @@
-using GISA.EventBusRabbitMQ;
-using GISA.EventBusRabbitMQ.Extensions;
-using GISA.EventBusRabbitMQ.Interfaces;
-using GISA.EventBusRabbitMQ.Settings;
+using GISA.Prestador.Configuration;
 using GISA.Prestador.Context;
 using GISA.Prestador.Repositories;
 using GISA.Prestador.Repositories.Interfaces;
 using GISA.Prestador.Services;
 using GISA.Prestador.Services.Interfaces;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.ObjectPool;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
-using RabbitMQ.Client;
 
 namespace GISA.Prestador
 {
@@ -33,7 +26,7 @@ namespace GISA.Prestador
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMediatR(typeof(Startup));
+            //services.AddMediatR(typeof(Startup));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -54,14 +47,7 @@ namespace GISA.Prestador
             services.AddDbContext<PrestadorContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("PrestadorConnection")));
 
-            var rabbitConfig = Configuration.GetSection("rabbit");
-
-            services.Configure<RabbitOptionsSettings>(rabbitConfig);
-
-            services.AddSingleton<RabbitOptionsSettings>(sp =>
-               sp.GetRequiredService<IOptions<RabbitOptionsSettings>>().Value);
-
-            services.AddRabbit(Configuration);
+            services.AddMessageBusConfiguration(Configuration);
 
             #region RabbitMQ Dependencies
 

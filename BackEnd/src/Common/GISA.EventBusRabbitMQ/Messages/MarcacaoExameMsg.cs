@@ -1,12 +1,11 @@
-﻿using MediatR;
-using System;
+﻿using System;
 
-namespace GISA.Prestador.Command
+namespace GISA.EventBusRabbitMQ.Messages
 {
-    public class AutorizacaoExameCommand : IRequest<string>
+    public class MarcacaoExameMsg
     {
         public Guid RequestId { get; set; }
-       
+
         public int CodigoExame { get; set; }
 
         public int CodigoAssociado { get; set; }

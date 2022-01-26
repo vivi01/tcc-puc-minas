@@ -1,10 +1,9 @@
 ﻿using GISA.EventBusRabbitMQ.Interfaces;
-using GISA.Prestador.Command;
+using GISA.EventBusRabbitMQ.Messages;
 using GISA.Prestador.Entities;
 using GISA.Prestador.Repositories.Interfaces;
 using GISA.Prestador.Services;
 using GISA.Prestador.Services.Interfaces;
-using MediatR;
 using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -17,35 +16,31 @@ namespace GISA.Prestador.UnitTests.Services
         private PrestadorService prestadorService;
         private Mock<IPrestadorRepository> _prestadorRepositoryMock;
         private Mock<IPlanoService> _planoServiceMock;
-        private Mock<IRabbitManager> _managerMock;
-        private Mock<IMediator> _mediatorMock;
+        private Mock<IMessageBus> _busMock;
 
         [SetUp]
         public void Setup()
         {
             _prestadorRepositoryMock = new Mock<IPrestadorRepository>();
             _planoServiceMock = new Mock<IPlanoService>();
-            _managerMock = new Mock<IRabbitManager>();
-            _mediatorMock = new Mock<IMediator>();
+            _busMock = new Mock<IMessageBus>();
 
-            prestadorService = new PrestadorService(_prestadorRepositoryMock.Object, _planoServiceMock.Object, 
-                _managerMock.Object, _mediatorMock.Object);
+            prestadorService = new PrestadorService(_prestadorRepositoryMock.Object, _planoServiceMock.Object,
+               _busMock.Object);
         }
 
         [Test]
         public async Task SolicitarMarcacaoExameComSucesso()
         {
             //Arrange
-            var autorizacaoExame = new AutorizacaoExameCommand
+            var autorizacaoExame = new AutorizacaoExameMsg
             {
                 RequestId = new System.Guid(),
                 CodigoAssociado = 1258,
                 CodigoExame = 254,
                 CodigoPlano = 27,
                 DataExame = new System.DateTime(2022, 02, 10),
-                MensagensErro = "",
-                Status = "Autorizado",
-                Token = "x14589909mlpq09875cv12"
+                StatusSolicitacao = "Autorizado"
             };
 
             var plano = new Plano

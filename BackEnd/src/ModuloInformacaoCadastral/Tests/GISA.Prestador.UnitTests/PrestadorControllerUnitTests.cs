@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
-using GISA.Prestador.Command;
+using GISA.EventBusRabbitMQ.Messages;
+using GISA.EventBusRabbitMQ.Messages.Integracao;
 using GISA.Prestador.Controllers;
 using GISA.Prestador.Entities;
 using GISA.Prestador.Services.Interfaces;
@@ -29,28 +30,33 @@ namespace GISA.Prestador.UnitTests
         public async Task SolicitarAutorizacoExameDeveRetornarComSucesso()
         {
             //Arrange
-            var autorizacaoExame = new AutorizacaoExameCommand
+            var autorizacaoExame = new AutorizacaoExameMsg
             {
-                RequestId = new System.Guid(),
+                RequestId = new Guid(),
                 CodigoAssociado = 1258,
                 CodigoExame = 254,
                 CodigoPlano = 27,
-                DataExame = new System.DateTime(2022, 02, 10),
-                MensagensErro = "",
+                DataExame = new DateTime(2022, 02, 10),                
+                StatusSolicitacao = "Autorizado"               
+            };
+
+            var response = new DefaultResponse
+            {
                 Status = "Autorizado",
-                Token = "x14589909mlpq09875cv12"
+                Sucess = true,
+                Title = "Autorizado pelo SGPS"
             };
 
             _prestadorServiceMock.Setup(_ => _.SolicitarAutorizacoExame(autorizacaoExame))
-                .Returns(Task.FromResult("autorizado"));
+                .Returns(Task.FromResult(response));
 
             //Act
-            var actionResult = await prestadorController.SolicitarAutorizacoExame(autorizacaoExame);
+            var actionResult = await prestadorController.SolicitarAutorizacaoExame(autorizacaoExame);
 
             //Assert
             var result = actionResult.Result as OkObjectResult;
             result.Should().NotBeNull();
-            result.Value.Should().Be("autorizado");
+            result.Value.Should().Be(response);
         }
 
         [Test]

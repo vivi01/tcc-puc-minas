@@ -1,5 +1,5 @@
+using GISA.ComunicacaoLegado.Configurations;
 using GISA.ComunicacaoLegado.Services;
-using GISA.EventBusRabbitMQ.Consumers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -32,7 +32,8 @@ namespace GISA.ComunicacaoLegado
 
             #region RabbitMQ Dependencies           
 
-            services.AddHostedService<ConsumeRabbitMQHostedService>();
+            services.AddMessageBusConfiguration(Configuration);
+            
             #endregion
         }
 

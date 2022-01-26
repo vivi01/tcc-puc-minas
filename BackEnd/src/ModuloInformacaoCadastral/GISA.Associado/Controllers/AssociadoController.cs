@@ -55,9 +55,9 @@ namespace GISA.Associado.Controllers
 
         [HttpPost("[action]")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<string>> SolicitarMarcacaoExame([FromBody] AutorizacaoExame autorizacaoExameMsg)
+        public async Task<ActionResult<string>> SolicitarMarcacaoExame([FromBody] MarcacaoExameMsg marcacaoExameMsg)
         {
-            return Ok(await _associadoService.SolicitarMarcacaoExame(autorizacaoExameMsg));
+            return Ok(await _associadoService.SolicitarMarcacaoExame(marcacaoExameMsg));
         }
     }
 }

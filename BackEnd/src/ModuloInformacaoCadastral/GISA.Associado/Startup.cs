@@ -3,7 +3,6 @@ using GISA.Associado.Repositories;
 using GISA.Associado.Repositories.Interfaces;
 using GISA.Associado.Services;
 using GISA.Associado.Services.Interfaces;
-using GISA.EventBusRabbitMQ;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -48,23 +47,7 @@ namespace GISA.Associado
             services.AddDbContext<AssociadoContext>(options =>
                      options.UseSqlServer(Configuration.GetConnectionString("AssociadoConnection")));
 
-            #region RabbitMQ Dependencies
-
-            //var hostName = Configuration["EventBus:HostName"];
-            //var userName = string.Empty;
-            //var password = string.Empty;
-
-            //if (!string.IsNullOrEmpty(Configuration["EventBus:UserName"]))
-            //{
-            //    userName = Configuration["EventBus:UserName"];
-            //}
-
-            //if (!string.IsNullOrEmpty(Configuration["EventBus:Password"]))
-            //{
-            //    password = Configuration["EventBus:Password"];
-            //}
-
-            //services.AddSingleton(sp => RabbitHutch.CreateBus(hostName, userName, password));
+            #region RabbitMQ Dependencies            
 
             #endregion
         }
@@ -88,9 +71,7 @@ namespace GISA.Associado
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });
-
-            //  app.UseRabbitListener();
+            });            
         }
     }
 }

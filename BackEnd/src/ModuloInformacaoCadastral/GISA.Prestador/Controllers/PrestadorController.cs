@@ -1,4 +1,5 @@
-﻿using GISA.Prestador.Command;
+﻿using GISA.EventBusRabbitMQ.Messages;
+using GISA.EventBusRabbitMQ.Messages.Integracao;
 using GISA.Prestador.Entities;
 using GISA.Prestador.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +13,11 @@ namespace GISA.Prestador.Controllers
     [ApiController]
     public class PrestadorController : ControllerBase
     {
-        private readonly IPrestadorService _prestadorService;
+        private readonly IPrestadorService _prestadorService;      
 
         public PrestadorController(IPrestadorService prestadorService)
         {
-            _prestadorService = prestadorService;
+            _prestadorService = prestadorService;            
         }
 
         [HttpPost("[action]")]
@@ -33,10 +34,16 @@ namespace GISA.Prestador.Controllers
         }
 
         [HttpPost("[action]")]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<string>> SolicitarAutorizacoExame([FromBody] AutorizacaoExameCommand autorizacaoExameMsg)
+        [ProducesResponseType(typeof(DefaultResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(DefaultResponse), (int)HttpStatusCode.BadRequest)]
+        public async Task<ActionResult<DefaultResponse>> SolicitarAutorizacaoExame([FromBody] AutorizacaoExameMsg autorizacaoExameMsg)
         {
-            return Ok(await _prestadorService.SolicitarAutorizacoExame(autorizacaoExameMsg));
+            var result = await _prestadorService.SolicitarAutorizacoExame(autorizacaoExameMsg);
+
+            if(result == null)
+                return BadRequest(new { Message = "Erro ao tentar autorizar exame" });
+
+            return Ok(result);
         }
 
         [HttpGet("[action]")]

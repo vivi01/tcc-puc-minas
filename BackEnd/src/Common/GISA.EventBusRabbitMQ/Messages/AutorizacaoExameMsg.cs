@@ -1,25 +1,17 @@
-﻿using System;
+﻿using GISA.EventBusRabbitMQ.Entities;
+using GISA.EventBusRabbitMQ.Interfaces;
+using System;
 
 namespace GISA.EventBusRabbitMQ.Messages
 {
-    public class AutorizacaoExame
+    public class AutorizacaoExameMsg : EntityBase, IAgragador
     {
         public Guid RequestId { get; set; }
-
         public int CodigoExame { get; set; }
-
         public int CodigoAssociado { get; set; }
-
-        public int CodigoPlano { get; set; }
-
-        public string Status { get; set; }
-
+        public string StatusSolicitacao { get; set; }
         public string StatusAssociado { get; set; }
-
-        public string Token { get; set; }
-
+        public int CodigoPlano { get; set; }
         public DateTime DataExame { get; set; }
-
-        public string MensagensErro { get; set; }
     }
 }
