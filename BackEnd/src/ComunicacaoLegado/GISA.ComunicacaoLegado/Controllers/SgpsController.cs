@@ -19,8 +19,8 @@ namespace GISA.ComunicacaoLegado.Controllers
         }
 
         [HttpPost("[action]")]
-        [ProducesResponseType(typeof(DefaultResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<DefaultResponse>> AutorizarExame([FromBody] AutorizacaoExameMsg autorizacaoExameMsg)
+        [ProducesResponseType(typeof(AutorizacaoExameResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<AutorizacaoExameResponse>> AutorizarExame([FromBody] AutorizacaoExameMsg autorizacaoExameMsg)
         {
             return Ok(_sgpsService.AutorizarExame(autorizacaoExameMsg));
         }

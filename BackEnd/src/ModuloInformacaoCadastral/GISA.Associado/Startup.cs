@@ -1,3 +1,4 @@
+using GISA.Associado.Configuration;
 using GISA.Associado.Context;
 using GISA.Associado.Repositories;
 using GISA.Associado.Repositories.Interfaces;
@@ -32,22 +33,27 @@ namespace GISA.Associado
             });
 
             //Registro Services
-            services.AddTransient<IAssociadoService, AssociadoService>();
-            services.AddTransient<IEnderecoService, EnderecoService>();
-            services.AddTransient<IMarcacaoExameService, MarcacaoExameService>();
-            services.AddTransient<IPlanoService, PlanoService>();
+            services.AddSingleton<IAssociadoService, AssociadoService>();
+            services.AddSingleton<IEnderecoService, EnderecoService>();
+            services.AddSingleton<IMarcacaoExameService, MarcacaoExameService>();
+            services.AddSingleton<IPlanoService, PlanoService>();
 
             //Registro Repositories
-            services.AddTransient<IAssociadoRepository, AssociadoRepository>();
-            services.AddTransient<IEnderecoRepository, EnderecoRepository>();
-            services.AddTransient<IMarcacaoExameRepository, MarcacaoExameRepository>();
-            services.AddTransient<IPlanoRepository, PlanoRepository>();
+            services.AddSingleton<IAssociadoRepository, AssociadoRepository>();
+            services.AddSingleton<IEnderecoRepository, EnderecoRepository>();
+            services.AddSingleton<IMarcacaoExameRepository, MarcacaoExameRepository>();
+            services.AddSingleton<IPlanoRepository, PlanoRepository>();
 
             //ConnectionStrings
-            services.AddDbContext<AssociadoContext>(options =>
-                     options.UseSqlServer(Configuration.GetConnectionString("AssociadoConnection")));
 
-            #region RabbitMQ Dependencies            
+            services.AddSingleton<AssociadoContext>();
+
+            services.AddDbContext<AssociadoContext>(options => options.UseSqlServer(
+                Configuration.GetConnectionString("AssociadoConnection")), optionsLifetime: ServiceLifetime.Singleton);           
+
+            #region RabbitMQ Dependencies
+
+            services.AddMessageBusConfiguration(Configuration);
 
             #endregion
         }

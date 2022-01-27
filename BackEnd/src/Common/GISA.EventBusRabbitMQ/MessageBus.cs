@@ -50,28 +50,28 @@ namespace GISA.EventBusRabbitMQ
         }
 
         public TResponse Request<TRequest, TResponse>(TRequest request) where TRequest : EntityBase, IAgragador
-            where TResponse : DefaultResponse
+            where TResponse : AutorizacaoExameResponse
         {
             TryConnect();
             return _bus.Request<TRequest, TResponse>(request);
         }
 
         public async Task<TResponse> RequestAsync<TRequest, TResponse>(TRequest request)
-            where TRequest : EntityBase, IAgragador where TResponse : DefaultResponse
+            where TRequest : EntityBase, IAgragador where TResponse : AutorizacaoExameResponse
         {
             TryConnect();
             return await _bus.RequestAsync<TRequest, TResponse>(request);
         }
 
         public IDisposable Respond<TRequest, TResponse>(Func<TRequest, TResponse> responder)
-            where TRequest : EntityBase, IAgragador where TResponse : DefaultResponse
+            where TRequest : EntityBase, IAgragador where TResponse : AutorizacaoExameResponse
         {
             TryConnect();
             return _bus.Respond(responder);
         }
 
         public IDisposable RespondAsync<TRequest, TResponse>(Func<TRequest, Task<TResponse>> responder)
-            where TRequest : EntityBase, IAgragador where TResponse : DefaultResponse
+            where TRequest : EntityBase, IAgragador where TResponse : AutorizacaoExameResponse
         {
             TryConnect();
             return _bus.RespondAsync(responder);

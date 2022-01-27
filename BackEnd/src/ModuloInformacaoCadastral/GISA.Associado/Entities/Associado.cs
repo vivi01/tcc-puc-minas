@@ -19,7 +19,7 @@ namespace GISA.Associado.Entities
         public virtual Plano Plano { get; set; }
         public int PlanoId { get; set; }
         public int CodigoAssociado { get; set; }
-        public List<MarcacaoExame> MarcacaoExames { get; set; }
+        public List<MarcacaoExame> MarcacaoExames { get; set; } = new List<MarcacaoExame>();
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal ValorPlano { get; set; }

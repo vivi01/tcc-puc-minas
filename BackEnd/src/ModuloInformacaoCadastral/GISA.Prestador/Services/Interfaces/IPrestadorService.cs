@@ -8,7 +8,7 @@ namespace GISA.Prestador.Services.Interfaces
 {
     public interface IPrestadorService
     {
-        Task<DefaultResponse> SolicitarAutorizacoExame(AutorizacaoExameMsg autorizacaoExameMsg);
+        Task<AutorizacaoExameResponse> SolicitarAutorizacaoExame(MarcacaoExameMsg marcacaoExameRequest);
         Task<List<Plano>> GetAllPlanosConveniados();
         Task<bool> CadastrarPrestador(Entities.Prestador prestador);
         Task<Plano> GetPlanoConveniado(int codigoPlano);

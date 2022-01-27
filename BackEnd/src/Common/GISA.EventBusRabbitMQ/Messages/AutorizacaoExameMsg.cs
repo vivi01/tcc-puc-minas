@@ -12,6 +12,6 @@ namespace GISA.EventBusRabbitMQ.Messages
         public string StatusSolicitacao { get; set; }
         public string StatusAssociado { get; set; }
         public int CodigoPlano { get; set; }
-        public DateTime DataExame { get; set; }
+        public DateTime DataExame { get; set; }        
     }
 }

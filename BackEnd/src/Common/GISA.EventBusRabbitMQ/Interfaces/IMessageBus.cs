@@ -19,18 +19,18 @@ namespace GISA.EventBusRabbitMQ.Interfaces
 
         TResponse Request<TRequest, TResponse>(TRequest request)
             where TRequest : EntityBase, IAgragador
-            where TResponse : DefaultResponse;
+            where TResponse : AutorizacaoExameResponse;
 
         Task<TResponse> RequestAsync<TRequest, TResponse>(TRequest request)
             where TRequest : EntityBase, IAgragador
-            where TResponse : DefaultResponse;
+            where TResponse : AutorizacaoExameResponse;
 
         IDisposable Respond<TRequest, TResponse>(Func<TRequest, TResponse> responder)
             where TRequest : EntityBase, IAgragador
-            where TResponse : DefaultResponse;
+            where TResponse : AutorizacaoExameResponse;
 
         IDisposable RespondAsync<TRequest, TResponse>(Func<TRequest, Task<TResponse>> responder)
             where TRequest : EntityBase, IAgragador
-            where TResponse : DefaultResponse;
+            where TResponse : AutorizacaoExameResponse;
     }
 }

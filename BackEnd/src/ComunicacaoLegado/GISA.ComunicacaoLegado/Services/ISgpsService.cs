@@ -5,6 +5,6 @@ namespace GISA.ComunicacaoLegado.Services
 {
     public interface ISgpsService
     {
-        DefaultResponse AutorizarExame(AutorizacaoExameMsg autorizacaoExameMsg);
+        AutorizacaoExameResponse AutorizarExame(AutorizacaoExameMsg autorizacaoExameMsg);
     }
 }

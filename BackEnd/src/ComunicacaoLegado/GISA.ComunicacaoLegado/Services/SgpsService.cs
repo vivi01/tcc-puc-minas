@@ -5,16 +5,17 @@ namespace GISA.ComunicacaoLegado.Services
 {
     public class SgpsService : ISgpsService
     {
-        public DefaultResponse AutorizarExame(AutorizacaoExameMsg autorizacaoExameMsg)
+        public AutorizacaoExameResponse AutorizarExame(AutorizacaoExameMsg autorizacaoExameMsg)
         {
             //Nesta parte deverá ser implementado uma chamada para o serviço legado
             //retornar o status. 
             //Valor mocado para testes.]
-            return new DefaultResponse
+            return new AutorizacaoExameResponse
             {
                 Status = "Autorizado",
                 Sucess = true,
-                Title = "Autorizado pelo SGPS"
+                Title = "Autorizado pelo SGPS",
+                DataAutorizacao = System.DateTime.Now
             };
         }
     }

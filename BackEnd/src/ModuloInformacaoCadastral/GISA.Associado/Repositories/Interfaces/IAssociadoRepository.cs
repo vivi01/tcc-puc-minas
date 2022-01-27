@@ -8,7 +8,6 @@ namespace GISA.Associado.Repositories.Interfaces
         Task<ESituacaoAssociado> GetSituacao(int codigoAssociado);
         Task<Entities.Associado> GetAssociadoByUserName(string userName);
         Task<Entities.Associado> GetAssociado(int codigoAssociado);      
-        Task<decimal> GetValorPlano();
-        Task SalvarMarcacaoExame(Entities.Associado associado);
+        Task<decimal> GetValorPlano(int codigoAssociado);       
     }
 }

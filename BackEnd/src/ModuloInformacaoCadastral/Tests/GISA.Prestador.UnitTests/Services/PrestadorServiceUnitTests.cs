@@ -6,6 +6,7 @@ using GISA.Prestador.Services;
 using GISA.Prestador.Services.Interfaces;
 using Moq;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -35,12 +36,22 @@ namespace GISA.Prestador.UnitTests.Services
             //Arrange
             var autorizacaoExame = new AutorizacaoExameMsg
             {
-                RequestId = new System.Guid(),
+                RequestId = new Guid(),
                 CodigoAssociado = 1258,
                 CodigoExame = 254,
                 CodigoPlano = 27,
                 DataExame = new System.DateTime(2022, 02, 10),
                 StatusSolicitacao = "Autorizado"
+            };
+
+            var marcacaoRequest = new MarcacaoExameMsg
+            {
+                RequestId = new Guid(),
+                CodigoAssociado = 1258,
+                CodigoExame = 254,
+                CodigoPlano = 27,
+                DataExame = new DateTime(2022, 02, 10),
+                Status = ""
             };
 
             var plano = new Plano
@@ -55,10 +66,10 @@ namespace GISA.Prestador.UnitTests.Services
                 .ReturnsAsync(plano);
 
             //Act
-            var result = await prestadorService.SolicitarAutorizacoExame(autorizacaoExame);
+            var result = await prestadorService.SolicitarAutorizacaoExame(marcacaoRequest);
 
             //Assert           
-            result.Equals("Autorizado");
+            result.Status.Equals("Autorizado");
         }
 
 

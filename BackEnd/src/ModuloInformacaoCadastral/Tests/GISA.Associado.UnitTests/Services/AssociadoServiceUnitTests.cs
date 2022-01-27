@@ -3,7 +3,9 @@ using GISA.Associado.Enums;
 using GISA.Associado.Repositories.Interfaces;
 using GISA.Associado.Services;
 using GISA.Associado.Services.Interfaces;
+using GISA.EventBusRabbitMQ.Interfaces;
 using GISA.EventBusRabbitMQ.Messages;
+using GISA.EventBusRabbitMQ.Messages.Integracao;
 using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -16,14 +18,19 @@ namespace GISA.Associado.UnitTests.Services
         private AssociadoService associadoService;
         private Mock<IAssociadoRepository> _associadoRepositoryMock;
         private Mock<IPlanoService> _planoServiceMock;
+        private Mock<IMarcacaoExameService> _marcacaoExameService;
+        private Mock<IMessageBus> _busMock;
 
         [SetUp]
         public void Setup()
         {
             _associadoRepositoryMock = new Mock<IAssociadoRepository>();
             _planoServiceMock = new Mock<IPlanoService>();
+            _marcacaoExameService = new Mock<IMarcacaoExameService>();
+            _busMock = new Mock<IMessageBus>();
 
-            associadoService = new AssociadoService(_associadoRepositoryMock.Object, _planoServiceMock.Object);
+            associadoService = new AssociadoService(_associadoRepositoryMock.Object, _planoServiceMock.Object,
+                 _busMock.Object, _marcacaoExameService.Object);
         }
 
         [TestCase(ESituacaoAssociado.Ativo)]
@@ -82,12 +89,13 @@ namespace GISA.Associado.UnitTests.Services
         {
             //Arrange
             var valor = 700;
+            int codigoAssociado = 265;
 
-            _associadoRepositoryMock.Setup(x => x.GetValorPlano())
+            _associadoRepositoryMock.Setup(x => x.GetValorPlano(codigoAssociado))
                 .ReturnsAsync(valor);
 
             //Act
-            var result = await associadoService.GetValorPlano();
+            var result = await associadoService.GetValorPlano(codigoAssociado);
 
             //Assert           
             result.Equals(valor);
@@ -97,7 +105,7 @@ namespace GISA.Associado.UnitTests.Services
         public async Task SolicitarMarcacaoExameComSucesso()
         {
             //Arrange
-            var autorizacaoExame = new MarcacaoExameMsg
+            var marcacaoExameRequest = new MarcacaoExameMsg
             {
                 RequestId = new System.Guid(),
                 CodigoAssociado = 1258,
@@ -105,22 +113,55 @@ namespace GISA.Associado.UnitTests.Services
                 CodigoPlano = 27,
                 DataExame = new System.DateTime(2022, 02, 10),
                 MensagensErro = "",
-                Status = "Autorizado",
-                Token = "x14589909mlpq09875cv12"
+                Status = "Autorizado"
             };
 
-            var associado = GetMockAssociado();            
+            var response = new AutorizacaoExameResponse
+            {
+                Status = "Autorizado",
+                Sucess = true,
+                Title = "Autorizado pelo SGPS",
+                DataAutorizacao = System.DateTime.Now,
+                Errors = new Dictionary<string, string[]>()
+        };
 
-            _associadoRepositoryMock.Setup(x => x.GetAssociado(autorizacaoExame.CodigoAssociado))
+            var marcacaoExameResponse = new MarcacaoExameResponse
+            {
+                DataAutorizacao = response.DataAutorizacao,
+                CodigoExame = marcacaoExameRequest.CodigoExame,
+                Situacao = response.Status,
+                DataExame = marcacaoExameRequest.DataExame,
+                MensagemErro = ""
+            };
+
+            var associado = GetMockAssociado();
+
+            List<Entities.Associado> associadosList = new()
+            {
+                associado
+            };
+
+            var marcacaoExame = new MarcacaoExame
+            {
+                DataExame = marcacaoExameRequest.DataExame,
+                CodigoExame = marcacaoExameRequest.CodigoExame,
+                Associados = associadosList
+            };
+
+            _associadoRepositoryMock.Setup(x => x.GetAssociado(marcacaoExameRequest.CodigoAssociado))
                .ReturnsAsync(associado);
 
-            _associadoRepositoryMock.Setup(x => x.SalvarMarcacaoExame(associado));
+            _marcacaoExameService.Setup(x => x.Adicionar(marcacaoExame))
+                .Returns(Task.FromResult(true));
+
+            _busMock.Setup(_ => _.RequestAsync<MarcacaoExameMsg, AutorizacaoExameResponse>(marcacaoExameRequest))
+                .Returns(Task.FromResult(response));
 
             //Act
-            var result = await associadoService.SolicitarMarcacaoExame(autorizacaoExame);
+            var result = await associadoService.SolicitarMarcacaoExame(marcacaoExameRequest);
 
             //Assert           
-            result.Equals("Marcação realizada com Sucesso!");
+            result.Equals(marcacaoExameResponse);
         }
 
         [TestCase(false)]

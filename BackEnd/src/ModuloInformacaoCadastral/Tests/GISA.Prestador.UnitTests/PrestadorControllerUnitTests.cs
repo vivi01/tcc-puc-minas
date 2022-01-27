@@ -40,18 +40,28 @@ namespace GISA.Prestador.UnitTests
                 StatusSolicitacao = "Autorizado"               
             };
 
-            var response = new DefaultResponse
+            var response = new AutorizacaoExameResponse
             {
                 Status = "Autorizado",
                 Sucess = true,
                 Title = "Autorizado pelo SGPS"
             };
 
-            _prestadorServiceMock.Setup(_ => _.SolicitarAutorizacoExame(autorizacaoExame))
+            var marcacaoRequest = new MarcacaoExameMsg
+            {
+                RequestId = new Guid(),
+                CodigoAssociado = 1258,
+                CodigoExame = 254,
+                CodigoPlano = 27,
+                DataExame = new DateTime(2022, 02, 10),
+                Status = ""
+            };
+
+            _prestadorServiceMock.Setup(_ => _.SolicitarAutorizacaoExame(marcacaoRequest))
                 .Returns(Task.FromResult(response));
 
             //Act
-            var actionResult = await prestadorController.SolicitarAutorizacaoExame(autorizacaoExame);
+            var actionResult = await prestadorController.SolicitarAutorizacaoExame(marcacaoRequest);
 
             //Assert
             var result = actionResult.Result as OkObjectResult;
@@ -110,7 +120,7 @@ namespace GISA.Prestador.UnitTests
             result.Should().NotBeNull();
             Assert.AreEqual(Convert.ToInt32(HttpStatusCode.BadRequest), result.StatusCode);
         }
-
+        
         private Entities.Prestador GetMockPrestador()
         {
             var endereco = new Endereco

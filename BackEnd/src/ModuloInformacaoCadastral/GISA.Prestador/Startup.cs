@@ -26,7 +26,6 @@ namespace GISA.Prestador
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddMediatR(typeof(Startup));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -34,22 +33,24 @@ namespace GISA.Prestador
             });
 
             //Registro Services
-            services.AddTransient<IEnderecoService, EnderecoService>();
-            services.AddTransient<IPlanoService, PlanoService>();
-            services.AddTransient<IPrestadorService, PrestadorService>();
+            services.AddSingleton<IEnderecoService, EnderecoService>();
+            services.AddSingleton<IPlanoService, PlanoService>();
+            services.AddSingleton<IPrestadorService, PrestadorService>();
 
             //Registro Repositories
-            services.AddTransient<IEnderecoRepository, EnderecoRepository>();
-            services.AddTransient<IPlanoRepository, PlanoRepository>();
-            services.AddTransient<IPrestadorRepository, PrestadorRepository>();
+            services.AddSingleton<IEnderecoRepository, EnderecoRepository>();
+            services.AddSingleton<IPlanoRepository, PlanoRepository>();
+            services.AddSingleton<IPrestadorRepository, PrestadorRepository>();
 
             //ConnectionStrings
-            services.AddDbContext<PrestadorContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("PrestadorConnection")));
+            services.AddSingleton<PrestadorContext>();
 
-            services.AddMessageBusConfiguration(Configuration);
+            services.AddDbContext<PrestadorContext>(options => options.UseSqlServer(
+                Configuration.GetConnectionString("PrestadorConnection")), optionsLifetime: ServiceLifetime.Singleton);
 
             #region RabbitMQ Dependencies
+
+            services.AddMessageBusConfiguration(Configuration);
 
             #endregion
         }

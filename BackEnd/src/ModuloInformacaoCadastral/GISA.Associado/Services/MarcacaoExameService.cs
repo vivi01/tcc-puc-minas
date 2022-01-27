@@ -1,7 +1,6 @@
 ﻿using GISA.Associado.Entities;
 using GISA.Associado.Repositories.Interfaces;
 using GISA.Associado.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

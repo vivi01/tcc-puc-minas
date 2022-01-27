@@ -2,8 +2,11 @@
 using GISA.Associado.Enums;
 using GISA.Associado.Repositories.Interfaces;
 using GISA.Associado.Services.Interfaces;
+using GISA.EventBusRabbitMQ.Interfaces;
 using GISA.EventBusRabbitMQ.Messages;
+using GISA.EventBusRabbitMQ.Messages.Integracao;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GISA.Associado.Services
@@ -12,11 +15,15 @@ namespace GISA.Associado.Services
     {
         private readonly IAssociadoRepository _associadoRepository;
         private readonly IPlanoService _planoService;
-
-        public AssociadoService(IAssociadoRepository associadoRepository, IPlanoService planoService)
+        private readonly IMessageBus _bus;
+        private readonly IMarcacaoExameService _marcacaoExameService;
+        public AssociadoService(IAssociadoRepository associadoRepository, IPlanoService planoService,
+            IMessageBus bus, IMarcacaoExameService marcacaoExameService)
         {
             _associadoRepository = associadoRepository;
             _planoService = planoService;
+            _bus = bus;
+            _marcacaoExameService = marcacaoExameService;
         }
 
         public Task<ESituacaoAssociado> GetSituacaoAssociado(int codigoAssociado)
@@ -34,9 +41,9 @@ namespace GISA.Associado.Services
             return _associadoRepository.Add(associado);
         }
 
-        public Task<decimal> GetValorPlano()
+        public Task<decimal> GetValorPlano(int codigoAssociado)
         {
-            return _associadoRepository.GetValorPlano();
+            return _associadoRepository.GetValorPlano(codigoAssociado);
         }
 
         public Task<Entities.Associado> GetAssociadoByUserName(string userName)
@@ -44,30 +51,43 @@ namespace GISA.Associado.Services
             return _associadoRepository.GetAssociadoByUserName(userName);
         }
 
-        public async Task GetSituacaoAssociado(AssociadoMsg requestMessage)
+        public async Task<MarcacaoExameResponse> SolicitarMarcacaoExame(MarcacaoExameMsg marcacaoExameRequest)
         {
-            await GetAssociadoByCodigo(requestMessage.CodigoAssociado);
-        }
-
-        public async Task<string> SolicitarMarcacaoExame(MarcacaoExameMsg autorizacaoExameMsg)
-        {
-            var associado = await GetAssociadoByCodigo(autorizacaoExameMsg.CodigoAssociado);
+            var associado = await GetAssociadoByCodigo(marcacaoExameRequest.CodigoAssociado);
 
             if (associado == null)
-                return "Associado Não Encontrado";
+                return GetMarcacaoExameResponse(null, marcacaoExameRequest.DataExame, marcacaoExameRequest.CodigoExame,
+                    "Não agendado", "Usuário não encontrado");
 
-            if (autorizacaoExameMsg.Status != "Autorizado")
-                return autorizacaoExameMsg.MensagensErro;
+            //chama o serviço do prestador para solicitar a marcação
+            var marcacaoResponse = await SolicitarMarcacao(marcacaoExameRequest);
 
-            associado.MarcacaoExames.Add(new MarcacaoExame
+            if (marcacaoResponse.Status != "Autorizado")
+                return GetMarcacaoExameResponse(null, marcacaoExameRequest.DataExame, marcacaoExameRequest.CodigoExame,
+                    marcacaoResponse.Status, marcacaoResponse.Errors.ToString());
+
+            List<Entities.Associado> associadosList = new()
             {
-                DataExame = autorizacaoExameMsg.DataExame,
-                CodigoExame = autorizacaoExameMsg.CodigoExame
-            });
+                associado
+            };
 
-            await _associadoRepository.SalvarMarcacaoExame(associado);
+            var marcacaoExame = new MarcacaoExame
+            {
+                DataExame = marcacaoExameRequest.DataExame,
+                CodigoExame = marcacaoExameRequest.CodigoExame,
+                Associados = associadosList
+            };
 
-            return "Marcação realizada com Sucesso!";
+            associado.MarcacaoExames.Add(marcacaoExame);
+
+            var result = await _marcacaoExameService.Adicionar(marcacaoExame);
+
+            if (!result)
+                return GetMarcacaoExameResponse(null, marcacaoExameRequest.DataExame, marcacaoExameRequest.CodigoExame,
+                    "Erro ao tentar salvar marcação", "Erro na marcação!");
+
+            return GetMarcacaoExameResponse(marcacaoResponse.DataAutorizacao, marcacaoExameRequest.DataExame,
+                marcacaoExameRequest.CodigoExame, marcacaoResponse.Status, marcacaoResponse.Errors.ToString());
         }
 
         public async Task<bool> AlterarPlano(AlterarPlano alterarPlano)
@@ -83,7 +103,25 @@ namespace GISA.Associado.Services
             return await _associadoRepository.Update(usuario);
         }
 
-        private decimal CalcularValorNovoPlano(DateTime dataNascimento, Plano plano)
+        private async Task<AutorizacaoExameResponse> SolicitarMarcacao(MarcacaoExameMsg marcacaoExameRequest)
+        {
+            return await _bus.RequestAsync<MarcacaoExameMsg, AutorizacaoExameResponse>(marcacaoExameRequest);
+        }
+
+        private static MarcacaoExameResponse GetMarcacaoExameResponse(DateTime? dataAutorizacao, DateTime dataExame,
+            int codigoExame, string situacao, string erro)
+        {
+            return new MarcacaoExameResponse
+            {
+                DataAutorizacao = dataAutorizacao,
+                CodigoExame = codigoExame,
+                Situacao = situacao,
+                DataExame = dataExame,
+                MensagemErro = erro
+            };
+        }
+
+        private static decimal CalcularValorNovoPlano(DateTime dataNascimento, Plano plano)
         {
             var idade = DateTime.Now.Year - dataNascimento.Year;
 

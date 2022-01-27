@@ -14,21 +14,20 @@ namespace GISA.Prestador.Services
         private readonly IPlanoService _planoService;
         private readonly IMessageBus _bus;
 
-        public PrestadorService(IPrestadorRepository prestadorRepository, IPlanoService planoService,
-           IMessageBus bus)
+        public PrestadorService(IPrestadorRepository prestadorRepository, IPlanoService planoService, IMessageBus bus)
         {
             _prestadorRepository = prestadorRepository;
             _planoService = planoService;
             _bus = bus;
         }
-        public async Task<DefaultResponse> SolicitarAutorizacoExame(AutorizacaoExameMsg autorizacaoExameMsg)
+        public async Task<AutorizacaoExameResponse> SolicitarAutorizacaoExame(MarcacaoExameMsg marcacaoExameRequest)
         {
-            if (autorizacaoExameMsg.StatusAssociado != "Ativo")
+            if (marcacaoExameRequest.StatusAssociado != "Ativo")
             {
                 return CriarResponseDefault("Nao Autorizado! Associado não está ativo", "Não Autorizado");
             }
 
-            var isConveniado = await GetPlanoConveniado(autorizacaoExameMsg.CodigoPlano);
+            var isConveniado = await GetPlanoConveniado(marcacaoExameRequest.CodigoPlano);
 
             if (isConveniado == null)
             {
@@ -36,12 +35,27 @@ namespace GISA.Prestador.Services
             }
 
             //chama o legado SGPS para solicitar a autorização do exame
-            return await GetAutorizacaoExame(autorizacaoExameMsg);
+            var marcacaoRequest = CriarAutorizacaoRequest(marcacaoExameRequest);
+            return await GetAutorizacaoExame(marcacaoRequest);
         }
 
-        private DefaultResponse CriarResponseDefault(string message, string status)
+        private static AutorizacaoExameMsg CriarAutorizacaoRequest(MarcacaoExameMsg marcacaoExameRequest)
         {
-            return new DefaultResponse
+            return new AutorizacaoExameMsg
+            {
+                RequestId = marcacaoExameRequest.RequestId,
+                CodigoAssociado = marcacaoExameRequest.CodigoAssociado,
+                CodigoExame = marcacaoExameRequest.CodigoExame,
+                CodigoPlano = marcacaoExameRequest.CodigoPlano,
+                DataExame = marcacaoExameRequest.DataExame,
+                StatusAssociado = marcacaoExameRequest.StatusAssociado,
+                StatusSolicitacao = ""
+            };
+        }
+
+        private static AutorizacaoExameResponse CriarResponseDefault(string message, string status)
+        {
+            return new AutorizacaoExameResponse
             {
                 Status = status,
                 Sucess = true,
@@ -49,9 +63,9 @@ namespace GISA.Prestador.Services
             };
         }
 
-        private async Task<DefaultResponse> GetAutorizacaoExame(AutorizacaoExameMsg requestMessage)
+        private async Task<AutorizacaoExameResponse> GetAutorizacaoExame(AutorizacaoExameMsg requestMessage)
         {
-            return await _bus.RequestAsync<AutorizacaoExameMsg, DefaultResponse>(requestMessage);
+            return await _bus.RequestAsync<AutorizacaoExameMsg, AutorizacaoExameResponse>(requestMessage);
         }
 
         public async Task<bool> CadastrarPrestador(Entities.Prestador prestador)

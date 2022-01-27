@@ -34,14 +34,11 @@ namespace GISA.Associado.Repositories
                _context.Associados.Where(b => b.UserName.Equals(userName)).FirstOrDefaultAsync();
         }
 
-        public async Task<decimal> GetValorPlano()
+        public async Task<decimal> GetValorPlano(int codigoAssociado)
         {
-            return 0;
-        }
+            var associado = await GetAssociado(codigoAssociado);
 
-        public Task SalvarMarcacaoExame(Entities.Associado associado)
-        {
-            throw new System.NotImplementedException();
+            return associado.ValorPlano;
         }
     }
 }

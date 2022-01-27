@@ -34,11 +34,11 @@ namespace GISA.Prestador.Controllers
         }
 
         [HttpPost("[action]")]
-        [ProducesResponseType(typeof(DefaultResponse), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(DefaultResponse), (int)HttpStatusCode.BadRequest)]
-        public async Task<ActionResult<DefaultResponse>> SolicitarAutorizacaoExame([FromBody] AutorizacaoExameMsg autorizacaoExameMsg)
+        [ProducesResponseType(typeof(AutorizacaoExameResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(AutorizacaoExameResponse), (int)HttpStatusCode.BadRequest)]
+        public async Task<ActionResult<AutorizacaoExameResponse>> SolicitarAutorizacaoExame([FromBody] MarcacaoExameMsg marcacaoExameRequest)
         {
-            var result = await _prestadorService.SolicitarAutorizacoExame(autorizacaoExameMsg);
+            var result = await _prestadorService.SolicitarAutorizacaoExame(marcacaoExameRequest);
 
             if(result == null)
                 return BadRequest(new { Message = "Erro ao tentar autorizar exame" });

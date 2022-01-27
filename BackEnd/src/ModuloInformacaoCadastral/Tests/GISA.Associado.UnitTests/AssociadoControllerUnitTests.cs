@@ -3,6 +3,7 @@ using GISA.Associado.Controllers;
 using GISA.Associado.Entities;
 using GISA.Associado.Services.Interfaces;
 using GISA.EventBusRabbitMQ.Messages;
+using GISA.EventBusRabbitMQ.Messages.Integracao;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -16,14 +17,12 @@ namespace GISA.Associado.UnitTests
     public class Tests
     {
         AssociadoController associadoController;
-        private Mock<IAssociadoService> _associadoServiceMock;
-        private Mock<IPlanoService> _planoServiceMock;
+        private Mock<IAssociadoService> _associadoServiceMock;       
 
         [SetUp]
         public void Setup()
         {
-            _associadoServiceMock = new Mock<IAssociadoService>();
-            _planoServiceMock = new Mock<IPlanoService>();
+            _associadoServiceMock = new Mock<IAssociadoService>();           
 
             associadoController = new AssociadoController(_associadoServiceMock.Object);
         }
@@ -45,7 +44,7 @@ namespace GISA.Associado.UnitTests
             var result = actionResult.Result as OkObjectResult;
             result.Should().NotBeNull();
             result.Value.Should().Be(associado);
-        }       
+        }
 
         [Test]
         public async Task AlterarPlanoRetornarAssociadoComSucesso()
@@ -85,12 +84,21 @@ namespace GISA.Associado.UnitTests
                 CodigoAssociado = 1258,
                 CodigoExame = 254,
                 CodigoPlano = 27,
-                DataExame = new DateTime(2022, 02, 10),               
-                Status = "Autorizado"               
+                DataExame = new DateTime(2022, 02, 10),
+                Status = "Autorizado"
+            };
+
+            var marcacaoExameResponse = new MarcacaoExameResponse
+            {
+                DataAutorizacao = DateTime.Now,
+                CodigoExame = autorizacaoExame.CodigoExame,
+                Situacao = autorizacaoExame.Status,
+                DataExame = autorizacaoExame.DataExame,
+                MensagemErro = ""
             };
 
             _associadoServiceMock.Setup(x => x.SolicitarMarcacaoExame(autorizacaoExame))
-                .ReturnsAsync("Autorizado");
+                .ReturnsAsync(marcacaoExameResponse);
 
             //Act
             var actionResult = await associadoController.SolicitarMarcacaoExame(autorizacaoExame);
@@ -98,7 +106,7 @@ namespace GISA.Associado.UnitTests
             //Assert           
             var result = actionResult.Result as OkObjectResult;
             result.Should().NotBeNull();
-            result.Value.Should().Be("Autorizado");
+            result.Value.Should().Be(marcacaoExameResponse);
         }
 
         [Test]
@@ -171,37 +179,6 @@ namespace GISA.Associado.UnitTests
                 MarcacaoExames = new List<MarcacaoExame>()
             };
             return associado;
-        }
-
-        private static List<Plano> GetTodosPlanosMock()
-        {
-            return new List<Plano>
-            {
-               new Plano  {
-                   CodigoPlano = 25,
-                   ClassificacaoPlano = Enums.EClassificacaoPlano.Enfermaria,
-                   Descricao = "Plano básico",
-                   TipoPlano = Enums.ETipoPlano.Individual
-               },
-               new Plano  {
-                   CodigoPlano = 26,
-                   ClassificacaoPlano = Enums.EClassificacaoPlano.Apartamento,
-                   Descricao = "Plano básico",
-                   TipoPlano = Enums.ETipoPlano.Individual
-               },
-                new Plano  {
-                   CodigoPlano = 27,
-                   ClassificacaoPlano = Enums.EClassificacaoPlano.Vip,
-                   Descricao = "Plano Top",
-                   TipoPlano = Enums.ETipoPlano.Individual
-               },
-               new Plano  {
-                   CodigoPlano = 28,
-                   ClassificacaoPlano = Enums.EClassificacaoPlano.Apartamento,
-                   Descricao = "Plano intermediário",
-                   TipoPlano = Enums.ETipoPlano.Empresarial
-               }
-            };
         }
     }
 }
