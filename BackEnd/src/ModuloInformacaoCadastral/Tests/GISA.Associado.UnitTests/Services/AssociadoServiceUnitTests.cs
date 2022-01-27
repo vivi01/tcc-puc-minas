@@ -123,8 +123,8 @@ namespace GISA.Associado.UnitTests.Services
                 Sucess = true,
                 Title = "Autorizado pelo SGPS",
                 DataAutorizacao = System.DateTime.Now,
-                Errors = new Dictionary<string, string[]>()
-        };
+                Errors = new List<string>()
+            };
 
             var marcacaoExameResponse = new MarcacaoExameResponse
             {

@@ -1,6 +1,7 @@
 ﻿using GISA.EventBusRabbitMQ.Enums;
 using GISA.EventBusRabbitMQ.Messages;
 using GISA.EventBusRabbitMQ.Messages.Integracao;
+using System.Collections.Generic;
 
 namespace GISA.ComunicacaoLegado.Services
 {
@@ -16,7 +17,8 @@ namespace GISA.ComunicacaoLegado.Services
                 Status = EStatusSolicitacao.Autorizado,
                 Sucess = true,
                 Title = "Autorizado pelo SGPS",
-                DataAutorizacao = System.DateTime.Now
+                DataAutorizacao = System.DateTime.Now,
+                Errors = new List<string>()
             };
         }
     }

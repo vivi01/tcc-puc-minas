@@ -10,6 +10,6 @@ namespace GISA.EventBusRabbitMQ.Messages.Integracao
         public EStatusSolicitacao Status { get; set; }        
         public bool Sucess { get; set; }
         public DateTime DataAutorizacao { get; set; }
-        public IDictionary<string, string[]> Errors { get; set; } = new Dictionary<string, string[]>();
+        public List<string> Errors { get; set; } = new List<string>();
     }
 }

@@ -7,7 +7,6 @@ namespace GISA.EventBusRabbitMQ.Messages
 {
     public class MarcacaoExameMsg : EntityBase, IAgragador
     {
-        public Guid RequestId { get; set; }
         public int CodigoExame { get; set; }
         public int CodigoAssociado { get; set; }
         public int CodigoPlano { get; set; }

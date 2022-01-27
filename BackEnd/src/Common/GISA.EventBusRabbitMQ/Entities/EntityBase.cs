@@ -4,10 +4,10 @@ namespace GISA.EventBusRabbitMQ.Entities
 {
     public abstract class EntityBase
     {
-        public Guid Id { get; set; }
+        public Guid RequestId { get; set; }
         protected EntityBase()
         {
-            Id = Guid.NewGuid();
+            RequestId = Guid.NewGuid();
         }
     }
 }
