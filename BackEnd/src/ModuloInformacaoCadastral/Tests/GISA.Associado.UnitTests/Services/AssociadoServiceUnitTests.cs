@@ -3,6 +3,7 @@ using GISA.Associado.Enums;
 using GISA.Associado.Repositories.Interfaces;
 using GISA.Associado.Services;
 using GISA.Associado.Services.Interfaces;
+using GISA.EventBusRabbitMQ.Enums;
 using GISA.EventBusRabbitMQ.Interfaces;
 using GISA.EventBusRabbitMQ.Messages;
 using GISA.EventBusRabbitMQ.Messages.Integracao;
@@ -113,12 +114,12 @@ namespace GISA.Associado.UnitTests.Services
                 CodigoPlano = 27,
                 DataExame = new System.DateTime(2022, 02, 10),
                 MensagensErro = "",
-                Status = "Autorizado"
+                Status = EStatusSolicitacao.Indefinido
             };
 
             var response = new AutorizacaoExameResponse
             {
-                Status = "Autorizado",
+                Status = EStatusSolicitacao.Autorizado,
                 Sucess = true,
                 Title = "Autorizado pelo SGPS",
                 DataAutorizacao = System.DateTime.Now,

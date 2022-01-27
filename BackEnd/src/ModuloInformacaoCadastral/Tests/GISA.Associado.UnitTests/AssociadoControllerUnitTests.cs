@@ -2,6 +2,7 @@ using FluentAssertions;
 using GISA.Associado.Controllers;
 using GISA.Associado.Entities;
 using GISA.Associado.Services.Interfaces;
+using GISA.EventBusRabbitMQ.Enums;
 using GISA.EventBusRabbitMQ.Messages;
 using GISA.EventBusRabbitMQ.Messages.Integracao;
 using Microsoft.AspNetCore.Mvc;
@@ -85,7 +86,7 @@ namespace GISA.Associado.UnitTests
                 CodigoExame = 254,
                 CodigoPlano = 27,
                 DataExame = new DateTime(2022, 02, 10),
-                Status = "Autorizado"
+                Status = EStatusSolicitacao.Autorizado
             };
 
             var marcacaoExameResponse = new MarcacaoExameResponse

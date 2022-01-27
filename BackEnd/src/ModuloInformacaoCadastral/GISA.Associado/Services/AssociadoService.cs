@@ -2,6 +2,7 @@
 using GISA.Associado.Enums;
 using GISA.Associado.Repositories.Interfaces;
 using GISA.Associado.Services.Interfaces;
+using GISA.EventBusRabbitMQ.Enums;
 using GISA.EventBusRabbitMQ.Interfaces;
 using GISA.EventBusRabbitMQ.Messages;
 using GISA.EventBusRabbitMQ.Messages.Integracao;
@@ -57,12 +58,12 @@ namespace GISA.Associado.Services
 
             if (associado == null)
                 return GetMarcacaoExameResponse(null, marcacaoExameRequest.DataExame, marcacaoExameRequest.CodigoExame,
-                    "Não agendado", "Usuário não encontrado");
+                    EStatusSolicitacao.Erro, "Usuário não encontrado");
 
             //chama o serviço do prestador para solicitar a marcação
             var marcacaoResponse = await SolicitarMarcacao(marcacaoExameRequest);
 
-            if (marcacaoResponse.Status != "Autorizado")
+            if (marcacaoResponse.Status != EStatusSolicitacao.Autorizado)
                 return GetMarcacaoExameResponse(null, marcacaoExameRequest.DataExame, marcacaoExameRequest.CodigoExame,
                     marcacaoResponse.Status, marcacaoResponse.Errors.ToString());
 
@@ -84,7 +85,7 @@ namespace GISA.Associado.Services
 
             if (!result)
                 return GetMarcacaoExameResponse(null, marcacaoExameRequest.DataExame, marcacaoExameRequest.CodigoExame,
-                    "Erro ao tentar salvar marcação", "Erro na marcação!");
+                   EStatusSolicitacao.Erro, "Erro ao tentar salvar marcação!");
 
             return GetMarcacaoExameResponse(marcacaoResponse.DataAutorizacao, marcacaoExameRequest.DataExame,
                 marcacaoExameRequest.CodigoExame, marcacaoResponse.Status, marcacaoResponse.Errors.ToString());
@@ -109,7 +110,7 @@ namespace GISA.Associado.Services
         }
 
         private static MarcacaoExameResponse GetMarcacaoExameResponse(DateTime? dataAutorizacao, DateTime dataExame,
-            int codigoExame, string situacao, string erro)
+            int codigoExame, EStatusSolicitacao situacao, string erro)
         {
             return new MarcacaoExameResponse
             {

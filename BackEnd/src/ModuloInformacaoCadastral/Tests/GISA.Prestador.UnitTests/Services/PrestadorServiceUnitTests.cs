@@ -1,4 +1,5 @@
-﻿using GISA.EventBusRabbitMQ.Interfaces;
+﻿using GISA.EventBusRabbitMQ.Enums;
+using GISA.EventBusRabbitMQ.Interfaces;
 using GISA.EventBusRabbitMQ.Messages;
 using GISA.Prestador.Entities;
 using GISA.Prestador.Repositories.Interfaces;
@@ -41,7 +42,7 @@ namespace GISA.Prestador.UnitTests.Services
                 CodigoExame = 254,
                 CodigoPlano = 27,
                 DataExame = new System.DateTime(2022, 02, 10),
-                StatusSolicitacao = "Autorizado"
+                StatusSolicitacao = EStatusSolicitacao.Indefinido
             };
 
             var marcacaoRequest = new MarcacaoExameMsg
@@ -51,7 +52,7 @@ namespace GISA.Prestador.UnitTests.Services
                 CodigoExame = 254,
                 CodigoPlano = 27,
                 DataExame = new DateTime(2022, 02, 10),
-                Status = ""
+                Status = EStatusSolicitacao.Indefinido
             };
 
             var plano = new Plano

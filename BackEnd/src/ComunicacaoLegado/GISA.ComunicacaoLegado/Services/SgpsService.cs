@@ -1,4 +1,5 @@
-﻿using GISA.EventBusRabbitMQ.Messages;
+﻿using GISA.EventBusRabbitMQ.Enums;
+using GISA.EventBusRabbitMQ.Messages;
 using GISA.EventBusRabbitMQ.Messages.Integracao;
 
 namespace GISA.ComunicacaoLegado.Services
@@ -12,7 +13,7 @@ namespace GISA.ComunicacaoLegado.Services
             //Valor mocado para testes.]
             return new AutorizacaoExameResponse
             {
-                Status = "Autorizado",
+                Status = EStatusSolicitacao.Autorizado,
                 Sucess = true,
                 Title = "Autorizado pelo SGPS",
                 DataAutorizacao = System.DateTime.Now

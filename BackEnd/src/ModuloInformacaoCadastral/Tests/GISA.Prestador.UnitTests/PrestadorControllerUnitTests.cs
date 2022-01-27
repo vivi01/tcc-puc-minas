@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using GISA.EventBusRabbitMQ.Enums;
 using GISA.EventBusRabbitMQ.Messages;
 using GISA.EventBusRabbitMQ.Messages.Integracao;
 using GISA.Prestador.Controllers;
@@ -26,8 +27,12 @@ namespace GISA.Prestador.UnitTests
             prestadorController = new PrestadorController(_prestadorServiceMock.Object);
         }
 
-        [Test]
-        public async Task SolicitarAutorizacoExameDeveRetornarComSucesso()
+        [TestCase(EStatusSolicitacao.Autorizado)]
+        [TestCase(EStatusSolicitacao.Erro)]
+        [TestCase(EStatusSolicitacao.Indefinido)]
+        [TestCase(EStatusSolicitacao.NaoAutorizado)]
+        [TestCase(EStatusSolicitacao.Pendente)]
+        public async Task SolicitarAutorizacoExameDeveRetornarComSucesso(EStatusSolicitacao statusSolicitacao)
         {
             //Arrange
             var autorizacaoExame = new AutorizacaoExameMsg
@@ -37,12 +42,12 @@ namespace GISA.Prestador.UnitTests
                 CodigoExame = 254,
                 CodigoPlano = 27,
                 DataExame = new DateTime(2022, 02, 10),                
-                StatusSolicitacao = "Autorizado"               
+                StatusSolicitacao = EStatusSolicitacao.Indefinido
             };
 
             var response = new AutorizacaoExameResponse
             {
-                Status = "Autorizado",
+                Status = statusSolicitacao,
                 Sucess = true,
                 Title = "Autorizado pelo SGPS"
             };
@@ -54,7 +59,7 @@ namespace GISA.Prestador.UnitTests
                 CodigoExame = 254,
                 CodigoPlano = 27,
                 DataExame = new DateTime(2022, 02, 10),
-                Status = ""
+                Status = EStatusSolicitacao.Indefinido
             };
 
             _prestadorServiceMock.Setup(_ => _.SolicitarAutorizacaoExame(marcacaoRequest))

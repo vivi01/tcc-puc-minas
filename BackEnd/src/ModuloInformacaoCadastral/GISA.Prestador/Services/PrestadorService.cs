@@ -1,4 +1,5 @@
-﻿using GISA.EventBusRabbitMQ.Interfaces;
+﻿using GISA.EventBusRabbitMQ.Enums;
+using GISA.EventBusRabbitMQ.Interfaces;
 using GISA.EventBusRabbitMQ.Messages;
 using GISA.EventBusRabbitMQ.Messages.Integracao;
 using GISA.Prestador.Entities;
@@ -24,14 +25,14 @@ namespace GISA.Prestador.Services
         {
             if (marcacaoExameRequest.StatusAssociado != "Ativo")
             {
-                return CriarResponseDefault("Nao Autorizado! Associado não está ativo", "Não Autorizado");
+                return CriarResponseDefault("Nao Autorizado! Associado não está ativo", EStatusSolicitacao.NaoAutorizado);
             }
 
             var isConveniado = await GetPlanoConveniado(marcacaoExameRequest.CodigoPlano);
 
             if (isConveniado == null)
             {
-                return CriarResponseDefault("Nao Autorizado! Plano não conveniado", "Não Autorizado");
+                return CriarResponseDefault("Nao Autorizado! Plano não conveniado", EStatusSolicitacao.NaoAutorizado);
             }
 
             //chama o legado SGPS para solicitar a autorização do exame
@@ -49,11 +50,11 @@ namespace GISA.Prestador.Services
                 CodigoPlano = marcacaoExameRequest.CodigoPlano,
                 DataExame = marcacaoExameRequest.DataExame,
                 StatusAssociado = marcacaoExameRequest.StatusAssociado,
-                StatusSolicitacao = ""
+                StatusSolicitacao = marcacaoExameRequest.Status
             };
         }
 
-        private static AutorizacaoExameResponse CriarResponseDefault(string message, string status)
+        private static AutorizacaoExameResponse CriarResponseDefault(string message, EStatusSolicitacao status)
         {
             return new AutorizacaoExameResponse
             {
