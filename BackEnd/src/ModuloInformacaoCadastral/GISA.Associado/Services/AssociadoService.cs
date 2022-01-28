@@ -65,7 +65,7 @@ namespace GISA.Associado.Services
 
             if (marcacaoResponse.Status != EStatusSolicitacao.Autorizado)
                 return GetMarcacaoExameResponse(null, marcacaoExameRequest.DataExame, marcacaoExameRequest.CodigoExame,
-                    marcacaoResponse.Status, marcacaoResponse.Errors.ToString());
+                    marcacaoResponse.Status, marcacaoResponse.Erros.ToString());
 
             List<Entities.Associado> associadosList = new()
             {
@@ -88,7 +88,7 @@ namespace GISA.Associado.Services
                    EStatusSolicitacao.Erro, "Erro ao tentar salvar marcação!");
 
             return GetMarcacaoExameResponse(marcacaoResponse.DataAutorizacao, marcacaoExameRequest.DataExame,
-                marcacaoExameRequest.CodigoExame, marcacaoResponse.Status, marcacaoResponse.Errors.ToString());
+                marcacaoExameRequest.CodigoExame, marcacaoResponse.Status, marcacaoResponse.Erros.ToString());
         }
 
         public async Task<bool> AlterarPlano(AlterarPlano alterarPlano)

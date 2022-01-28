@@ -6,10 +6,10 @@ namespace GISA.EventBusRabbitMQ.Messages.Integracao
 {
     public class AutorizacaoExameResponse
     {
-        public string Title { get; set; }
-        public EStatusSolicitacao Status { get; set; }        
-        public bool Sucess { get; set; }
+        public string Mensagem { get; set; }
+        public EStatusSolicitacao Status { get; set; }
+        public bool Sucesso { get; set; }
         public DateTime DataAutorizacao { get; set; }
-        public List<string> Errors { get; set; } = new List<string>();
+        public List<string> Erros { get; set; } = new List<string>();
     }
 }

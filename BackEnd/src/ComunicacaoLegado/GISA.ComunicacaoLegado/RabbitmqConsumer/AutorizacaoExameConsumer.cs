@@ -44,7 +44,7 @@ namespace GISA.ComunicacaoLegado.RabbitmqConsumer
             AutorizacaoExameResponse result = null;
             using (var scope = _serviceProvider.CreateScope())
             {
-                result = _sgpsService.AutorizarExame(requestMessage);
+                result = await _sgpsService.AutorizarExame(requestMessage);
             }
 
             return result;

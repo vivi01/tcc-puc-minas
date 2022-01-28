@@ -120,10 +120,10 @@ namespace GISA.Associado.UnitTests.Services
             var response = new AutorizacaoExameResponse
             {
                 Status = EStatusSolicitacao.Autorizado,
-                Sucess = true,
-                Title = "Autorizado pelo SGPS",
+                Sucesso = true,
+                Mensagem = "Autorizado pelo SGPS",
                 DataAutorizacao = System.DateTime.Now,
-                Errors = new List<string>()
+                Erros = new List<string>()
             };
 
             var marcacaoExameResponse = new MarcacaoExameResponse

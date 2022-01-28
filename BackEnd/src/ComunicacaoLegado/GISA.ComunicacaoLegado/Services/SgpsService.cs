@@ -2,12 +2,13 @@
 using GISA.EventBusRabbitMQ.Messages;
 using GISA.EventBusRabbitMQ.Messages.Integracao;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GISA.ComunicacaoLegado.Services
 {
     public class SgpsService : ISgpsService
     {
-        public AutorizacaoExameResponse AutorizarExame(AutorizacaoExameMsg autorizacaoExameMsg)
+        public async Task<AutorizacaoExameResponse> AutorizarExame(AutorizacaoExameMsg autorizacaoExameMsg)
         {
             //Nesta parte deverá ser implementado uma chamada para o serviço legado
             //retornar o status. 
@@ -15,10 +16,10 @@ namespace GISA.ComunicacaoLegado.Services
             return new AutorizacaoExameResponse
             {
                 Status = EStatusSolicitacao.Autorizado,
-                Sucess = true,
-                Title = "Autorizado pelo SGPS",
+                Sucesso = true,
+                Mensagem = "Autorizado pelo SGPS",
                 DataAutorizacao = System.DateTime.Now,
-                Errors = new List<string>()
+                Erros = new List<string>()
             };
         }
     }

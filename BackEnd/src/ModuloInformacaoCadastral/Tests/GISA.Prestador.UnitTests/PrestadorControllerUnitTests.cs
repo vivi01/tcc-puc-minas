@@ -48,8 +48,8 @@ namespace GISA.Prestador.UnitTests
             var response = new AutorizacaoExameResponse
             {
                 Status = statusSolicitacao,
-                Sucess = true,
-                Title = "Autorizado pelo SGPS"
+                Sucesso = true,
+                Mensagem = "Autorizado pelo SGPS"
             };
 
             var marcacaoRequest = new MarcacaoExameMsg

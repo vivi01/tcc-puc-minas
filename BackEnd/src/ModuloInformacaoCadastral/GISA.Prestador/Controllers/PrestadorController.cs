@@ -13,11 +13,11 @@ namespace GISA.Prestador.Controllers
     [ApiController]
     public class PrestadorController : ControllerBase
     {
-        private readonly IPrestadorService _prestadorService;      
+        private readonly IPrestadorService _prestadorService;
 
         public PrestadorController(IPrestadorService prestadorService)
         {
-            _prestadorService = prestadorService;            
+            _prestadorService = prestadorService;
         }
 
         [HttpPost("[action]")]
@@ -40,7 +40,7 @@ namespace GISA.Prestador.Controllers
         {
             var result = await _prestadorService.SolicitarAutorizacaoExame(marcacaoExameRequest);
 
-            if(result == null)
+            if (result == null)
                 return BadRequest(new { Message = "Erro ao tentar autorizar exame" });
 
             return Ok(result);

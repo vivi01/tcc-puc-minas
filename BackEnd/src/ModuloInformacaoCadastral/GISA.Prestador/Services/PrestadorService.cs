@@ -21,6 +21,22 @@ namespace GISA.Prestador.Services
             _planoService = planoService;
             _bus = bus;
         }
+
+        public async Task<bool> CadastrarPrestador(Entities.Prestador prestador)
+        {
+            return await _prestadorRepository.Add(prestador);
+        }
+
+        public async Task<Plano> GetPlanoConveniado(int codigoPlano)
+        {
+            return await _planoService.ObterPlanoPorCodigo(codigoPlano);
+        }
+
+        public async Task<List<Plano>> GetAllPlanosConveniados()
+        {
+            return await _planoService.ObterTodos();
+        }
+
         public async Task<AutorizacaoExameResponse> SolicitarAutorizacaoExame(MarcacaoExameMsg marcacaoExameRequest)
         {
             if (marcacaoExameRequest.StatusAssociado != "Ativo")
@@ -59,29 +75,14 @@ namespace GISA.Prestador.Services
             return new AutorizacaoExameResponse
             {
                 Status = status,
-                Sucess = true,
-                Title = message
+                Sucesso = true,
+                Mensagem = message
             };
         }
 
         private async Task<AutorizacaoExameResponse> GetAutorizacaoExame(AutorizacaoExameMsg requestMessage)
         {
             return await _bus.RequestAsync<AutorizacaoExameMsg, AutorizacaoExameResponse>(requestMessage);
-        }
-
-        public async Task<bool> CadastrarPrestador(Entities.Prestador prestador)
-        {
-            return await _prestadorRepository.Add(prestador);
-        }
-
-        public async Task<Plano> GetPlanoConveniado(int codigoPlano)
-        {
-            return await _planoService.ObterPlanoPorCodigo(codigoPlano);
-        }
-
-        public async Task<List<Plano>> GetAllPlanosConveniados()
-        {
-            return await _planoService.ObterTodos();
-        }
+        }        
     }
 }
