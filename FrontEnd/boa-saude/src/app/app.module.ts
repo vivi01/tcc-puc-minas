@@ -25,6 +25,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
+import { PlanosService } from './service/plano.service';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,7 @@ import { MatTableModule } from '@angular/material/table';
     RouterModule,
     MatTableModule
   ],
-  providers: [HttpClientModule, AssociadosService, MatDatepickerModule],
+  providers: [HttpClientModule, AssociadosService, PlanosService, MatDatepickerModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
