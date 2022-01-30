@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Associado } from "../models/associado";
 import { AssociadosService } from "../service/associado.service";
+import { PlanosService } from "../service/plano.service";
 
 @Component({
     selector: 'app-associado',
@@ -22,7 +23,8 @@ export class AssociadoComponent implements OnInit {
     planoOdonto: boolean;
     valorNovo: number;
     associado: any;
-    constructor(private associadosService: AssociadosService, private formBuilder: FormBuilder) {}
+    planos: any;
+    constructor(private associadosService: AssociadosService, private planosService: PlanosService, private formBuilder: FormBuilder) {}
 
     ngOnInit(){
         this.associadoForm = this.formBuilder.group({
@@ -60,6 +62,13 @@ export class AssociadoComponent implements OnInit {
         .subscribe(res => {
             this.associado = res;
         });
+    }
+
+    obterPlanos(){
+        this.planosService.obterPlanos()
+            .subscribe(res => {
+                this.planos = res;
+            });
     }
 
     desabilitaCampos(){

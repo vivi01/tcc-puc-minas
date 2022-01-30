@@ -13,8 +13,8 @@ export class PlanosService {
     httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
       }
-      
+
     obterPlanos(): Observable<Plano[]>  {
-        return this.http.get<Plano[]>(this.url + "AlterarPlano", this.httpOptions);
+        return this.http.get<Plano[]>(this.url, this.httpOptions);
     }
 }
