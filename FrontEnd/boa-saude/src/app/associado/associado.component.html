@@ -1,0 +1,80 @@
+<div class="row">
+    <div class="col-12" style="text-align: center;">
+      <span>Dados do Associado</span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="col-md-6">
+            <label for="nomeAssociado">Nome Associado </label><span class="text-danger"></span>
+            <input id="nomeAssociado" formControlName="nomeAssociado" class="form-control form-control"
+            maxlength="50" type="text">
+        </div>
+
+        <div class="form-group col-6 col-lg-6 col-md-6">
+            <label for="dataNascimento">Data de Nascimento</label><span class="text-danger"></span>
+            <input id="dataNascimento" formControlName="dataNascimento" class="form-control form-control" type="date">
+        </div>
+
+        <div class="form-group col-6 col-lg-6">
+            <label for="cpf">CPF</label><span class="text-danger"></span>
+            <input id="cpf" formControlName="cpf" class="form-control form-control" type="number">
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12" style="text-align: center;">
+      <span>Plano Atual</span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="col-md-6">
+            <label for="descricao">Descrição </label><span class="text-danger"></span>
+            <input id="descricao" formControlName="descricao" class="form-control form-control"
+            maxlength="50" type="text">
+        </div>
+
+        <div class="form-group col-6 col-lg-6 col-md-6">
+            <label for="tipoPlano">Tipo Plano</label><span class="text-danger"></span>
+            <input id="tipoPlano" formControlName="tipoPlano" class="form-control form-control" type="text">
+        </div>
+
+        <div class="form-group col-6 col-lg-6">
+            <label for="valorAtual">Valor Atual</label><span class="text-danger"></span>
+            <input id="valorAtual" formControlName="valorAtual" class="form-control form-control" type="number">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12" style="text-align: center;">
+      <span>Novo Plano</span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="col-md-6">
+            <label for="plano">Plano </label><span class="text-danger"></span>
+            <!-- <select id="planoId" formControlName="planoId" class="form-control" required>
+                <option value="" [selected]>Selecione</option>
+                <option *ngFor="let plano of listPlanos" value={{plano.id}}>
+                  {{plano.descricao}}</option>
+              </select> -->
+            <input id="plano" formControlName="plano" class="form-control form-control"
+            maxlength="50" type="text">
+        </div>
+
+        <div class="form-group col-6 col-lg-6 col-md-6">
+            <label for="planoOdonto">Adicionar Plano Odontológico</label><span class="text-danger"></span>
+            <input id="planoOdonto" formControlName="planoOdonto" class="form-control form-control" type="checkbox">
+        </div>
+
+        <div class="form-group col-6 col-lg-6">
+            <label for="valorNovo">Valor novo Plano</label><span class="text-danger"></span>
+            <input id="valorNovo" formControlName="valorNovo" class="form-control form-control" type="number">
+        </div>
+    </div>
+</div>

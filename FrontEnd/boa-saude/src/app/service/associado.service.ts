@@ -9,11 +9,13 @@ import { Associado } from "../models/associado";
 })
 export class AssociadosService {
 
-    private url = "https:localhost:44339/api/v1/associados/"
+    private url = "https:localhost:44302/api/v1/Associado/"
     constructor(private http: HttpClient) { }
 
-    obterAssociado(): Observable<Associado[]>  {
-        return this.http.get<Associado[]>(this.url + "GetAssociado");
+    obterAssociado(codigoAssociado: number): Observable<Associado>  {
+        debugger;
+        // var teste = this.http.get<Associado>(this.url + "GetAssociado/" + codigoAssociado.toString());
+        return this.http.get<Associado>(this.url + "GetAssociado/" + codigoAssociado.toString());
     }
 
     alterarPlano(): Observable<Associado[]>  {

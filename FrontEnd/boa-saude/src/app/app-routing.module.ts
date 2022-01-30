@@ -7,6 +7,10 @@ const routes: Routes = [
     path: 'associado',
     component: AssociadoComponent,
     data: { title: 'Associado' }
+  },
+  { path: '',
+    redirectTo: '/associado',
+    pathMatch: 'full'
   }
 ];
 
