@@ -5,6 +5,6 @@ export class Associado {
     nome: string;
     dataNascimento: Date;
     codigoAssociado: number;
-    cpf: number;
+    cpfCnpj: string;
     plano: Plano;
 }

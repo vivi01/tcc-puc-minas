@@ -26,6 +26,14 @@ namespace GISA.Associado
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("EnableCORS", builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().Build();
+                });
+            });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -49,7 +57,7 @@ namespace GISA.Associado
             services.AddSingleton<AssociadoContext>();
 
             services.AddDbContext<AssociadoContext>(options => options.UseSqlServer(
-                Configuration.GetConnectionString("AssociadoConnection")), optionsLifetime: ServiceLifetime.Singleton);           
+                Configuration.GetConnectionString("DefaultConnection")), optionsLifetime: ServiceLifetime.Singleton);           
 
             #region RabbitMQ Dependencies
 
@@ -73,6 +81,8 @@ namespace GISA.Associado
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors("EnableCORS");
 
             app.UseEndpoints(endpoints =>
             {
