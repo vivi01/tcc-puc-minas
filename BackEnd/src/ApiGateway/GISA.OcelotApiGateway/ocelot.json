@@ -14,7 +14,7 @@
 
         ],
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "2s",
         "QuotaExceededMessage": "Número de requisições excedida!",
         "PeriodTimespan": 1,
         "Limit": 1
@@ -40,7 +40,7 @@
 
         ],
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "2s",
         "QuotaExceededMessage": "Número de requisições excedida!",
         "PeriodTimespan": 1,
         "Limit": 1
@@ -62,7 +62,7 @@
 
         ],
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "2s",
         "QuotaExceededMessage": "Número de requisições excedida!",
         "PeriodTimespan": 1,
         "Limit": 1
@@ -88,7 +88,7 @@
 
         ],
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "2s",
         "PeriodTimespan": 1,
         "Limit": 1
       },
@@ -113,7 +113,7 @@
 
         ],
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "2s",
         "QuotaExceededMessage": "Número de requisições excedida!",
         "PeriodTimespan": 1,
         "Limit": 1
@@ -139,7 +139,7 @@
 
         ],
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "2s",
         "QuotaExceededMessage": "Número de requisições excedida!",
         "PeriodTimespan": 1,
         "Limit": 1
@@ -161,7 +161,7 @@
 
         ],
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "2s",
         "QuotaExceededMessage": "Número de requisições excedida!",
         "PeriodTimespan": 1,
         "Limit": 1
@@ -187,7 +187,7 @@
 
         ],
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "2s",
         "QuotaExceededMessage": "Número de requisições excedida!",
         "PeriodTimespan": 1,
         "Limit": 1
@@ -213,7 +213,7 @@
 
         ],
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "2s",
         "QuotaExceededMessage": "Número de requisições excedida!",
         "PeriodTimespan": 1,
         "Limit": 1
