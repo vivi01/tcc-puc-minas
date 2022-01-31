@@ -15,6 +15,7 @@ export class PlanosService {
       }
 
     obterPlanos(): Observable<Plano[]>  {
+        debugger;
         return this.http.get<Plano[]>(this.url, this.httpOptions);
     }
 }

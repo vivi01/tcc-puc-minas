@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Associado } from "../models/associado";
+import { Plano } from "../models/plano";
 import { AssociadosService } from "../service/associado.service";
 import { PlanosService } from "../service/plano.service";
 
@@ -19,11 +20,12 @@ export class AssociadoComponent implements OnInit {
     descricao: string = '';
     tipoPlano: number;
     valorAtual: number;
-    plano: string = '';
+    plano: Plano;
     planoOdonto: boolean;
     valorNovo: number;
     associado: any;
-    planos: any;
+    listPlanos: Plano[]; 
+    planoId: number;
     constructor(private associadosService: AssociadosService, private planosService: PlanosService, private formBuilder: FormBuilder) {}
 
     ngOnInit(){
@@ -35,13 +37,15 @@ export class AssociadoComponent implements OnInit {
             'descricao':null,
             'tipoPlano':null,
             'valorAtual':null,
+            'planoId':null,
+            'plano':null
         });
         this.obterAssociado();
         this.desabilitaCampos();
+        this.obterPlanos;
     }
 
     obterAssociado(){
-        debugger;
         this.associadosService.obterAssociado(290)
             .subscribe(data => {
                 this.associadoId = data.id,
@@ -51,7 +55,7 @@ export class AssociadoComponent implements OnInit {
                 this.descricao = data.plano.descricao,
                 this.tipoPlano = data.plano.tipoPlano,
                 this.valorAtual = data.plano.valorBase,
-                this.plano = "",
+                this.plano = data.plano,
                 this.planoOdonto = false,
                 this.valorNovo = 250
             });
@@ -65,9 +69,10 @@ export class AssociadoComponent implements OnInit {
     }
 
     obterPlanos(){
+        debugger;
         this.planosService.obterPlanos()
             .subscribe(res => {
-                this.planos = res;
+                this.listPlanos = res;
             });
     }
 
