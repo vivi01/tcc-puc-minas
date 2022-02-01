@@ -7,4 +7,5 @@ export class Associado {
     codigoAssociado: number;
     cpfCnpj: string;
     plano: Plano;
+    possuiPlanoOdontologico: boolean;
 }

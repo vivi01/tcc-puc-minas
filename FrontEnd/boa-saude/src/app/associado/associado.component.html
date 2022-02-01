@@ -1,6 +1,6 @@
 
 <div *ngIf="associadoForm">
-    <form [formGroup]="associadoForm">
+    <form [formGroup]="associadoForm" (ngSubmit)="updatePlano()">
         <div class="row">
             <div class="col-12" style="text-align: center;">
             <span>Dados do Associado</span>
@@ -65,29 +65,28 @@
             <div class="col-12">
                 <div class="col-md-6">
                     <label for="planoId">Plano </label><span class="text-danger"></span>
-                     <select id="planoId" formControlName="planoId" class="form-control" required>
-                        <option value="" [selected]>Selecione</option>
-                        <option *ngFor="let plano of listPlanos" value={{plano.id}}>
+                     <select class="form-control" id="planoId" formControlName='planoId'>
+                        <option value="" [selected]>Selecione</option>
+                        <option *ngFor="let plano of listPlanos" value={{plano.id}}>
                         {{plano.descricao}}</option>
                     </select> 
-                     <!-- <input id="plano" formControlName="plano" class="form-control form-control"
-                    maxlength="50" type="text"> -->
                 </div>
 
-                <!-- <div class="form-group col-6 col-lg-6 col-md-6">
-                    <label for="planoOdonto">Adicionar Plano Odontológico</label><span class="text-danger"></span>
-                    <input id="planoOdonto" formControlName="planoOdonto" class="form-control form-control" type="checkbox">
-                </div>
+                <div class="form-group col-3 col-lg-3 col-md-3">
+                    <label for="possuiPlanoOdontologico">Adicionar Plano Odontológico</label><span class="text-danger" style="display: block;"></span>
+                    <input id="possuiPlanoOdontologico"  formControlName="possuiPlanoOdontologico" class="form-control form-control" type="checkbox">
+                </div> 
 
                 <div class="form-group col-6 col-lg-6">
                     <label for="valorNovo">Valor novo Plano</label><span class="text-danger"></span>
                     <input id="valorNovo" formControlName="valorNovo" class="form-control form-control" type="number">
-                </div> -->
+                </div>
             </div>
         </div> 
 
-
-
+        <div>
+            <button type="submit" mat-button color="primary">Cadastrar</button>
+        </div>
     </form>
 
 </div>

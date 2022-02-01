@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { AlterarPlano } from "../models/alterarPlano";
 import { Associado } from "../models/associado";
 import { Plano } from "../models/plano";
 import { AssociadosService } from "../service/associado.service";
@@ -21,11 +22,12 @@ export class AssociadoComponent implements OnInit {
     tipoPlano: number;
     valorAtual: number;
     plano: Plano;
-    planoOdonto: boolean;
+    possuiPlanoOdontologico: boolean;
     valorNovo: number;
     associado: any;
     listPlanos: Plano[]; 
     planoId: number;
+    planoDescricao: string;
     constructor(private associadosService: AssociadosService, private planosService: PlanosService, private formBuilder: FormBuilder) {}
 
     ngOnInit(){
@@ -38,11 +40,16 @@ export class AssociadoComponent implements OnInit {
             'tipoPlano':null,
             'valorAtual':null,
             'planoId':null,
-            'plano':null
+            'plano':null,
+            'possuiPlanoOdontologico':null,
+            'valorNovo':null,
+            'planoDescricao': null
         });
+        this.associadoForm.get('planoId')?.setValue("");
+        this.associadoForm.get('possuiPlanoOdontologico')?.setValue(false);
         this.obterAssociado();
         this.desabilitaCampos();
-        this.obterPlanos;
+        this.obterPlanos();
     }
 
     obterAssociado(){
@@ -56,20 +63,24 @@ export class AssociadoComponent implements OnInit {
                 this.tipoPlano = data.plano.tipoPlano,
                 this.valorAtual = data.plano.valorBase,
                 this.plano = data.plano,
-                this.planoOdonto = false,
+                this.possuiPlanoOdontologico = false,
                 this.valorNovo = 250
             });
     }
 
-    alterarPlano(){
-        this.associadosService.alterarPlano()
-        .subscribe(res => {
-            this.associado = res;
-        });
+    updatePlano(){
+        debugger;
+        var alterarPlano = new AlterarPlano();
+        alterarPlano.codigoAssociado =  this.associadoId;
+        alterarPlano.codigoNovoPlano = this.associadoForm.get('planoId')?.value;
+        alterarPlano.planoOdontologico = this.associadoForm.get('possuiPlanoOdontologico')?.value;
+        // this.associadosService.alterarPlano()
+        // .subscribe(res => {
+        //     this.associado = res;
+        // });
     }
 
     obterPlanos(){
-        debugger;
         this.planosService.obterPlanos()
             .subscribe(res => {
                 this.listPlanos = res;
