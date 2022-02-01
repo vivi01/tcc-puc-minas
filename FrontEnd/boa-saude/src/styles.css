@@ -1,4 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
-
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif;    
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+.container{
+    align-items: center;
+    align-content: center;
+    padding-left: 1px;
+    margin-left: 1px;
+    width:95%;
+    overflow-x: hidden;
+}

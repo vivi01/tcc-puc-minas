@@ -1,91 +1,97 @@
-
 <div *ngIf="associadoForm">
     <form [formGroup]="associadoForm" (ngSubmit)="updatePlano()">
-        <div class="row">
-            <div class="col-12" style="text-align: center;">
-            <span>Dados do Associado</span>
+        <br>
+        <h1 class="col-md-12" style="text-align: center;">Formulário de Alteração de Plano</h1>
+        <br>
+        <div class="row">           
+            <div class="col-md-12" style="text-align: center;">
+                <h2> Dados Associado </h2>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-12">
-                <div class="form-group col-md-12">
-                    <label for="nomeAssociado">Nome Associado </label><span class="text-danger"></span>
-                    <input id="nomeAssociado" formControlName="nomeAssociado" [value]="nomeAssociado" class="form-control form-control"
-                    maxlength="50" type="text">
-                </div>
+            <div class="form-group col-md-12">
+                <label for="nomeAssociado">Nome Associado </label>
+                <input id="nomeAssociado" style="width:560px;" formControlName="nomeAssociado" [value]="nomeAssociado"
+                    class="form-control" maxlength="50" type="text">
+            </div>
 
-                <div class="form-group col-6 col-lg-6 col-md-6">
-                    <label for="dataNascimento">Data de Nascimento</label><span class="text-danger"></span>
-                    <input id="dataNascimento" formControlName="dataNascimento" [value]="dataNascimento" class="form-control form-control" type="text">
-                </div>
+            <div class="form-group col-md-6">
+                <label for="dataNascimento">Data de Nascimento</label>
+                <input id="dataNascimento" style="width:200px;" formControlName="dataNascimento"
+                    [value]="dataNascimento" class="form-control" type="text">
+            </div>
 
-                <div class="form-group col-6 col-lg-6">
-                    <label for="cpfCnpj">CPF</label><span class="text-danger"></span>
-                    <input id="cpfCnpj" formControlName="cpfCnpj" [value]="cpfCnpj" class="form-control form-control" type="text">
-                </div>
+            <div class="form-group col-md-5">
+                <label for="cpfCnpj">CPF</label>
+                <input id="cpfCnpj" style="width:200px;" formControlName="cpfCnpj" [value]="cpfCnpj"
+                    class="form-control" type="text">
+            </div>
 
+        </div>
+        <br>  
+        <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+                <h2 class="tituloSecao"> Dados Plano Atual </h2>               
             </div>
         </div>
-
         <div class="row">
-            <div class="col-12" style="text-align: center;">
-            <span>Plano Atual</span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="col-md-6">
-                    <label for="descricao">Descrição </label><span class="text-danger"></span>
-                    <input id="descricao" formControlName="descricao" [value]="descricao" class="form-control form-control"
-                    maxlength="50" type="text">
+            <div class="col-md-12">
+                <div class="form-group col-md-6">
+                    <label for="descricao">Descrição </label>
+                    <input id="descricao" formControlName="descricao" [value]="descricao" class="form-control"
+                        maxlength="50" type="text">
                 </div>
 
-                <div class="form-group col-6 col-lg-6 col-md-6">
-                    <label for="tipoPlano">Tipo Plano</label><span class="text-danger"></span>
-                    <select formControlName="tipoPlano" [value]="tipoPlano" class="form-control" id="tipoPlano" required>
+                <div class="form-group col-md-6">
+                    <label for="tipoPlano">Tipo Plano</label>
+                    <select formControlName="tipoPlano" [value]="tipoPlano" class="form-control" id="tipoPlano"
+                        required>
                         <option [value]="0">Individual</option>
                         <option [value]="1">Empresarial</option>
-                      </select>
+                    </select>
                 </div>
 
-                <div class="form-group col-6 col-lg-6">
-                    <label for="valorAtual">Valor Atual</label><span class="text-danger"></span>
-                    <input id="valorAtual" formControlName="valorAtual" [value]="valorAtual" class="form-control form-control" type="number">
+                <div class="form-group col-md-5">
+                    <label for="valorAtual">Valor Atual</label>
+                    <input id="valorAtual" style="width:150px;" formControlName="valorAtual" [value]="valorAtual" class="form-control"
+                        type="number">
                 </div>
             </div>
         </div>
-
+        <br>
         <div class="row">
-            <div class="col-12" style="text-align: center;">
-            <span>Novo Plano</span>
+            <div class="col-md-12" style="text-align: center;">
+                <h2> Dados Novo Plano </h2>
             </div>
         </div>
+        <br>
         <div class="row">
-            <div class="col-12">
-                <div class="col-md-6">
-                    <label for="planoId">Plano </label><span class="text-danger"></span>
-                     <select class="form-control" id="planoId" formControlName='planoId'>
+            <div class="col-md-12">
+                <div class="form-group col-md-6">
+                    <label for="planoId">Plano </label>
+                    <select class="form-control" id="planoId" formControlName='planoId'>
                         <option value="" [selected]>Selecione</option>
-                        <option *ngFor="let plano of listPlanos" value={{plano.id}}>
-                        {{plano.descricao}}</option>
-                    </select> 
+                        <option *ngFor="let plano of listPlanos" value={{plano.id}}>
+                            {{plano.descricao}}</option>
+                    </select>
                 </div>
 
-                <div class="form-group col-3 col-lg-3 col-md-3">
-                    <label for="possuiPlanoOdontologico">Adicionar Plano Odontológico</label><span class="text-danger" style="display: block;"></span>
-                    <input id="possuiPlanoOdontologico"  formControlName="possuiPlanoOdontologico" class="form-control form-control" type="checkbox">
-                </div> 
+                <div class="col-md-5">
+                    <label for="possuiPlanoOdontologico">Incluir Plano Odontológico</label>
+                    <span style="color:red;"><b>(15% a mais no valor)</b></span> &nbsp;
+                    <input id="possuiPlanoOdontologico" formControlName="possuiPlanoOdontologico" type="checkbox">
+                </div>
 
-                <div class="form-group col-6 col-lg-6">
-                    <label for="valorNovo">Valor novo Plano</label><span class="text-danger"></span>
-                    <input id="valorNovo" formControlName="valorNovo" class="form-control form-control" type="number">
+                <div class="form-group  col-md-6">
+                    <label for="valorNovo">Valor novo Plano</label><input id="valorNovo" formControlName="valorNovo"
+                        class="form-control" type="number">
                 </div>
             </div>
-        </div> 
-
+        </div>
+         <br>
         <div>
-            <button type="submit" mat-button color="primary">Cadastrar</button>
+            <input type="submit" class="btn btn-primary btn-lg" value="Alterar Plano">          
         </div>
     </form>
 
