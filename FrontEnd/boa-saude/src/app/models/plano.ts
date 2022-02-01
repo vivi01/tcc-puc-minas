@@ -6,4 +6,5 @@ export class Plano {
     tipoPlano: number;
     classificacaoPlano: number;
     valorBase: number;
+    text: string;
 }

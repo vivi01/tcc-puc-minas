@@ -18,8 +18,8 @@
 
             <div class="form-group col-md-6">
                 <label for="dataNascimento">Data de Nascimento</label>
-                <input id="dataNascimento" style="width:200px;" formControlName="dataNascimento"
-                    [value]="dataNascimento" class="form-control" type="text">
+                <input id="dataNascimento" style="width:215px;" formControlName="dataNascimento"
+                    [value]="dataNascimento" class="form-control" type="datetime-local">
             </div>
 
             <div class="form-group col-md-5">
@@ -70,17 +70,19 @@
             <div class="col-md-12">
                 <div class="form-group col-md-6">
                     <label for="planoId">Plano </label>
-                    <select class="form-control" id="planoId" formControlName='planoId'>
+                    <select (change)="GetValorNovoPlano()" 
+                    class="form-control" id="planoId" formControlName='planoId'>
                         <option value="" [selected]>Selecione</option>
                         <option *ngFor="let plano of listPlanos" value={{plano.id}}>
-                            {{plano.descricao}}</option>
+                            {{plano.text}}
+                        </option>
                     </select>
                 </div>
 
                 <div class="col-md-5">
                     <label for="possuiPlanoOdontologico">Incluir Plano Odontológico</label>
                     <span style="color:red;"><b>(15% a mais no valor)</b></span> &nbsp;
-                    <input id="possuiPlanoOdontologico" formControlName="possuiPlanoOdontologico" type="checkbox">
+                    <input id="possuiPlanoOdontologico" formControlName="possuiPlanoOdontologico" type="checkbox" (change)="GetValorNovoPlano()">
                 </div>
 
                 <div class="form-group  col-md-6">

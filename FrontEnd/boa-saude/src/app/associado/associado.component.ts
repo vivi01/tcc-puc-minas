@@ -28,6 +28,7 @@ export class AssociadoComponent implements OnInit {
     listPlanos: Plano[]; 
     planoId: number;
     planoDescricao: string;
+    novoPlano: Plano;
     constructor(private associadosService: AssociadosService, private planosService: PlanosService, private formBuilder: FormBuilder) {}
 
     ngOnInit(){
@@ -80,6 +81,29 @@ export class AssociadoComponent implements OnInit {
         // });
     }
 
+    GetValorNovoPlano(){     
+        var idPlano = this.associadoForm.get('planoId')?.value;
+        if (idPlano != "")
+        {
+            this.planosService.getPlano(idPlano)
+            .subscribe(res => {
+                this.novoPlano = res;
+            });
+            console.log(this.novoPlano);
+            var planoOdonto = this.associadoForm.get('possuiPlanoOdontologico')?.value;
+
+            this.associadosService.getValorNovoPlano(this.dataNascimento, this.novoPlano, planoOdonto) 
+            .subscribe(res => {
+                this.associadoForm.controls['valorNovo'].setValue(res);          
+            });
+        }
+        else
+        {
+            this.associadoForm.controls['valorNovo'].setValue("");
+        }
+        
+    }      
+
     obterPlanos(){
         this.planosService.obterPlanos()
             .subscribe(res => {
@@ -95,5 +119,6 @@ export class AssociadoComponent implements OnInit {
         this.associadoForm.get('descricao')?.disable();
         this.associadoForm.get('tipoPlano')?.disable();
         this.associadoForm.get('valorAtual')?.disable();
+        this.associadoForm.get('valorNovo')?.disable();
     }
 }

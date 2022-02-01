@@ -15,5 +15,11 @@ namespace GISA.Associado.Entities
         
         [Column(TypeName = "decimal(18,2)")]
         public decimal ValorBase { get; set; }
+
+        public string Text => ToString();
+        public override string ToString()
+        {
+            return $"{Descricao} - {TipoPlano}";
+        }
     }
 }

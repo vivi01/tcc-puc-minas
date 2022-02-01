@@ -3,6 +3,7 @@ using GISA.Associado.Services.Interfaces;
 using GISA.EventBusRabbitMQ.Messages;
 using GISA.EventBusRabbitMQ.Messages.Integracao;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -59,6 +60,13 @@ namespace GISA.Associado.Controllers
         public async Task<ActionResult<MarcacaoExameResponse>> SolicitarMarcacaoExame([FromBody] MarcacaoExameMsg marcacaoExameMsg)
         {
             return Ok(await _associadoService.SolicitarMarcacaoExame(marcacaoExameMsg));
+        }
+
+        [HttpPost("[action]")]
+        [ProducesResponseType(typeof(decimal), (int)HttpStatusCode.OK)]
+        public ActionResult<decimal> GetNovoValorPlano(DateTime dataNascimento, Plano plano, bool planoOdontologico)
+        {
+            return Ok(_associadoService.CalcularValorNovoPlano(dataNascimento, plano, planoOdontologico));
         }
     }
 }

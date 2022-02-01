@@ -17,4 +17,9 @@ export class PlanosService {
     obterPlanos(): Observable<Plano[]>  {
         return this.http.get<Plano[]>(this.url);
     }
+
+    getPlano(id: number): Observable<Plano>  {
+        console.log("GetPlano")
+        return this.http.get<Plano>(this.url + id.toString(), this.httpOptions);
+    }
 }

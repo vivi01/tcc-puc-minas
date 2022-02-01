@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Associado } from "../models/associado";
+import { Plano } from "../models/plano";
 
 
 @Injectable({
@@ -21,5 +22,18 @@ export class AssociadosService {
 
     alterarPlano(): Observable<Associado>  {
         return this.http.get<Associado>(this.url + "AlterarPlano");
+    }
+
+    getValorNovoPlano(dataNascimento: Date, plano: Plano, planoOdonto: boolean): Observable<number>{ 
+        this.httpOptions = {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+            // HttpParams: new HttpParams{}
+          };
+    
+        return this.http.post<number>(this.url + "GetNovoValorPlano", plano, {            
+            params: {
+                dataNascimento: '12/12/2000',
+                planoOdontologico: "true"
+            }});
     }
 }
