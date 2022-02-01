@@ -2,6 +2,7 @@
 using GISA.Associado.Enums;
 using GISA.EventBusRabbitMQ.Messages;
 using GISA.EventBusRabbitMQ.Messages.Integracao;
+using System;
 using System.Threading.Tasks;
 
 namespace GISA.Associado.Services.Interfaces
@@ -15,5 +16,6 @@ namespace GISA.Associado.Services.Interfaces
         Task<bool> AlterarPlano(AlterarPlano alterarPlano);
         Task<MarcacaoExameResponse> SolicitarMarcacaoExame(MarcacaoExameMsg request);
         Task<bool> CadastrarAssociado(Entities.Associado associado);
+        decimal CalcularValorNovoPlano(DateTime dataNascimento, Plano plano, bool planoOdontologico);
     }
 }

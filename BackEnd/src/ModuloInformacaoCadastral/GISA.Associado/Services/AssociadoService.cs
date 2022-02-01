@@ -99,7 +99,7 @@ namespace GISA.Associado.Services
 
             usuario.PlanoId = plano.Id;
             usuario.PossuiPlanoOdontologico = alterarPlano.PlanoOdontologico;
-            usuario.ValorPlano = CalcularValorNovoPlano(usuario.DataNascimento, plano);
+            usuario.ValorPlano = CalcularValorNovoPlano(usuario.DataNascimento, plano, alterarPlano.PlanoOdontologico);
 
             return await _associadoRepository.Update(usuario);
         }
@@ -122,14 +122,21 @@ namespace GISA.Associado.Services
             };
         }
 
-        private static decimal CalcularValorNovoPlano(DateTime dataNascimento, Plano plano)
+        public decimal CalcularValorNovoPlano(DateTime dataNascimento, Plano plano, bool planoOdontologico)
         {
             var idade = DateTime.Now.Year - dataNascimento.Year;
+            decimal valorPlano;
 
             if (plano.TipoPlano == ETipoPlano.Empresarial)
-                return CalcularValorPlanoEmpresarial(idade, plano.ValorBase, plano.ClassificacaoPlano);
+            {
+                valorPlano = CalcularValorPlanoEmpresarial(idade, plano.ValorBase, plano.ClassificacaoPlano);
+                return planoOdontologico && plano.ClassificacaoPlano != EClassificacaoPlano.Vip ?
+                    (valorPlano + (valorPlano * 0.15M)) : valorPlano;
+            }
 
-            return CalcularValorPlanoIndividual(idade, plano.ValorBase, plano.ClassificacaoPlano); ;
+            valorPlano = CalcularValorPlanoIndividual(idade, plano.ValorBase, plano.ClassificacaoPlano);
+            return planoOdontologico && plano.ClassificacaoPlano != EClassificacaoPlano.Vip ?
+                (valorPlano + (valorPlano * 0.15M)) : valorPlano;
         }
 
         private static decimal CalcularValorPlanoEmpresarial(int idade, decimal valorPlanoBase, EClassificacaoPlano classificacaoPlano)

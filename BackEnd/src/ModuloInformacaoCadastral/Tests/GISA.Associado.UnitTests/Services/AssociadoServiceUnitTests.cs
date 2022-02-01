@@ -1,4 +1,5 @@
-﻿using GISA.Associado.Entities;
+﻿using FluentAssertions;
+using GISA.Associado.Entities;
 using GISA.Associado.Enums;
 using GISA.Associado.Repositories.Interfaces;
 using GISA.Associado.Services;
@@ -9,6 +10,7 @@ using GISA.EventBusRabbitMQ.Messages;
 using GISA.EventBusRabbitMQ.Messages.Integracao;
 using Moq;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -205,6 +207,31 @@ namespace GISA.Associado.UnitTests.Services
 
             //Assert           
             result.Equals(resultado);
+        }
+
+        [TestCase(ETipoPlano.Empresarial, false, EClassificacaoPlano.Enfermaria, 190)]
+        [TestCase(ETipoPlano.Empresarial, true, EClassificacaoPlano.Apartamento, 310.50)]        
+        [TestCase(ETipoPlano.Individual, true, EClassificacaoPlano.Apartamento, 253)]
+        [TestCase(ETipoPlano.Individual, false, EClassificacaoPlano.Enfermaria, 170)]
+        public void CalcularValorNovoPlanoDeveRetornarExpectedResult(ETipoPlano tipoPlano, bool planoOdontologico,
+            EClassificacaoPlano classificacaoPlano, decimal expectedValue )
+        {
+            //Arrange
+            var dataNascimento = new DateTime(2000, 05, 10);
+            var plano = new Plano
+            {
+                ClassificacaoPlano = classificacaoPlano,
+                CodigoPlano = 27,
+                Descricao = tipoPlano.ToString(),
+                TipoPlano = tipoPlano,
+                ValorBase = 120
+            };           
+
+            //Act
+            var result = associadoService.CalcularValorNovoPlano(dataNascimento, plano, planoOdontologico);
+
+            //Assert           
+            result.Should().Be(expectedValue);
         }
 
         private static Entities.Associado GetMockAssociado(int codigoAssociado = 1234)
