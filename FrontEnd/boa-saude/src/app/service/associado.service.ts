@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Associado } from "../models/associado";
 import { Plano } from "../models/plano";
+import { AlterarPlano } from "../models/alterarPlano";
 
 
 @Injectable({
@@ -20,20 +21,19 @@ export class AssociadosService {
         return this.http.get<Associado>(this.url + "GetAssociado/" + codigoAssociado.toString(), this.httpOptions);
     }
 
-    alterarPlano(): Observable<Associado>  {
-        return this.http.get<Associado>(this.url + "AlterarPlano");
+    alterarPlano(alterarPlano: AlterarPlano): Observable<Associado>  {
+        return this.http.post<Associado>(this.url + "AlterarPlano", alterarPlano);
     }
 
     getValorNovoPlano(dataNascimento: Date, plano: Plano, planoOdonto: boolean): Observable<number>{ 
         this.httpOptions = {
             headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-            // HttpParams: new HttpParams{}
           };
     
         return this.http.post<number>(this.url + "GetNovoValorPlano", plano, {            
             params: {
-                dataNascimento: '12/12/2000',
-                planoOdontologico: "true"
+                dataNascimento: dataNascimento.toString(),
+                planoOdontologico: planoOdonto.toString()
             }});
     }
 }

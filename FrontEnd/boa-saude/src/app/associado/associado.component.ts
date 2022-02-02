@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Router } from "@angular/router";
 import { AlterarPlano } from "../models/alterarPlano";
 import { Associado } from "../models/associado";
 import { Plano } from "../models/plano";
@@ -29,7 +30,8 @@ export class AssociadoComponent implements OnInit {
     planoId: number;
     planoDescricao: string;
     novoPlano: Plano;
-    constructor(private associadosService: AssociadosService, private planosService: PlanosService, private formBuilder: FormBuilder) {}
+    constructor(private router: Router, private associadosService: AssociadosService,
+         private planosService: PlanosService, private formBuilder: FormBuilder) {}
 
     ngOnInit(){
         this.associadoForm = this.formBuilder.group({
@@ -75,13 +77,15 @@ export class AssociadoComponent implements OnInit {
         alterarPlano.codigoAssociado =  this.associadoId;
         alterarPlano.codigoNovoPlano = this.associadoForm.get('planoId')?.value;
         alterarPlano.planoOdontologico = this.associadoForm.get('possuiPlanoOdontologico')?.value;
-        // this.associadosService.alterarPlano()
-        // .subscribe(res => {
-        //     this.associado = res;
-        // });
+        this.associadosService.alterarPlano(alterarPlano)
+        .subscribe(res => {
+            this.associado = res;
+        });
+        this.router.navigate(['/associado']);
     }
 
-    GetValorNovoPlano(){     
+    GetValorNovoPlano(){   
+        debugger;  
         var idPlano = this.associadoForm.get('planoId')?.value;
         if (idPlano != "")
         {

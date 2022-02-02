@@ -5,8 +5,7 @@ import { AssociadoComponent } from './associado/associado.component';
 const routes: Routes = [
   {
     path: 'associado',
-    component: AssociadoComponent,
-    data: { title: 'Associado' }
+    component: AssociadoComponent
   },
   { path: '',
     redirectTo: '/associado',
