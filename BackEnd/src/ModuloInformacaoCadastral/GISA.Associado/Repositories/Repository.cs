@@ -17,7 +17,16 @@ namespace GISA.Associado.Repositories
 
         public async Task<List<T>> Get()
         {
-            return await _context.Set<T>().ToListAsync();
+            try
+            {
+                return await _context.Set<T>().ToListAsync();
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+          
         }
 
         public async Task<T> GetById(int id)

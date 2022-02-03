@@ -57,7 +57,7 @@ namespace GISA.Associado
             services.AddSingleton<AssociadoContext>();
 
             services.AddDbContext<AssociadoContext>(options => options.UseSqlServer(
-                Configuration.GetConnectionString("DefaultConnection")), optionsLifetime: ServiceLifetime.Singleton);           
+                Configuration.GetConnectionString("AssociadoConnection")), optionsLifetime: ServiceLifetime.Transient);           
 
             #region RabbitMQ Dependencies
 

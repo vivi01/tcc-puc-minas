@@ -34,7 +34,15 @@ namespace GISA.Associado.Services
 
         public Task<Entities.Associado> GetAssociadoByCodigo(int codigoAssociado)
         {
-            return _associadoRepository.GetAssociado(codigoAssociado);
+            try
+            {
+                return _associadoRepository.GetAssociado(codigoAssociado);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }            
         }
 
         public Task<bool> CadastrarAssociado(Entities.Associado associado)

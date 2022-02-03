@@ -42,7 +42,16 @@ namespace GISA.Associado.Services
 
         public Task<List<Plano>> ObterTodos()
         {
-            return _planoRepository.Get();
+            try
+            {
+                return _planoRepository.Get();
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+           
         }
     }
 }

@@ -22,9 +22,13 @@ namespace GISA.Associado.Controllers
 
         [HttpGet("[action]/{codigoAssociado}")]
         [ProducesResponseType(typeof(Entities.Associado), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Entities.Associado), (int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult<Entities.Associado>> GetAssociado(int codigoAssociado)
         {
             var associado = await _associadoService.GetAssociadoByCodigo(codigoAssociado);
+
+            if(associado == null)
+                return BadRequest(new { Message = "Erro ao tentar buscar associado" });
 
             return Ok(associado ?? new Entities.Associado());
         }       

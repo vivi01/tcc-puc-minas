@@ -46,7 +46,7 @@ namespace GISA.Prestador
             services.AddSingleton<PrestadorContext>();
 
             services.AddDbContext<PrestadorContext>(options => options.UseSqlServer(
-                Configuration.GetConnectionString("DefaultConnection")), optionsLifetime: ServiceLifetime.Singleton);
+                Configuration.GetConnectionString("PrestadorConnection")), optionsLifetime: ServiceLifetime.Singleton);
 
             #region RabbitMQ Dependencies
 

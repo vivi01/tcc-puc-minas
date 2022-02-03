@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuComponent } from './menu/menu.component';
 import { AssociadoComponent } from './associado/associado.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AssociadosService } from './service/associado.service';
 import { MatRadioModule} from '@angular/material/radio'; 
 import { MatButtonModule} from '@angular/material/button'; 
@@ -26,12 +26,14 @@ import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { PlanosService } from './service/plano.service';
+import { AssociadoResolve } from './resolvers/associadoResolve';
+import { PlanoResolve } from './resolvers/planoResolve';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    AssociadoComponent
+    AssociadoComponent    
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,10 @@ import { PlanosService } from './service/plano.service';
     RouterModule,
     MatTableModule
   ],
-  providers: [HttpClientModule, AssociadosService, PlanosService, MatDatepickerModule],
+  providers: [
+    HttpClientModule, AssociadosService, PlanosService, MatDatepickerModule,
+    AssociadoResolve, PlanoResolve
+  ],    
   bootstrap: [AppComponent]
 })
 export class AppModule { }

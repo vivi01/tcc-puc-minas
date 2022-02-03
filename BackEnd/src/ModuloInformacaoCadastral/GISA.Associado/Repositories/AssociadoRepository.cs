@@ -16,9 +16,16 @@ namespace GISA.Associado.Repositories
 
         public Task<Entities.Associado> GetAssociado(int codigoAssociado)
         {
-            return
-                _context.Associados.Where(b => b.CodigoAssociado.Equals(codigoAssociado)).Include(x => x.Plano).FirstOrDefaultAsync();
+            try
+            {
+                return
+               _context.Associados.Where(b => b.CodigoAssociado.Equals(codigoAssociado)).Include(x => x.Plano).FirstOrDefaultAsync();
+            }
+            catch (System.Exception ex)
+            {
 
+                throw ex;
+            }
         }
 
         public async Task<ESituacaoAssociado> GetSituacao(int codigoAssociado)

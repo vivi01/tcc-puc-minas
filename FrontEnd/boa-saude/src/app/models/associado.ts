@@ -8,4 +8,5 @@ export class Associado {
     cpfCnpj: string;
     plano: Plano;
     possuiPlanoOdontologico: boolean;
+    valorPlano: number;
 }

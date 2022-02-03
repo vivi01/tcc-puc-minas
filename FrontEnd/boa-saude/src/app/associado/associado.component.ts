@@ -1,6 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Subscription } from "rxjs";
 import { AlterarPlano } from "../models/alterarPlano";
 import { Associado } from "../models/associado";
 import { Plano } from "../models/plano";
@@ -12,9 +13,9 @@ import { PlanosService } from "../service/plano.service";
     templateUrl: './associado.component.html',
     styleUrls: ['./associado.component.scss']
 })
-export class AssociadoComponent implements OnInit {
+export class AssociadoComponent implements OnInit, OnDestroy {
 
-    associadoForm:FormGroup;
+    associadoForm: FormGroup;
     associadoId: number;
     nomeAssociado: String = '';
     dataNascimento: Date;
@@ -25,97 +26,96 @@ export class AssociadoComponent implements OnInit {
     plano: Plano;
     possuiPlanoOdontologico: boolean;
     valorNovo: number;
-    associado: any;
-    listPlanos: Plano[]; 
+    associado: Associado;
+    listPlanos: Plano[];
     planoId: number;
     planoDescricao: string;
     novoPlano: Plano;
-    constructor(private router: Router, private associadosService: AssociadosService,
-         private planosService: PlanosService, private formBuilder: FormBuilder) {}
+    inscricao: Subscription;
+    inscricaoPlano: Subscription;   
 
-    ngOnInit(){
-        this.associadoForm = this.formBuilder.group({
-            'associadoId':null,
-            'nomeAssociado':null,
-            'dataNascimento':null,
-            'cpfCnpj':null,
-            'descricao':null,
-            'tipoPlano':null,
-            'valorAtual':null,
-            'planoId':null,
-            'plano':null,
-            'possuiPlanoOdontologico':null,
-            'valorNovo':null,
-            'planoDescricao': null
-        });
+    constructor(private route: ActivatedRoute, private router: Router,
+        private associadosService: AssociadosService,
+        private planosService: PlanosService, private formBuilder: FormBuilder) { }
+
+    ngOnDestroy(): void {
+        this.inscricao.unsubscribe();
+    }
+
+    ngOnInit() {
+        this.obterAssociado();
         this.associadoForm.get('planoId')?.setValue("");
         this.associadoForm.get('possuiPlanoOdontologico')?.setValue(false);
-        this.obterAssociado();
-        this.desabilitaCampos();
-        this.obterPlanos();
+        this.desabilitaCampos();        
     }
 
-    obterAssociado(){
-        this.associadosService.obterAssociado(290)
-            .subscribe(data => {
-                this.associadoId = data.id,
-                this.nomeAssociado = data.nome,
-                this.dataNascimento = data.dataNascimento,
-                this.cpfCnpj = data.cpfCnpj,
-                this.descricao = data.plano.descricao,
-                this.tipoPlano = data.plano.tipoPlano,
-                this.valorAtual = data.plano.valorBase,
-                this.plano = data.plano,
-                this.possuiPlanoOdontologico = false,
-                this.valorNovo = 250
-            });
+    obterAssociado() {
+        this.inscricao = this.route.data.subscribe(
+            (info) => {
+                console.log(info);
+                this.associado = info.associados;
+                this.associadoForm = this.formBuilder.group({
+                    'associadoId': this.associado["id"],
+                    'nomeAssociado': this.associado["nome"],
+                    'dataNascimento': this.associado["dataNascimento"],
+                    'cpfCnpj': this.associado["cpfCnpj"],
+                    'descricao': this.associado["plano"]["descricao"],
+                    'tipoPlano': this.associado["plano"]["tipoPlano"],
+                    'valorAtual': this.associado["valorPlano"],
+                    'planoId': null,
+                    'plano': this.associado["plano"],
+                    'possuiPlanoOdontologico': false,
+                    'valorNovo': null,
+                    'planoDescricao': null
+                });
+                this.dataNascimento = this.associado["dataNascimento"];
+                this.obterPlanos();
+            }
+        );
     }
 
-    updatePlano(){
-        debugger;
+    updatePlano() {
+        // debugger;
         var alterarPlano = new AlterarPlano();
-        alterarPlano.codigoAssociado =  this.associadoId;
+        alterarPlano.codigoAssociado = this.associadoId;
         alterarPlano.codigoNovoPlano = this.associadoForm.get('planoId')?.value;
         alterarPlano.planoOdontologico = this.associadoForm.get('possuiPlanoOdontologico')?.value;
         this.associadosService.alterarPlano(alterarPlano)
-        .subscribe(res => {
-            this.associado = res;
-        });
+            .subscribe(res => {
+                this.associado = res;
+            });
         this.router.navigate(['/associado']);
     }
 
-    GetValorNovoPlano(){   
-        debugger;  
+    GetValorNovoPlano() {
         var idPlano = this.associadoForm.get('planoId')?.value;
-        if (idPlano != "")
-        {
+        var planoOdonto = this.associadoForm.get('possuiPlanoOdontologico')?.value;
+        console.log(idPlano);
+        if (idPlano != "") {
             this.planosService.getPlano(idPlano)
-            .subscribe(res => {
-                this.novoPlano = res;
-            });
-            console.log(this.novoPlano);
-            var planoOdonto = this.associadoForm.get('possuiPlanoOdontologico')?.value;
-
-            this.associadosService.getValorNovoPlano(this.dataNascimento, this.novoPlano, planoOdonto) 
-            .subscribe(res => {
-                this.associadoForm.controls['valorNovo'].setValue(res);          
-            });
+                .subscribe(res => {
+                    this.novoPlano = res;
+                    this.associadosService.getValorNovoPlano(this.dataNascimento, this.novoPlano, planoOdonto)
+                        .subscribe(res => {
+                            this.associadoForm.controls['valorNovo'].setValue(res);
+                        });
+                });
         }
-        else
-        {
+        else {
             this.associadoForm.controls['valorNovo'].setValue("");
         }
-        
-    }      
-
-    obterPlanos(){
-        this.planosService.obterPlanos()
-            .subscribe(res => {
-                this.listPlanos = res;
-            });
     }
 
-    desabilitaCampos(){
+    obterPlanos() {
+        this.inscricaoPlano = this.route.data.subscribe(
+            (info) => {
+                this.listPlanos = info.planos;
+                console.log(this.listPlanos);
+            }
+        );
+    }
+
+    desabilitaCampos() {
         this.associadoForm.get('nomeAssociado')?.disable();
         this.associadoForm.get('dataNascimento')?.disable();
         this.associadoForm.get('dataNascimento')?.disable();
