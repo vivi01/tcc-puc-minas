@@ -88,7 +88,6 @@ export class AssociadoComponent implements OnInit, OnDestroy {
                 this.associado = res;
             });
             location.reload();
-        //this.router.navigate(['/associado']);
     }
 
     GetValorNovoPlano() {
@@ -110,13 +109,10 @@ export class AssociadoComponent implements OnInit, OnDestroy {
         }
     }
 
-    obterPlanos() {
-        this.inscricaoPlano = this.route.data.subscribe(
-            (info) => {
-                this.listPlanos = info.planos;
-                console.log(this.listPlanos);
-            }
-        );
+    async obterPlanos() {
+        await this.planosService.obterPlanos().then(data => {
+            this.listPlanos = data;
+        })
     }
 
     desabilitaCampos() {

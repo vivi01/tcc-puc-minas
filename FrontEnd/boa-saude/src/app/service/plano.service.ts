@@ -14,13 +14,15 @@ export class PlanosService {
         headers: new HttpHeaders({'Content-Type':'application/json; charset=utf-8'})
       }
 
-    obterPlanos(): Observable<Plano[]>  {
-        return this.http.get<Plano[]>(this.url + "GetTodosPlanos", {
-           headers: new HttpHeaders({'Content-Type':'application/json; charset=utf-8'}),
-           responseType: 'json',
-           observe: 'body'
-        });
-    }
+    async obterPlanos(): Promise<Plano[]>  {
+            const listaPlanos: Plano[] = [];
+            const dadosApi = await this.http.get<Plano[]>(this.url + "GetTodosPlanos").toPromise().then(dataApi => {
+                dataApi.forEach(plano => {
+                        listaPlanos.push(plano);
+                });
+            })
+            return listaPlanos;
+        }
 
     getPlano(id: number): Observable<Plano>  {
         console.log("GetPlano")
