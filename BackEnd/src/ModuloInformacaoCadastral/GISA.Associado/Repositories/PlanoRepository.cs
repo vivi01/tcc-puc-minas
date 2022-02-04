@@ -14,7 +14,7 @@ namespace GISA.Associado.Repositories
         }
         public Task<Plano> ObterPlanoPorCodigo(int codigoPlano)
         {
-            return _context.Planos.Where(b => b.CodigoPlano.Equals(codigoPlano)).FirstOrDefaultAsync();
+            return _context.Planos.Where(b => b.Id.Equals(codigoPlano)).FirstOrDefaultAsync();
         }
     }
 }

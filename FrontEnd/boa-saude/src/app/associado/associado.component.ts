@@ -33,6 +33,7 @@ export class AssociadoComponent implements OnInit, OnDestroy {
     novoPlano: Plano;
     inscricao: Subscription;
     inscricaoPlano: Subscription;   
+    codigoAssociado: number;
 
     constructor(private route: ActivatedRoute, private router: Router,
         private associadosService: AssociadosService,
@@ -54,6 +55,7 @@ export class AssociadoComponent implements OnInit, OnDestroy {
             (info) => {
                 console.log(info);
                 this.associado = info.associados;
+                this.codigoAssociado = this.associado["codigoAssociado"];
                 this.associadoForm = this.formBuilder.group({
                     'associadoId': this.associado["id"],
                     'nomeAssociado': this.associado["nome"],
@@ -66,7 +68,8 @@ export class AssociadoComponent implements OnInit, OnDestroy {
                     'plano': this.associado["plano"],
                     'possuiPlanoOdontologico': false,
                     'valorNovo': null,
-                    'planoDescricao': null
+                    'planoDescricao': null,
+                    'codigoAssociado': this.associado["codigoAssociado"]
                 });
                 this.dataNascimento = this.associado["dataNascimento"];
                 this.obterPlanos();
@@ -75,16 +78,17 @@ export class AssociadoComponent implements OnInit, OnDestroy {
     }
 
     updatePlano() {
-        // debugger;
+        debugger;
         var alterarPlano = new AlterarPlano();
-        alterarPlano.codigoAssociado = this.associadoId;
+        alterarPlano.codigoAssociado = this.codigoAssociado;
         alterarPlano.codigoNovoPlano = this.associadoForm.get('planoId')?.value;
         alterarPlano.planoOdontologico = this.associadoForm.get('possuiPlanoOdontologico')?.value;
         this.associadosService.alterarPlano(alterarPlano)
             .subscribe(res => {
                 this.associado = res;
             });
-        this.router.navigate(['/associado']);
+            location.reload();
+        //this.router.navigate(['/associado']);
     }
 
     GetValorNovoPlano() {
