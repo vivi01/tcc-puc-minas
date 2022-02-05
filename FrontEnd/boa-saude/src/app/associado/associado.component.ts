@@ -78,7 +78,6 @@ export class AssociadoComponent implements OnInit, OnDestroy {
     }
 
     updatePlano() {
-        debugger;
         var alterarPlano = new AlterarPlano();
         alterarPlano.codigoAssociado = this.codigoAssociado;
         alterarPlano.codigoNovoPlano = this.associadoForm.get('planoId')?.value;
